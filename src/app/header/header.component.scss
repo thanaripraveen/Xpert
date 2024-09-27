@@ -1,0 +1,23 @@
+.navbar {
+    height: 3rem;
+}
+
+.navbar-collapse {
+    .profileSec {
+        .profileImg {
+            height: 50px;
+            border-radius: 50px;
+        }
+
+        .profileInfo{
+            font-family: 'FaktPro-Normal';
+        }
+
+        .signOut {
+            height: 35px;
+            margin-top: 10px;
+        }
+
+    }
+
+}
