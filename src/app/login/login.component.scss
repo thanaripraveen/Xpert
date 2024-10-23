@@ -4,48 +4,50 @@
     align-items: center;
     height: calc(100vh - 50px);
     font-family: 'Faktpro-Normal';
+    margin-right: 15rem;
 
+    
     img {
         width: 125px;
     }
 
     .inputs {
-
         .form-control,
         button {
             border-radius: 25px;
             margin-bottom: 10px;
-            width: 70%;
+            width: 75%;
             text-align: center;
             font-size: .9rem;
-
+            padding: 8px; /* Consistent padding */
+            box-sizing: border-box; /* Ensures padding and border do not affect the size */
         }
 
         .is-invalid {
             border-color: #dc3545;
-            padding-right: calc(1.5em + 0.75rem);
             background-repeat: no-repeat;
             background-position: right calc(0.375em + 0.1875rem) center;
             background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
         }
-        
+
         .is-invalid:focus {
             border-color: #dc3545;
             box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
         }
-        
     }
 
-    .remcheck{
+    .remcheck {
         height: 15px !important;
         width: 15px !important;
         margin-top: 0 !important;
     }
-    .form-check-label{
+
+    .form-check-label {
         font-size: .8rem;
     }
-    .forgotPwd{
-        padding-left: 5rem;
+
+    .forgotPwd {
+        padding-left: 5.5rem;
         font-size: .8rem;
     }
 }

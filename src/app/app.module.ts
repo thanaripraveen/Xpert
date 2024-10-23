@@ -4,6 +4,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HeaderModule } from './header/header.module';
+import { ProfileModule } from './profile/profile.module';
+import { NgxEditorModule } from 'ngx-editor';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -11,9 +20,24 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule,
+    MatButtonModule,
+    HeaderModule,
+    ProfileModule,
+    BrowserAnimationsModule,
+    NgxEditorModule, // Add NgxEditorModule here
+    ToastrModule.forRoot({
+      // Optionally configure the global default options here
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+    })
+    
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

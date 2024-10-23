@@ -1,12 +1,18 @@
 .navbar {
-    height: 3rem;
+    height: 2.5rem;
+    background: #2e4975;
 }
 
 .navbar-collapse {
     .profileSec {
         .profileImg {
-            height: 50px;
+            height: 30px;
             border-radius: 50px;
+            margin-top: 5px;
+        }
+        .signOutImg {
+            height: 25px;
+            margin-top: 8px;
         }
 
         .profileInfo{

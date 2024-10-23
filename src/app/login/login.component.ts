@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { ApiService } from '../providers/api.service';
 import { Router } from '@angular/router';
 import { common } from '../common';
+import { ToastrService } from 'ngx-toastr'
+
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,8 @@ export class LoginComponent implements OnInit {
   rememberUserData: any;
 
 
-  constructor(private fb: FormBuilder, private api: ApiService, private router: Router, private common: common) {
+  constructor(private fb: FormBuilder, private api: ApiService, 
+    private router: Router, private common: common,private toastr: ToastrService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
@@ -56,8 +59,9 @@ export class LoginComponent implements OnInit {
         "txtpassword": this.loginForm.value.password
       }
       this.api.postmethod('Login/LoginUser',obj).subscribe((res: any)=>{
-      this.router.navigate(['dashboard']);
+     
         if(res.returnVal == 'SUCCESS'){
+          this.router.navigate(['dashboard']);
           this.common.userid = res.Identifier;
           this.common.roleid = res.RoleId;
           this.common.usertags = res.UserTags;
@@ -76,6 +80,11 @@ export class LoginComponent implements OnInit {
           
           this.InsertMenustatus(1, '', 'Online')
         }
+
+        else if (res.returnVal == "ERROR") {
+          localStorage.setItem('auth', '')
+           this.toastr.error("Invalid User Name or Password");
+        }
         
       })
     }
@@ -83,7 +92,6 @@ export class LoginComponent implements OnInit {
 
   rememberMe(e: any) {
     if (e.target.checked) {
-      console.log(btoa(this.loginForm.controls.email.value),btoa(this.loginForm.controls.password.value))
       this.remStatus = true;
     }
     else {

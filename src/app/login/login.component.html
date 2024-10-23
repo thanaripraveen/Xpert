@@ -1,22 +1,28 @@
+
+
 <div class="loginFormDiv">
-    <form action="" [formGroup]="loginForm">
-        <header class="d-flex justify-content-center align-items-center ">
+    <form action="" [formGroup]="loginForm" novalidate>
+        <header class="d-flex justify-content-center align-items-center">
             <img src="../../assets/images/Xpert_logo.png" alt="">
         </header>
-        <div class="row inputs mt-3 d-flex justify-content-center align-items-center ">
-            <input type="text" name="" formControlName="email" placeholder="Username or Email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
-            <input type="password" name="" formControlName="password" placeholder="Password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
-            <button class="btn btn-primary" (click)="signInClick()">Sign In</button>
-
+        <div class="row inputs mt-3 d-flex justify-content-center align-items-center">
+            <input type="text" name="" formControlName="email" placeholder="Username or Email" 
+                   class="form-control" 
+                   [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                   
+            <input type="password" name="" formControlName="password" placeholder="Password" 
+                   class="form-control" 
+                   [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                   
+            <button type="button" class="btn btn-primary" (click)="signInClick()">Sign In</button>
         </div>
         <div class="ps-5">
-            <div class="ps-3 d-flex align-items-center ">
-                <input type="checkbox" class="form-check-input remcheck" (change)="rememberMe($event)" [checked]="remStatus" id="exampleCheck1">
+            <div class=" d-flex align-items-center">
+                <input type="checkbox" class="form-check-input remcheck" 
+                       (change)="rememberMe($event)" [checked]="remStatus" id="exampleCheck1">
                 <label class="form-check-label ps-1" for="exampleCheck1">Remember me</label>
-                <a class="forgotPwd" href="" >Forgot password</a>
+                <a class="forgotPwd" href="">Forgot password</a>
             </div>
         </div>
-
-
     </form>
 </div>
