@@ -1,6 +1,11 @@
 .navbar {
     height: 2.5rem;
     background: #2e4975;
+    .navbar-brand{
+        img{
+            cursor: pointer;
+        }
+    }
 }
 
 .navbar-collapse {
@@ -27,3 +32,130 @@
     }
 
 }
+
+// off canvas styles
+.offcanvas-start {
+    background-color:#103351; 
+    width: 20%;
+    top: 40px;
+  
+  }
+  
+  .offcanvas .btn-close {
+    padding-right: 23px;
+    font-size: 13px;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e")
+  }
+  
+  .offcanvas-body {
+    padding: 0;
+  }
+  
+  
+  
+  .accordion {
+    width: 100%;
+    // max-width: 360px;
+    margin: auto;
+    list-style-type: none;
+    padding: 0;
+    // background: rgb(26, 24, 24);
+    // border-radius: 4px;
+  }
+  
+  .accordion .menu {
+    position: relative;
+    padding: 10px 10px 10px 0px;
+    color: #d9d9d9;
+    font-weight: bold;
+    border-bottom: 1px solid #767676;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    width: 100%;
+    background-color: #0b1f31 !important;
+    display: flex;
+    align-items: center;
+
+    span{
+        font-family: 'FaktPro-Medium';
+        font-size: 14px;
+    }
+
+  }
+  
+  .accordion li:last-child .menu {
+    border-bottom: 0;
+  }
+  
+  .accordion li .menu:hover{
+    background-color:#3d6875 !important;
+  }
+  // .accordion li .menu:hover {
+  //   background-color: #ffffff;
+  // }
+  
+  .accordion li i {
+    position: absolute;
+    top: 1.2rem;
+    left: 1rem;
+    color: #d9d9d9;
+    transition: all 0.4s ease;
+  }
+  
+  .accordion li i.fa-chevron-down {
+    right: 1rem;
+    left: auto;
+  }
+  
+  .accordion li.active i.fa-chevron-down {
+    transform: rotate(180deg);
+  }
+  
+  .accordion li.active .menu {
+    color: #ff6000;
+  }
+  
+  .accordion li.active i {
+    color: #499cbd;
+  }
+  
+  .submenu {
+    height: 0;
+    overflow: hidden;
+    background: #1c4b57;
+    font-size: 14px;
+    transition: height 0.4s ease;
+    list-style-type: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .submenu li a {
+    border-bottom: 1px solid #4b4a5e;
+  }
+  
+  .accordion li:last-child .submenu {
+    border-radius: 0 0 4px 4px;
+  }
+  
+  .accordion li:last-child .submenu li:last-child {
+    border-bottom: 0;
+  }
+  
+  .submenu a {
+    display: block;
+    text-decoration: none;
+    color: #d9d9d9;
+    padding: 12px;
+    padding-left: 42px;
+    transition: all 0.25s ease-in-out;
+  }
+  
+  .submenu a:hover {
+    background: #3d6875;
+    color: #fff;
+  }
+  
+  .accordion li ul {
+    list-style-type: none;
+  }

@@ -1,6 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container-fluid ps-4">
-    <a class="navbar-brand" href="#"><img src="../../assets/images/menu_icon.png" alt=""></a>
+    <a class="navbar-brand pt-0"><img src="../../assets/images/menu_icon.png" alt="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+      aria-controls="offcanvasExample">
+      <button class="navbar-toggler" type="button" style="padding: 0 !important;">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -12,16 +17,16 @@
 
       <!-- Add ms-auto to push the profile section to the right -->
       <div class="ms-auto d-flex align-items-center profileSec">
-        <div class="row">
+        <div class="row" *ngIf="profileData != undefined">
           <!-- Profile Image -->
           <div class="col-auto p-0">
-            <img src="../../assets/images/DeafaultUserImg.jpg" alt="" class="profileImg">
+            <img src="{{imageUrl}}{{profileData.profileimage}}" alt="" class="profileImg">
           </div>
 
           <!-- Username (allocate more space here) -->
           <div class="col mt-1 profileInfo">
-            <span class="text-white">Veera ChVeera Ch</span>
-            <div class="text-white">Online</div>
+            <span class="text-white">{{profileData.fullname}}</span>
+            <div class="text-white">{{profileData.UserStatus}}</div>
           </div>
 
           <!-- Sign-out Icon -->
@@ -34,4 +39,32 @@
     </div>
   </div>
 </nav>
+
+<div class="offcanvas offcanvas-start" appClickOutside (onClickOutside)="closeSideNav($event)" tabindex="-1"
+  id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <!-- <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5> -->
+    <button type="button" class="btn-close text-reset pe-0" id="close" data-bs-dismiss="offcanvas" aria-label="Close"
+      #closeOffcanvas></button>
+  </div>
+  <div class="offcanvas-body">
+
+    <ul id="accordion" class="accordion">
+      <li *ngFor="let menu of menuList; let i = index" [class.active]="menu.active">
+
+        <div class="menu" (click)="toggle(i)">
+          <img src="assets/images/MenuIcons/{{menu.ModuleName}}.png" alt="">
+          <span>{{ menu.ModuleName }}</span>
+          <i class="fa fa-chevron-down"></i>
+        </div>
+
+        <ul class="submenu" #submenu [style.height.px]="menu.active ? submenu.scrollHeight : 0">
+          <li *ngFor="let submenu of menu.submenu">
+            <a (click)="submenuClick(submenu.FileName)">{{ submenu.SubModuleName }}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
 
