@@ -6,7 +6,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) }, 
   { path: 'header', loadChildren: () => import('./header/header.module').then(m => m.HeaderModule) },
   { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
-  { path: 'comments', loadChildren: () => import('./comments/comments.module').then(m => m.CommentsModule) },
+  { path: 'dashboard', loadChildren: () => import('./tasq/dashboard/dashboard.module').then(m => m.DashboardModule) },
 ];
 
 @NgModule({

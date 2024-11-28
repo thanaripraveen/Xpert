@@ -4,15 +4,16 @@ import { map } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Subject } from 'rxjs';
-import{common} from '../common'
+import { common } from '../common'
+
 let httpOptions: any;
 
-httpOptions = {
-  headers: new HttpHeaders({
-    "Access-Control-Allow-Origin": "*",
-    "content-type": "multipart/form-data;",
-  })
-}
+// httpOptions = {
+//   headers: new HttpHeaders({
+//     "Access-Control-Allow-Origin": "*",
+//     "content-type": "application/json,application/pdf,multipart/form-data;",
+//   })
+// }
 
 const headers = new HttpHeaders({
   'Content-Type': 'application/json'
@@ -28,9 +29,20 @@ export class ApiService implements OnDestroy {
   public userStatus$: Subject<boolean> = new Subject<boolean>();
 
   public editTaskData = new BehaviorSubject<any>('');
+  public allTaskFilterData = new BehaviorSubject<any>('');
   public redirectUrl = new BehaviorSubject<any>('');
   public changeSidebarLink = new BehaviorSubject<any>('');
   public hitListData = new BehaviorSubject<any>('');
+
+  private firstComponentVisibility = new BehaviorSubject<boolean>(true);
+  private secondComponentVisibility = new BehaviorSubject<boolean>(true);
+  //private thiredComponentVisibility = new BehaviorSubject<boolean>(true);
+
+  isFirstVisible$ = this.firstComponentVisibility.asObservable();
+  isSecondVisible$ = this.secondComponentVisibility.asObservable();
+  //isThiredVisible$ = this.thiredComponentVisibility.asObservable();
+  public taskUpdateValue = new BehaviorSubject<any>({data : '' , updateValue : ''});
+
   constructor(private http: HttpClient, private common: common,private ngZone: NgZone) {
     this.setupActivityListeners();
 
@@ -79,8 +91,8 @@ export class ApiService implements OnDestroy {
       }))
   }
 
-
   getLoginUserData(userId: number): Observable<any> {
+    // alert(typeof userId)
     return this.http.post<any>(`${environment.xpertdataurl}Login/GetLoginUserData?userId=` + userId.toString(), httpOptions);
   }
 
@@ -121,11 +133,10 @@ export class ApiService implements OnDestroy {
     });
     return this.http.post(`${environment.xpertdataurl}${endpoint}`, formData);
   }
-
   setEditTaskData(data: any) {
     this.editTaskData.next(data);
   }
-  getEditTaskData() {
+  getEditTaskData() : Observable<any> {
     return this.editTaskData.asObservable()
   }
 
@@ -242,5 +253,68 @@ export class ApiService implements OnDestroy {
     return this.http.post<any>(`${environment.xpertdataurl}TaskManagement/GetXpertUserNotes?GroupId=` + gId, httpOptions)
   }
 
+  acknowledgeApi(ticktId : any,loginId: any,Title:any,Details:any,ReqUserEmail:any) {
+    return this.http.post<any>(`${environment.xpertdataurl}TaskManagement/AcknowledgeSupportTask?TicketID=${ticktId}&LoginId=${loginId}&Title=${Title}&Details=${Details}&ReqUserEmail=${ReqUserEmail}`,httpOptions)
+  }
+
+  releaseNotication(obj: any){
+    return this.http.post<any>('https://commsapi.axelautomotive.com/api/Communications/sendNotification',obj)
+  }
+
+  changePriority(endpoint:any,obj : any){
+    return this.http.post<any>(environment.xpertNodeApi + endpoint,obj)
+  }
+ 
+  changeTicketType(endpoint:any,obj : any){
+    return this.http.post<any>(environment.xpertNodeApi + endpoint,obj)
+  }
+
+  getTagsMethod(endpoint : any , obj : any){
+    return this.http.post<any>(environment.xpertNodeApi + endpoint,obj);
+ 
+  }
+  postMethod1(endpoint : any , obj : any){
+    return this.http.post<any>(environment.xpertNodeApi + endpoint,obj);
+  }
+
+  setFilterData(data : any){
+    this.allTaskFilterData.next(data);
+  }
+  getAllTaskFilterData(){
+    return this.allTaskFilterData.asObservable();
+  }
+
+  toggleFirstVisibility() {
+    this.firstComponentVisibility.next(!this.firstComponentVisibility.value);
+  }
+
+  toggleSecondVisibility() {
+    this.secondComponentVisibility.next(!this.secondComponentVisibility.value);
+  }
+
+  // toggleThiredVisibility() {
+  //   this.thiredComponentVisibility.next(!this.thiredComponentVisibility.value);
+  // }
+
+  resetVisibilityStates() {
+    this.firstComponentVisibility.next(true);
+    this.secondComponentVisibility.next(true);
+  //  this.thiredComponentVisibility.next(true);
+  }
+
+
+  GetEditProfile(uid: number): Observable<any> {
+    return this.http.post<any>(`${environment.xpertdataurl}UserManagement/Edit?uid=${uid}`, httpOptions);
+  }
+
+  setUpdateTaskValue(value : any){
+    this.taskUpdateValue.next(value)
+  }
+ 
+  getUpdateTaskValue(){
+   return this.taskUpdateValue.asObservable()
+  }
+
+ 
  
 }

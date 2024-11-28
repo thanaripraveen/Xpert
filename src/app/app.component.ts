@@ -8,7 +8,6 @@ import { filter } from 'rxjs';
 })
 export class AppComponent {
   title = 'tasq';
-
   show: boolean = false;
 
   constructor(private router:Router) {

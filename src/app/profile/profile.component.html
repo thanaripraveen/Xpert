@@ -1,10 +1,129 @@
 <div class="container-fluid p-0">
-    <div class=" row">
     <div class="profileDiv">
-        <div>Profile</div>
+        <div class="headerName">Profile</div>
+        <div class="profileData">
+            <div class="col-12" *ngIf="profileData != undefined">
+                <div class="row">
+                    <div class="col-3 profileImg"><img src="{{imageUrl}}{{profileData.profileimage}}" alt=""></div>
+                    <div class="col-9 profileInfo">
+                        <div class="profileInfoStyle">{{profileData.u_doj}}</div>
+                        <div class="profileInfoStyle">{{profileData.fullname}}</div>
+                        <div class="profileInfoTitle">{{profileData.title}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profileSchedule mt-3">
+            <div class="shiftSchedule">
+                <img src="assets/images/shift_icon (1).png" height="15" alt=""><span class="ps-1">SHIFT SCHEDULE</span>
+            </div>
+            <div class="displayWeek">
+                <div class="col-12 d-flex align-items-center justify-content-center">
+                    <div class="col-1 leftArrow" (click)="showPreviousWeek()">&lt;</div>
+                    <div class="col-10 week">{{ startDate | date:'MMM dd' }} - {{ endDate | date:'dd, YYYY' }}</div>
+                    <div class="col-1 rightArrow" (click)="showNextWeek()">&gt;</div>
+                </div>
+            </div>
+            <div class="bindShiftDataStyle">
+                <ng-container *ngFor="let shift of ShiftScheduleData">
+                    <div class="col-12 d-flex align-items-center mt-1">
+                        <div class="col-3 date">{{shift.Days}}</div>
+                        <div class="col-8 shiftHours" *ngIf="shift.Types != 'Off'">
+                            <span *ngIf="shift.shiftval != ''">Shift</span>{{shift.shiftval != '' ? shift.shiftval :
+                            'Custom'}}
+                            <span> [{{shift.StartTimes}} - {{shift.EndTimes}}]
+                            </span>
+                        </div>
+                        <div class="col-8 shiftHours shiftHoursOff" *ngIf="shift.Types == 'Off'">Off</div>
+                        <div class="col-1 shiftEditIcon">
+                            <img src="assets/images/editIcon.png" title="Edit Shift Hours" data-bs-toggle="modal"
+                                data-bs-target="#changeShiftHoursdialog" (click)="editShiftDetails(shift)">
+                        </div>
+                    </div>
+                </ng-container>
+
+            </div>
+        </div>
     </div>
 </div>
+
+
+<div class="changeShiftHoursModalStyles">
+    <div class="modal fade" id="changeShiftHoursdialog" data-bs-backdrop="static" aria-labelledby="modal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Change Shift Hours</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" #editProfileModal aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" [formGroup]="shiftForm">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <span>Date :</span> <input type="text" name="" id="" class="form-control"
+                                formControlName="txtdate" readonly>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <span>Shift :</span>
+                            <select #dropdown name="" id="" class="form-select shift" formControlName="ddlshift"
+                                (change)="shiftSelect($event)">
+                                <option value="0">--Select--</option>
+                                <option [value]="shift.ShiftName" *ngFor="let shift of ddlShiftsArray">
+                                    {{shift.ShiftName}}-Shift [
+                                    {{shift.StartTime != null? shift.StartTime: 'null' }}-{{shift.EndTime != null?
+                                    shift.EndTime: 'null'}}
+                                    ]</option>
+
+                            </select>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-center mt-2" *ngIf="showStartEndTimeDiv">
+                            <span>Start time :</span> 
+                            <div class="stimeAm">
+                            <select name="" id="" class="form-select" formControlName="ddlshiftFrom">
+                                <option value="0">--Select--</option>
+                                <option [value]="start.value" *ngFor="let start of startTimeArray">{{start.name}}</option>
+                              </select>
+                              <select name="" id="" class="form-select" formControlName="ddlshiftFromAm">
+                                <option value="0">--Select--</option>
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                              </select>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-center mt-2" *ngIf="showStartEndTimeDiv">
+                            <span>End time :</span> 
+                            <div class="etimeAm">
+                            <select name="" id="" class="form-select" formControlName="ddlshiftTo">
+                                <option value="0">--Select--</option>
+                                <option [value]="end.value" *ngFor="let end of endTimeArray">{{end.name}}</option>
+                              </select>
+                              <select name="" id="" class="form-select" formControlName="ddlshiftToAm">
+                                <option value="0">--Select--</option>
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                              </select>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <span>(or)</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mt-2">
+                            <input type="checkbox" name="" id="" class="form-check" [checked]="shiftType"
+                            (change)="shiftTypeCheck($event)"><span class="ps-2">OFF</span>
+                        </div>
+
+                        <div class="d-flex align-items-center justify-content-center mt-3">
+                            <button class="btn btn-primary" type="submit" (click)="updateShiftHours(dropdown)">Submit</button>
+                            <button class="btn btn-secondary ms-2" type="submit" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                       
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-
-
-<button mat-button (click)="openModal()">Open Modal</button>
