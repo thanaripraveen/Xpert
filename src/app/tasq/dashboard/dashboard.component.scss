@@ -1,0 +1,114 @@
+.dashBoardPage{
+ 
+    .headerDesign{
+        background-color: #bfcfd9;
+        padding: 3px;
+
+        .title{
+            font-family: 'FaktPro-Bold';
+            font-size: .8rem;
+            color: #000; 
+        }
+
+        .links{
+            font-family: 'FaktPro-Medium';
+            font-size: .8rem;
+            color: #000;
+            
+        }
+    }
+
+.taskGridTable{
+    height: calc(100vh - 80px);
+    overflow: auto;
+}
+    .taskGrid{
+        font-family: 'FaktPro-Normal';
+        font-size: .8rem;
+        color: #000;
+        .firstRow{
+            background-color: #e6eff5;
+            padding: 5px;
+
+            .ticketStyle{
+                font-family: 'FaktPro-Bold';
+                font-size: 1rem;
+            }
+            .dealerSTyle{
+                font-family: 'FaktPro-Bold';
+                font-size: 1rem;  
+                color: #d1681b;
+            }
+         
+            .tagname{
+                font-family: 'FaktPro-Bold';
+                font-size: 1rem;
+                margin-left: 1rem;
+            }
+            .tagsStyle{
+                background: #1472c1;
+                color: #fff;
+                padding: .3rem;
+                border-radius: 5px;
+                margin-left: 2px;
+                font-size: .5rem;
+            }
+            .doc{
+                color: #1472c1;
+                text-decoration: underline;
+                font-size: 1rem;
+
+                .notification {
+                    position: relative;
+                    display: inline-block;
+                  }
+                  
+                  
+                  .notification .badge {
+                    position: absolute;
+                    top: -5px;
+                    right: -10px;
+                    padding: 2px 5px;
+                    border-radius: 50%;
+                    background-color: red;
+                    color: white;
+                  }
+            }
+            .icon{
+                .notification {
+                    position: relative;
+                    display: inline-block;
+                  }
+                  
+                  
+                  .notification .badge {
+                    position: absolute;
+                    top: -5px;
+                    right: -10px;
+                    padding: 2px 5px;
+                    border-radius: 50%;
+                    background-color: red;
+                    color: white;
+                  }
+            }
+        }
+        .secondRow{
+            background-color: #fff;
+            padding: 5px;
+
+            .title{
+                font-family: 'FaktPro-Medium';
+                font-size: 1rem;
+            }
+            .keyName{
+                font-family: 'FaktPro-Medium';
+                font-size: .9rem;
+                color: #1472c1;
+            }
+        }
+        .thirdRow{
+            background-color: #e6eff5;
+            padding: 3px;
+        }
+    }
+}

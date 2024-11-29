@@ -1,1 +1,119 @@
-<p>dashboard works!</p>
+<div class="dashBoardPage">
+    <div class="col-12 d-flex align-items-center headerDesign">
+        <div class="col-6 title">DashBoard</div>
+        <div class="col-6 d-flex align-items-center">
+            <div class="col-6 d-flex justify-content-end">
+                <span class=" links">OverDue</span>
+                <span class="ps-2 links">New</span>
+                <span class="px-2 links">Active</span>
+            </div>
+
+            <div class="col-5 ">
+                <div class="input-group">
+
+                    <input type="text" class="form-control py-0" placeholder="Search..." aria-label="Search">
+                    <span class="input-group-text bg-light">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                </div>
+
+            </div>
+            <div class="col text-center ps-2">
+                <img style="cursor: pointer;" src="assets/images/expandRow.png" title="Show Details ">
+            </div>
+        </div>
+
+    </div>
+    <div class="taskGridTable">
+        <ng-container *ngFor="let task of taskDetailsList">
+            <div class="taskGrid mt-2">
+                <div class="col-12 d-flex align-items-center firstRow">
+                    <div class="col-9 d-flex align-items-center">
+                        <div class="col-2 ticketStyle">#{{task.Ticket}}</div>
+
+                        <div class="col-5">
+                            <div>
+                                <span class="tagname">Tags :</span>
+                                <span class="tagsStyle" *ngFor="let tag of task.TaskTagsListInfo">{{tag.TagName}}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-5 dealerSTyle">{{task.ReqDealerName}}</div>
+                    </div>
+                    <div class="col-3 d-flex align-items-center">
+                        <div class="col-5 ps-0" *ngIf="roleId !== 100"
+                            [ngStyle]="{'color': task.Priority == 3 ? 'green': task.Priority == 2 ? '#0064ff' : 'red'}">
+                            {{task.Priority == 3 ? 'Low' : task.Priority == 2 ? 'Medium' : 'High'}}
+
+                        </div>
+                        <div class="col-5 p-0" *ngIf="roleId === 100"><select name="" id="" class="form-select py-0"
+                                [(ngModel)]="task.Priority" (change)="onSelectChange($event,task.Ticket)"
+                                [style.color]="task.Priority == 3 ? 'green': task.Priority == 2 ? '#0064ff' : 'red'">
+                                <option *ngFor="let option of priorties" [ngStyle]="{'color': option.color}"
+                                    [value]="option.id">
+                                    {{ option.priorty }}
+                                </option>
+                            </select></div>
+
+                            
+                            <div class="col-7 text-end">
+                                <span class="doc ps-2">
+
+                                  Doc's
+                                </span>
+
+                                <span class=" ps-2" >
+                                   <img src="../../../assets/images/comment.png" alt="">
+                                </span>
+
+                                <span class=" ps-2"><img src="../../../assets/images/viewIconImg.png" alt=""></span>
+                                <span class=" ps-2"><img src="../../../assets/images/edit.png" alt=""></span>
+                            </div>
+
+                        <!-- <div class="col ps-2 doc">
+                            <a class="notification">
+                                <span>Doc's</span>
+                                <span class="badge"
+                                    *ngIf="task.DocumentsInfo.length > 0">{{task.DocumentsInfo.length}}</span>
+                            </a>
+                        </div>
+                        <div class="col ps-3 doc">
+                            <a class="notification">
+                                <span><img src="../../../assets/images/comment_icon.png" alt=""></span>
+                                <span class="badge"
+                                    *ngIf="task.DocumentsInfo.length > 0">{{task.DocumentsInfo.length}}</span>
+                            </a>
+                        </div> -->
+                        <!-- <div class="col icon"><img src="../../../assets/images/viewIcon.png" alt=""></div>
+                        <div class="col icon"><img src="../../../assets/images/editIcon.png" alt=""></div> -->
+                    </div>
+                </div>
+                <div class="secondRow">
+
+                    <div class="col-12 d-flex align-items-center">
+                        <div class="col-4 title">fdfhgdfghdf</div>
+                        <div class="col-8">
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex align-items-center">
+                        <div class="col-8 d-flex align-items-center">
+                            <div class="col-7 mt-2">
+                                <span class="keyName">Requested By :</span>
+                                <span>jdfvjasdhfvjsdhfv</span>
+                            </div>
+                            <div class="col-5">
+                                sfgjsdgskjfg
+                            </div>
+                        </div>
+                        <div class="col-4">asdfasd</div>
+
+                    </div>
+                </div>
+                <div class="thirdRow">
+                    <div class="col-12">gdfgdf</div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

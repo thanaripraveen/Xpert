@@ -1,7 +1,7 @@
 .container-fluid {
     .profileDiv {
         width: 100%;
-        height: calc(100vh - 55px);
+        height: calc(100vh - 45px);
         background: #fff;
         color: #000;
 
@@ -115,6 +115,74 @@
                 }
             }
         }
+
+        .teamHitList {
+            .accordion-item {
+                border: 1px solid #fffbfb;
+            }
+
+            .accordion-header {
+                background-color: #bfcfd9;
+                padding: 8px;
+                cursor: pointer;
+                font-family: 'FaktPro-Bold';
+                font-size: 12px;
+
+                .form-select {
+                    padding: .2rem;
+                    font-size: .7rem;
+                }
+            }
+
+            .accordion-body {
+                // padding: 10px;
+                background-color: #fff;
+                border-top: 1px solid #ccc;
+
+                .setHeight {
+                    max-height: 125px;
+                    overflow: auto;
+                    overflow-x: hidden;
+                    height: auto;
+                    font-family: 'FaktPro-Normal';
+                    font-size: .7rem;
+                }
+
+                .onlineimage {
+                    height: 30px;
+                    border-radius: 50%;
+                }
+
+                p {
+                    font-size: 9px;
+                    font-family: 'FaktPro-Normal';
+                }
+
+                .hitlist {
+                    font-family: 'FaktPro-Medium';
+                    font-size: .8rem;
+
+                }
+            }
+
+            .accordion-header img {
+                transition: transform 0.3s ease;
+            }
+
+            .rotate {
+                transform: rotate(180deg);
+            }
+
+            .noStatusFound {
+                padding: 3rem;
+                text-align: center;
+                font-family: 'FaktPro-Normal';
+            }
+
+
+        }
+
+
 
 
     }

@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import bootstrap from 'bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import moment from 'moment';
 
 @Component({
   selector: 'app-profile',
@@ -59,6 +60,16 @@ export class ProfileComponent implements OnInit {
     { value: '11:00', name: '11:00' },
     { value: '12:00', name: '12:00' },
   ]
+
+  teamStatus : any =[
+    {id : 1, status : 'Online'},
+    {id : 6, status : 'Offline'},
+    {id : 9, status : 'Vacation'},
+    {id : 0, status : 'View All'},
+  ]
+  selectedStatus : any = 1;
+  tasks: any = [];
+
   @ViewChild('confirm') openConfirmDialog: ElementRef | undefined;
   @ViewChild('editProfileModal') editProfileModal: ElementRef | undefined;
   constructor(private common: common, private api: ApiService, private datePipe: DatePipe, private fb: FormBuilder, private toastr: ToastrService) {
@@ -78,13 +89,15 @@ export class ProfileComponent implements OnInit {
     this.getLoginUserData();
     this.calculateStartWeekDates(new Date());
     this.bindShifts();
+    this.selectStatus();
+    this.toggleDiv(1);
   }
 
   getLoginUserData() {
     this.api.getUserDetails(this.common.userid).subscribe((res: any) => {
       if (res.StatusCode == 200) {
         this.profileData = res.UserTasksInfo[0].UserInfo[0];
-        // this.tasks = res.UserTasksInfo[0].Task;
+         this.tasks = res.UserTasksInfo[0].Task;
       }
 
     })
@@ -334,5 +347,56 @@ export class ProfileComponent implements OnInit {
     })
 
   }
+
+  activeSection: number | null = null;
+
+  // Toggle the accordion section
+  toggleDiv(section: number) {
+    if (this.activeSection === section) {
+      this.activeSection = null;  // Close if the same section is clicked again
+    } else {
+      this.activeSection = section;
+    }
+  }
+
+  // Check if the section is open
+  isOpen(section: number): boolean {
+    return this.activeSection === section;
+  }
+  onofusers : any =[]
+  selectStatus(){
+    
+    this.api.getActiveUsers(this.selectedStatus).subscribe((res: any) => {
+      this.onofusers = res.Rosterusers.filter((itm: any) => itm.UserId != this.common.userid);   
+      console.log(this.onofusers);
+      
+    });
+  }
+
+  viewTaskData: any;
+  opacity: any = 'Y';
+
+  viewHitList(e: any) {
+    // this.isLoading = true;
+
+    this.opacity = 'Y';
+    const obj = { "TaskId": e.Id, "UserID": this.common.userid }
+    this.api.postmethod('TaskManagement/GetTaskFeedByTaskId', obj).subscribe((res: any) => {
+      if (res.UserTasksInfo) {
+        this.viewTaskData = res.UserTasksInfo[0];
+        // this.isLoading = false;
+
+      }
+      // this.api.setHitlistData(res.UserTasksInfo[0])
+    })
+  }
+
+  LocalTimeConvertioninHours(DateTime: any) {
+    var utcDate = moment.utc(DateTime);
+    var dateWithTimezone = utcDate.local().format('MM.DD.YY');
+    return dateWithTimezone;
+
+  }
+
 
 }

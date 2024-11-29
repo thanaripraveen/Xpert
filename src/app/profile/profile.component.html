@@ -45,6 +45,103 @@
 
             </div>
         </div>
+
+        <!-- Team,HitList,Messages -->
+
+        <div class="teamHitList mt-3">
+            <div class="accordian">
+                <!-- Team -->
+    <div class="accordion-item">
+        <div class="accordion-header" (click)="toggleDiv(1)">
+          <div class="row">
+            <div class="col-12 d-flex align-items-center">
+              <div class="col-3">Team</div>
+              <div class="col-6">
+                <select class="form-select" [(ngModel)]="selectedStatus"
+                  (change)="selectStatus()" (click)="$event.stopPropagation()">
+                  <option *ngFor="let status of teamStatus" [value]="status.id">{{status.status}}</option>
+                </select>
+              </div>
+              <div class="col-3 text-end">
+                <img style="height: 14px;" src="../../assets/images/downArrow.png" [ngClass]="{ 'rotate': activeSection === 1 }">
+              </div>
+            </div>
+          </div>
+  
+        </div>
+        <div class="accordion-body" *ngIf="isOpen(1)">
+          <div class="setHeight">
+            <div *ngFor="let users of onofusers">
+              <div class="row" style="padding: 2px 5px;">
+  
+                <div class="col-2"><img class="onlineimage" src="{{imageUrl}}{{users.Image}}" /></div>
+                <div class="col-8 " >{{users.FirstName}} {{users.LastName}}
+                    <div style="color:#1471c2;">{{users.title}}</div>
+                   </div>
+                <div class="col-2">
+                  <p [style]="{'color':users.type_color}" >
+                    {{users.Status}}</p>
+                </div>
+  
+              </div>
+            </div>
+            <div *ngIf="onofusers.length == 0" class="noStatusFound" style="font-family: 'FaktPro-Normal'">No data found!</div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Hit List -->
+      <div class="accordion-item">
+        <div class="accordion-header" (click)="toggleDiv(2)">
+          <div class="row">
+            <div class="col-6"><img src="../../assets/images/hitlist_icon (1).png" height="13" alt="">Hitlist</div>
+            <div class="col-6 text-end"><img style="height: 14px;" src="../../assets/images/downArrow.png" [ngClass]="{ 'rotate': activeSection === 2 }"></div>
+          
+        </div>
+        </div>
+        <div class="accordion-body p-0" *ngIf="isOpen(2)">
+
+            <div class="hitlist">
+                <div class="row">
+                    <div class="col-2">Type</div>
+                    <div class="col-7">Details</div>
+                    <div class="col-3"></div>
+                </div>
+            </div>
+  
+          <div  class="setHeight" >
+            <div class=" col-12 p-1 d-flex align-items-center" *ngFor="let task of tasks">
+              <div class="col-2 text-black"><span class="HitType">T</span></div>
+              <div class="col-7 text-black" style="font-family: 'FaktPro-Normal'">
+                <label for="">{{ task.TaskName }}</label>
+                <div for="" *ngIf="task.AssignTs">Due on <span class="ps-2">{{ LocalTimeConvertioninHours(task.DueDate)}}</span></div>
+              </div>
+              <div class="col-3 text-end"><img src="assets/images/view_iconsml.png" style="cursor: pointer;"
+                  (click)="viewHitList(task)" alt="" data-bs-toggle="modal" data-bs-target="#viewTaskDetail1"></div>
+            </div>
+            <div class="noStatusFound"  *ngIf="tasks.length == 0">
+              No list for today
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Messages -->
+      <div class="accordion-item">
+        <div class="accordion-header" (click)="toggleDiv(3)">
+          <div class="row">
+            <div class="col-6">Messages</div>
+            <div class="col-6 text-end"><img style="height: 14px;" src="../../assets/images/downArrow.png" [ngClass]="{ 'rotate': activeSection === 3 }"></div>
+  
+          </div>
+          
+        </div>
+        <div class="accordion-body " *ngIf="isOpen(3)">
+          <div  class="noStatusFound"  style="font-family: 'FaktPro-Normal';font-size: 12px;">No data found!</div>
+        </div>
+      </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -55,7 +152,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title">Change Shift Hours</div>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" #editProfileModal aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" #editProfileModal
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="" [formGroup]="shiftForm">
@@ -78,32 +176,33 @@
                         </div>
 
                         <div class="d-flex align-items-center justify-content-center mt-2" *ngIf="showStartEndTimeDiv">
-                            <span>Start time :</span> 
+                            <span>Start time :</span>
                             <div class="stimeAm">
-                            <select name="" id="" class="form-select" formControlName="ddlshiftFrom">
-                                <option value="0">--Select--</option>
-                                <option [value]="start.value" *ngFor="let start of startTimeArray">{{start.name}}</option>
-                              </select>
-                              <select name="" id="" class="form-select" formControlName="ddlshiftFromAm">
-                                <option value="0">--Select--</option>
-                                <option value="AM">AM</option>
-                                <option value="PM">PM</option>
-                              </select>
+                                <select name="" id="" class="form-select" formControlName="ddlshiftFrom">
+                                    <option value="0">--Select--</option>
+                                    <option [value]="start.value" *ngFor="let start of startTimeArray">{{start.name}}
+                                    </option>
+                                </select>
+                                <select name="" id="" class="form-select" formControlName="ddlshiftFromAm">
+                                    <option value="0">--Select--</option>
+                                    <option value="AM">AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
                             </div>
                         </div>
 
                         <div class="d-flex align-items-center justify-content-center mt-2" *ngIf="showStartEndTimeDiv">
-                            <span>End time :</span> 
+                            <span>End time :</span>
                             <div class="etimeAm">
-                            <select name="" id="" class="form-select" formControlName="ddlshiftTo">
-                                <option value="0">--Select--</option>
-                                <option [value]="end.value" *ngFor="let end of endTimeArray">{{end.name}}</option>
-                              </select>
-                              <select name="" id="" class="form-select" formControlName="ddlshiftToAm">
-                                <option value="0">--Select--</option>
-                                <option value="AM">AM</option>
-                                <option value="PM">PM</option>
-                              </select>
+                                <select name="" id="" class="form-select" formControlName="ddlshiftTo">
+                                    <option value="0">--Select--</option>
+                                    <option [value]="end.value" *ngFor="let end of endTimeArray">{{end.name}}</option>
+                                </select>
+                                <select name="" id="" class="form-select" formControlName="ddlshiftToAm">
+                                    <option value="0">--Select--</option>
+                                    <option value="AM">AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
                             </div>
                         </div>
 
@@ -112,14 +211,15 @@
                         </div>
                         <div class="d-flex align-items-center justify-content-center mt-2">
                             <input type="checkbox" name="" id="" class="form-check" [checked]="shiftType"
-                            (change)="shiftTypeCheck($event)"><span class="ps-2">OFF</span>
+                                (change)="shiftTypeCheck($event)"><span class="ps-2">OFF</span>
                         </div>
 
                         <div class="d-flex align-items-center justify-content-center mt-3">
-                            <button class="btn btn-primary" type="submit" (click)="updateShiftHours(dropdown)">Submit</button>
+                            <button class="btn btn-primary" type="submit"
+                                (click)="updateShiftHours(dropdown)">Submit</button>
                             <button class="btn btn-secondary ms-2" type="submit" data-bs-dismiss="modal">Cancel</button>
                         </div>
-                       
+
                     </form>
                 </div>
             </div>

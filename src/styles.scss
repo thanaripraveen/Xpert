@@ -39,3 +39,21 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: 'FaktPro-Normal' }
+
+::-webkit-scrollbar {
+
+  width: 5px;
+
+  height: 5px;
+
+  background-color: #aaa;
+
+}
+
+
+
+::-webkit-scrollbar-thumb {
+
+    background: #001124;
+
+}
