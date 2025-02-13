@@ -26,19 +26,19 @@
     </div>
     <div class="taskGridTable">
         <ng-container *ngFor="let task of taskDetailsList">
-            <div class="taskGrid mt-2">
+            <div class="taskGrid">
                 <div class="col-12 d-flex align-items-center firstRow">
                     <div class="col-9 d-flex align-items-center">
                         <div class="col-2 ticketStyle">#{{task.Ticket}}</div>
 
-                        <div class="col-5">
+                        <div class="col-6">
                             <div>
                                 <span class="tagname">Tags :</span>
                                 <span class="tagsStyle" *ngFor="let tag of task.TaskTagsListInfo">{{tag.TagName}}</span>
                             </div>
                         </div>
 
-                        <div class="col-5 dealerSTyle">{{task.ReqDealerName}}</div>
+                        <div class="col-4 dealerSTyle">{{task.ReqDealerName}}</div>
                     </div>
                     <div class="col-3 d-flex align-items-center">
                         <div class="col-5 ps-0" *ngIf="roleId !== 100"
@@ -91,9 +91,9 @@
                 <div class="secondRow">
 
                     <div class="col-12 d-flex align-items-center">
-                        <div class="col-4 title">fdfhgdfghdf</div>
-                        <div class="col-8">
-                            <div></div>
+                        <div class="col-5 title">fdfhgdfghdf</div>
+                        <div class="col-7">
+                            <div>fbxkcvbxlkcvbxkcvnbxmcvmnbkbjk</div>
                         </div>
                     </div>
                     <div class="col-12 d-flex align-items-center">
