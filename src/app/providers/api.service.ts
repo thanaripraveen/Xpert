@@ -58,6 +58,16 @@ export class ApiService implements OnDestroy {
           return res;
         }));
   }
+  postmethod1(endpoint: string, obj: object): Observable<any> {
+  
+    return this.http.post(`${environment.xpertNodeApi}${endpoint}`, obj)
+      .pipe(map(
+        (res: any) => {
+          //// console.log(res);
+
+          return res;
+        }));
+  }
 
 
   putmethod(endpoint: string, obj: object): Observable<any> {

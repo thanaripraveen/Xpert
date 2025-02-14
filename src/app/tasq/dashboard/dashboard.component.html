@@ -42,13 +42,13 @@
                     </div>
                     <div class="col-3 d-flex align-items-center">
                         <div class="col-5 ps-0" *ngIf="roleId !== 100"
-                            [ngStyle]="{'color': task.Priority == 3 ? 'green': task.Priority == 2 ? '#0064ff' : 'red'}">
-                            {{task.Priority == 3 ? 'Low' : task.Priority == 2 ? 'Medium' : 'High'}}
+                            [ngStyle]="{'color': task.T_Priority == 3 ? 'green': task.T_Priority == 2 ? '#0064ff' : 'red'}">
+                            {{task.T_Priority == 3 ? 'Low' : task.T_Priority == 2 ? 'Medium' : 'High'}}
 
                         </div>
                         <div class="col-5 p-0" *ngIf="roleId === 100"><select name="" id="" class="form-select py-0"
-                                [(ngModel)]="task.Priority" (change)="onSelectChange($event,task.Ticket)"
-                                [style.color]="task.Priority == 3 ? 'green': task.Priority == 2 ? '#0064ff' : 'red'">
+                                [(ngModel)]="task.T_Priority" (change)="onSelectChange($event,task.Ticket)"
+                                [style.color]="task.T_Priority == 3 ? 'green': task.T_Priority == 2 ? '#0064ff' : 'red'">
                                 <option *ngFor="let option of priorties" [ngStyle]="{'color': option.color}"
                                     [value]="option.id">
                                     {{ option.priorty }}
@@ -115,5 +115,16 @@
                 </div>
             </div>
         </ng-container>
+
+
     </div>
+    <div class="pagination ">
+        <button class="btn btn-primary" >First</button>
+        <button class="btn btn-primary"  >Previous</button>
+     
+        <span class="text-black">Page 10 of 10</span>
+     
+        <button class="btn btn-primary" >Next</button>
+        <button class="btn btn-primary" >Last</button>
+      </div>
 </div>

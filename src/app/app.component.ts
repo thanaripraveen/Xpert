@@ -9,7 +9,7 @@ import { filter } from 'rxjs';
 export class AppComponent {
   title = 'tasq';
   show: boolean = false;
-
+  // bgColorStyle : any;
   constructor(private router:Router) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
@@ -18,6 +18,7 @@ export class AppComponent {
       
       // Hide header for login and page not found routes
       this.show = !(event.urlAfterRedirects === '/' || event.urlAfterRedirects === '/login' || event.urlAfterRedirects === '/404');
+      
     });
   }
 }

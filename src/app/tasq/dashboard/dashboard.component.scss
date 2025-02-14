@@ -19,14 +19,14 @@
     }
 
 .taskGridTable{
-    height: calc(100vh - 80px);
+    height: calc(100vh - 120px);
     overflow: auto;
 }
     .taskGrid{
         font-family: 'FaktPro-Normal';
         font-size: .8rem;
         color: #000;
-        border-bottom: 5px solid;
+        border-top: 5px solid;
         .firstRow{
             background-color: #e6eff5;
             padding: 5px;
@@ -96,10 +96,12 @@
         .secondRow{
             background-color: #fff;
             padding: 5px;
-
             .title{
                 font-family: 'FaktPro-Medium';
                 font-size: 1rem;
+                display: flex;
+                gap: 20px;
+                
             }
             .keyName{
                 font-family: 'FaktPro-Medium';
@@ -112,4 +114,25 @@
             padding: 3px;
         }
     }
+
+    .pagination {
+        display: flex;
+        gap: 10px;
+        justify-content: end;
+        align-items: center;
+        margin-top: 5px;
+        padding-right: 5px;
+       
+        button {
+          padding: 3px 10px;
+          cursor: pointer;
+        }
+      }
+      button:disabled {
+        cursor: not-allowed !important;
+        opacity: 0.4 !important;
+      }
 }
+
+
+

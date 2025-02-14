@@ -51,10 +51,10 @@ export class DashboardComponent implements OnInit {
       tkttype: tktType
     };
   
-    this.api.postmethod('TaskManagement/GetTaskFeed', obj).subscribe(res => {
+    this.api.postmethod1('xpert/GetTaskFeed', obj).subscribe(res => {
       console.log(res);
-    if (res.StatusCode === 200 && res.UserTasksInfo.length > 0) {
-      this.taskDetailsList = res.UserTasksInfo;
+    if (res.status === 200) {
+      this.taskDetailsList = res.response;
     }
     });
   }
