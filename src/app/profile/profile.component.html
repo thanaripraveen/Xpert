@@ -74,13 +74,13 @@
             <div *ngFor="let users of onofusers">
               <div class="row" style="padding: 2px 5px;">
   
-                <div class="col-2"><img class="onlineimage" src="{{imageUrl}}{{users.Image}}" /></div>
-                <div class="col-8 " >{{users.FirstName}} {{users.LastName}}
-                    <div style="color:#1471c2;">{{users.title}}</div>
+                <div class="col-2"><img [src]="users.im_imagename_thumb ? imageUrl + users.im_imagename_thumb : imageUrl + 'DefaultUserImg.jpg'" alt="User Image" class="onlineimage" /></div>
+                <div class="col-8 " >{{users.U_FIRST_NAME}} {{users.u_last_name}}
+                    <div style="color:#1471c2;">{{users.u_title}}</div>
                    </div>
                 <div class="col-2">
                   <p [style]="{'color':users.type_color}" >
-                    {{users.Status}}</p>
+                    {{users.Type_name}}</p>
                 </div>
   
               </div>

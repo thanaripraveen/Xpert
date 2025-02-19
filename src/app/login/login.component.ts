@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   // remember Check box
   remStatus : boolean = false;
   rememberUserData: any;
-
+  signInSpinner : boolean = false;
 
   constructor(private fb: FormBuilder, private api: ApiService, 
     private router: Router, private common: common,private toastr: ToastrService) {
@@ -47,13 +47,13 @@ export class LoginComponent implements OnInit {
   }
 
   signInClick() {
-
+    
     if (this.loginForm.invalid) {
       this.submitted = true;
     }
     else{
       this.submitted = false;
-
+      this.signInSpinner = true;
       const obj = {
         "txtusername": this.loginForm.value.email,
         "txtpassword": this.loginForm.value.password
@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
       this.api.postmethod('Login/LoginUser',obj).subscribe((res: any)=>{
      
         if(res.returnVal == 'SUCCESS'){
+          this.signInSpinner = false;
           this.router.navigate(['dashboard']);
           this.common.userid = res.Identifier;
           this.common.roleid = res.RoleId;
@@ -82,6 +83,7 @@ export class LoginComponent implements OnInit {
         }
 
         else if (res.returnVal == "ERROR") {
+          this.signInSpinner = false;
           localStorage.setItem('auth', '')
            this.toastr.error("Invalid User Name or Password");
         }

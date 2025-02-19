@@ -14,7 +14,9 @@
                    class="form-control" (keyup.enter)="signInClick()"
                    [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
                    
-            <button type="button" class="btn btn-primary"  (click)="signInClick()">Sign In</button>
+            <button type="button" class="btn btn-primary"  (click)="signInClick()">Sign In <span class="spinner-border spinner-border-sm" 
+                role="status" *ngIf="signInSpinner"></span> </button>
+           
         </div>
         <div class="ps-5">
             <div class=" d-flex align-items-center">
