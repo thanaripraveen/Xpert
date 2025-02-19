@@ -7,14 +7,14 @@
         </header>
         <div class="row inputs mt-3 d-flex justify-content-center align-items-center">
             <input type="text" name="" formControlName="email" placeholder="Username or Email" 
-                   class="form-control" 
+                   class="form-control" (keyup.enter)="signInClick()"
                    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
                    
             <input type="password" name="" formControlName="password" placeholder="Password" 
-                   class="form-control" 
+                   class="form-control" (keyup.enter)="signInClick()"
                    [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
                    
-            <button type="button" class="btn btn-primary" (click)="signInClick()">Sign In</button>
+            <button type="button" class="btn btn-primary"  (click)="signInClick()">Sign In</button>
         </div>
         <div class="ps-5">
             <div class=" d-flex align-items-center">
