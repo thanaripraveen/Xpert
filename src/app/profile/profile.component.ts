@@ -16,7 +16,7 @@ import moment from 'moment';
 export class ProfileComponent implements OnInit {
   // show Profile Data
   profileData: any;
-  imageUrl = environment.imgUrl;
+  imageUrl = environment.xpertProfileImg;
 
   startDate: Date | any;
   endDate: Date | any;
@@ -366,10 +366,9 @@ export class ProfileComponent implements OnInit {
   onofusers : any =[]
   selectStatus(){
     
-    this.api.getActiveUsers(this.selectedStatus).subscribe((res: any) => {
-      this.onofusers = res.Rosterusers.filter((itm: any) => itm.UserId != this.common.userid);   
-      console.log(this.onofusers);
-      
+    const obj={"statusType":this.selectedStatus};
+    this.api.postMethod1('users/GetOnlineUsers',obj).subscribe((res: any) => {   
+      this.onofusers = res.response.filter((itm: any) => itm.u_uid != this.common.userid);   
     });
   }
 

@@ -72,4 +72,17 @@ export class DashboardComponent implements OnInit {
       
     })
   }
+
+    LocalTimeConvertioninHours(DateTime: any) {
+    var utcDate = moment.utc(DateTime);
+    var dateWithTimezone = utcDate.local().format('MM.DD.YY hh:mm A');
+    return dateWithTimezone;
+
+  }
+  LocalTimeConvertioninHours1(DateTime: any) {
+    var utcDate = moment.utc(DateTime);
+    var dateWithTimezone = utcDate.local().format('MM/DD/YY');
+    return dateWithTimezone;
+
+  }
 }

@@ -55,20 +55,20 @@
                                 </option>
                             </select></div>
 
-                            
-                            <div class="col-7 text-end">
-                                <span class="doc ps-2">
 
-                                  Doc's
-                                </span>
+                        <div class="col-7 text-end">
+                            <span class="doc ps-2">
 
-                                <span class=" ps-2" >
-                                   <img src="../../../assets/images/comment.png" alt="">
-                                </span>
+                                Doc's
+                            </span>
 
-                                <span class=" ps-2"><img src="../../../assets/images/viewIconImg.png" alt=""></span>
-                                <span class=" ps-2"><img src="../../../assets/images/edit.png" alt=""></span>
-                            </div>
+                            <span class=" ps-2">
+                                <img src="../../../assets/images/comment.png" alt="">
+                            </span>
+
+                            <span class=" ps-2"><img src="../../../assets/images/viewIconImg.png" alt=""></span>
+                            <span class=" ps-2"><img src="../../../assets/images/edit.png" alt=""></span>
+                        </div>
 
                         <!-- <div class="col ps-2 doc">
                             <a class="notification">
@@ -89,18 +89,46 @@
                     </div>
                 </div>
                 <div class="secondRow">
-
-                    <div class="col-12 d-flex align-items-center">
-                        <div class="col-5 title">fdfhgdfghdf</div>
-                        <div class="col-7">
-                            <div>fbxkcvbxlkcvbxkcvnbxmcvmnbkbjk</div>
+                    <!-- <div> &nbsp; -- <span style="margin-left: .6rem;" [innerHTML]="task.Details"></span></div> -->
+                    <div class="col-12 d-flex ">
+                        <div class="title">{{task.Title}}</div>
+                        <!-- <div class="col">
+                            <div [innerHTML]="task.Details"></div>
+                        </div> -->
+                    </div>
+                    <div class="col-12 d-flex ">
+                        <div>
+                            <div [innerHTML]="task.Details"></div>
                         </div>
                     </div>
                     <div class="col-12 d-flex align-items-center">
                         <div class="col-8 d-flex align-items-center">
                             <div class="col-7 mt-2">
-                                <span class="keyName">Requested By :</span>
-                                <span>jdfvjasdhfvjsdhfv</span>
+                                <div>
+                                    <span class="keyName">Requested By :</span>
+                                    <span style="font-size: 14px;">{{task.ReqSource == 'A' ? task.UserName + ' '+ '@' :
+                                        task.ReqUserName +' '+ '@'}}
+                                        {{LocalTimeConvertioninHours(task.CreatedDate)}}
+                                    </span>
+                                </div>
+
+                                <div *ngIf="task.AckUID !=0 && task.AckUID !='' && task.AckUID != null">
+                                    <div class="col">
+                                        <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Acknowledged By : </span>
+                                        <span style="font-size: 14px;">{{task.AckUSERNAME +' '+ '@'}}
+                                            {{LocalTimeConvertioninHours(task.AckDATE)}}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="task.ClosedByUserId !=0 && task.ClosedByUserId !='' && task.ClosedByUserId != null && task.ClosedByUserName!=''">
+                                    <div class="col">
+                                        <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Closed By : </span>
+                                        <span style="font-size: 14px;">{{task.ClosedByUserName +' '+ '@'}}
+                                            {{LocalTimeConvertioninHours(task.ClosedTS)}}
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-5">
                                 sfgjsdgskjfg
@@ -119,12 +147,12 @@
 
     </div>
     <div class="pagination ">
-        <button class="btn btn-primary" >First</button>
-        <button class="btn btn-primary"  >Previous</button>
-     
+        <button class="btn btn-primary">First</button>
+        <button class="btn btn-primary">Previous</button>
+
         <span class="text-black">Page 10 of 10</span>
-     
-        <button class="btn btn-primary" >Next</button>
-        <button class="btn btn-primary" >Last</button>
-      </div>
+
+        <button class="btn btn-primary">Next</button>
+        <button class="btn btn-primary">Last</button>
+    </div>
 </div>
