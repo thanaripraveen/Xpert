@@ -7,6 +7,8 @@ import { DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import moment from 'moment';
 import { environment } from '../../../environments/environment'
+import { LoginComponent } from '../../login/login.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,7 +26,7 @@ export class DashboardComponent implements OnInit {
   roleId: any;
   taskDetailsList : any=[]
 
-  constructor(private api: ApiService, private toastr : ToastrService, private common : common){
+  constructor(private api: ApiService, private toastr : ToastrService, private common : common,private modalService: NgbModal,){
     this.userID = this.common.userid;
     this.roleId = this.common.roleid;
   }
@@ -84,5 +86,9 @@ export class DashboardComponent implements OnInit {
     var dateWithTimezone = utcDate.local().format('MM/DD/YY');
     return dateWithTimezone;
 
+  }
+
+  openThirdModal() {
+    this.modalService.open(LoginComponent, { windowClass: 'custom-modal-lg', backdrop: 'static', keyboard: false, size : 'xl' });
   }
 }

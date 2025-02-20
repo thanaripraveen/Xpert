@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CreatetaskRoutingModule } from './createtask-routing.module';
 import { CreatetaskComponent } from './createtask.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -11,7 +12,7 @@ import { CreatetaskComponent } from './createtask.component';
   ],
   imports: [
     CommonModule,
-    CreatetaskRoutingModule
+    CreatetaskRoutingModule,NgbModule
   ]
 })
 export class CreatetaskModule { }

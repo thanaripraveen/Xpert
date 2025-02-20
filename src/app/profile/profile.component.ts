@@ -7,6 +7,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import bootstrap from 'bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import moment from 'moment';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from '../login/login.component';
+import { DashboardComponent } from '../tasq/dashboard/dashboard.component';
+import { CreatetaskComponent } from '../tasq/createtask/createtask.component';
 
 @Component({
   selector: 'app-profile',
@@ -72,7 +76,8 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('confirm') openConfirmDialog: ElementRef | undefined;
   @ViewChild('editProfileModal') editProfileModal: ElementRef | undefined;
-  constructor(private common: common, private api: ApiService, private datePipe: DatePipe, private fb: FormBuilder, private toastr: ToastrService) {
+  constructor(private common: common, private api: ApiService, private modalService: NgbModal,
+    private datePipe: DatePipe, private fb: FormBuilder, private toastr: ToastrService) {
 
     this.shiftForm = this.fb.group({
       txtdate: [''],
@@ -395,6 +400,11 @@ export class ProfileComponent implements OnInit {
     var dateWithTimezone = utcDate.local().format('MM.DD.YY');
     return dateWithTimezone;
 
+  }
+
+  openFirstModal() {
+    const modalRef = this.modalService.open(CreatetaskComponent, { backdrop: 'static', keyboard: false });
+    modalRef.componentInstance.showCloseButton = true;
   }
 
 

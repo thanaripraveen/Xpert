@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-createtask',
@@ -6,7 +8,11 @@ import { Component } from '@angular/core';
   styleUrl: './createtask.component.scss'
 })
 export class CreatetaskComponent {
+  constructor(private modalService: NgbModal) {}
 
+  openSecondModal() {
+    this.modalService.open(DashboardComponent, { backdrop: 'static', keyboard: false });
+  }
 
 
 }

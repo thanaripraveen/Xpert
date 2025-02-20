@@ -4,6 +4,7 @@ import { CommonModule,DatePipe } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -12,7 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,FormsModule,ReactiveFormsModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,NgbModule
   ],
   exports: [ProfileComponent],
   providers : [DatePipe],
