@@ -403,8 +403,11 @@ export class ProfileComponent implements OnInit {
   }
 
   openFirstModal() {
-    const modalRef = this.modalService.open(CreatetaskComponent, { backdrop: 'static', keyboard: false });
-    modalRef.componentInstance.showCloseButton = true;
+    this.modalService.open(CreatetaskComponent, {
+      size: 'xl', // Large modal
+      backdrop: 'static', // Prevent closing on outside click
+      centered: true, // Centered modal
+    });
   }
 
 

@@ -32,31 +32,31 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.BindDashboard(0, 0, '', '9', 'T_id desc','','', '', '', '',0);
+    this.BindDashboard();
   }
-  BindDashboard(
-    id: any, count: any, srchstr: any, taskstatusid: any, orderby: any,
-    srchflag: any, DlrTagids: any, DptTagids: any, sdate: any, edate: any, tktType: any
-  ) {  
+  BindDashboard() {  
     const obj = {
-      id: 0,
-      UserId: this.userID,
-      MaxId: count,
-      SearchString: srchstr,
-      TaskStatus: taskstatusid,
-      orderby: orderby,
-      srchflag: srchflag,
-      DlrTagids: DlrTagids,
-      DptTagids: DptTagids,
-      dt1: sdate,
-      dt2: edate,
-      tkttype: tktType
-    };
+      "id":0,
+      "UserId":this.userID,
+      "MaxId":0,
+      "SearchString":"",
+      "TaskStatus":9,
+      "orderby":"T_iD desc",
+      "srchflag":"",
+      "DlrTagids":"",
+      "DptTagids":"",
+      "dt1":"",
+      "dt2":"",
+      "tkttype":0
+  }
   
     this.api.postmethod1('xpert/GetTaskFeed', obj).subscribe(res => {
       console.log(res);
     if (res.status === 200) {
       this.taskDetailsList = res.response;
+    }
+    else{
+      this.taskDetailsList = []
     }
     });
   }
@@ -88,7 +88,5 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  openThirdModal() {
-    this.modalService.open(LoginComponent, { windowClass: 'custom-modal-lg', backdrop: 'static', keyboard: false, size : 'xl' });
-  }
+
 }

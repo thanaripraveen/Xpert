@@ -56,25 +56,36 @@
                             </select></div>
 
 
-                        <div class="col-7 text-end">
-                            <span class="doc ps-2">
+                        <div class="col-7 text-end doc">
+                            <a class="notification">
+                                <span class="ps-2">
+                                    Doc's
+                                </span>
+                                <span class="badge" *ngIf="task.DocumentsInfo.Documents != '' && task.DocumentsInfo.Documents.Document.length > 0">
+                                    {{task.DocumentsInfo.Documents.Document.length}}</span>
+                            </a>
 
-                                Doc's
-                            </span>
+                            <a class="notification">
+                                <span class="ps-2">
+                                    <img src="../../../assets/images/comment.png" alt="">
+                                </span>
+                                <span class="badge" *ngIf="task.cmtcnt > 0">
+                                    {{task.cmtcnt}}</span>
+                            </a>
 
-                            <span class=" ps-2">
+                            <!-- <span class=" ps-2">
                                 <img src="../../../assets/images/comment.png" alt="">
-                            </span>
+                            </span> -->
 
                             <span class=" ps-2"><img src="../../../assets/images/viewIconImg.png" alt=""></span>
                             <span class=" ps-2"><img src="../../../assets/images/edit.png" alt=""></span>
                         </div>
 
-                        <!-- <div class="col ps-2 doc">
+                        <!-- <div class="col-7 ps-2 doc">
                             <a class="notification">
                                 <span>Doc's</span>
                                 <span class="badge"
-                                    *ngIf="task.DocumentsInfo.length > 0">{{task.DocumentsInfo.length}}</span>
+                                    *ngIf="task.DocumentsInfo.Documents != '' && task.DocumentsInfo.Documents.Document.length > 0">{{task.DocumentsInfo.Documents.Document.length}}</span>
                             </a>
                         </div>
                         <div class="col ps-3 doc">
@@ -83,8 +94,8 @@
                                 <span class="badge"
                                     *ngIf="task.DocumentsInfo.length > 0">{{task.DocumentsInfo.length}}</span>
                             </a>
-                        </div> -->
-                        <!-- <div class="col icon"><img src="../../../assets/images/viewIcon.png" alt=""></div>
+                        </div>
+                        <div class="col icon"><img src="../../../assets/images/viewIcon.png" alt=""></div>
                         <div class="col icon"><img src="../../../assets/images/editIcon.png" alt=""></div> -->
                     </div>
                 </div>
@@ -114,14 +125,16 @@
 
                                 <div *ngIf="task.AckUID !=0 && task.AckUID !='' && task.AckUID != null">
                                     <div class="col">
-                                        <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Acknowledged By : </span>
+                                        <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Acknowledged By :
+                                        </span>
                                         <span style="font-size: 14px;">{{task.AckUSERNAME +' '+ '@'}}
                                             {{LocalTimeConvertioninHours(task.AckDATE)}}
                                         </span>
                                     </div>
                                 </div>
 
-                                <div *ngIf="task.ClosedByUserId !=0 && task.ClosedByUserId !='' && task.ClosedByUserId != null && task.ClosedByUserName!=''">
+                                <div
+                                    *ngIf="task.ClosedByUserId !=0 && task.ClosedByUserId !='' && task.ClosedByUserId != null && task.ClosedByUserName!=''">
                                     <div class="col">
                                         <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Closed By : </span>
                                         <span style="font-size: 14px;">{{task.ClosedByUserName +' '+ '@'}}
@@ -147,7 +160,7 @@
 
     </div>
     <div class="pagination ">
-        <button class="btn btn-primary" (click)="openThirdModal()">First</button>
+        <button class="btn btn-primary">First</button>
         <button class="btn btn-primary">Previous</button>
 
         <span class="text-black">Page 10 of 10</span>

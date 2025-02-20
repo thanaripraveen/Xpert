@@ -10,9 +10,4 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 export class CreatetaskComponent {
   constructor(private modalService: NgbModal) {}
 
-  openSecondModal() {
-    this.modalService.open(DashboardComponent, { backdrop: 'static', keyboard: false });
-  }
-
-
 }
