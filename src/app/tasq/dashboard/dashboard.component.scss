@@ -19,7 +19,7 @@
     }
 
 .taskGridTable{
-    height: calc(100vh - 160px);
+    height: calc(100vh - 150px);
     overflow: auto;
 }
     .taskGrid{
@@ -27,6 +27,7 @@
         font-size: .8rem;
         color: #000;
         border-top: 5px solid;
+        overflow-x: hidden;
        
         .firstRow{
             background-color: #e6eff5;
@@ -143,12 +144,13 @@
 
     .pagination {
         display: flex;
-        gap: 10px;
-        justify-content: end;
-        align-items: center;
-        margin-top: 5px;
-        padding-right: 5px;
-       
+            gap: 10px;
+            justify-content: end;
+            align-items: center;
+            /* margin-top: 5px; */
+            /* padding-right: 5px; */
+            background: #f0f4ff;
+            padding: 5px 5px 0 5px;
         button {
           padding: 3px 10px;
           cursor: pointer;
