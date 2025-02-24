@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { common } from '../common';
 import { ApiService } from '../providers/api.service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 // import { Config } from '../../app/types/Config'
 import { environment } from '../../environments/environment';
 
@@ -13,102 +13,105 @@ import { environment } from '../../environments/environment';
 })
 export class HeaderComponent implements OnInit {
   // Side Bar variables
-  submodules : any = [];
-  menuList : any =[];
- 
+  submodules: any = [];
+  menuList: any = [];
+  currentRoute: string = '';
+
   // For Binding Profile Date
-  profileData : any;
+  profileData: any;
 
   // Image Url
   imageUrl = environment.imgUrl;
 
   @ViewChild('closeOffcanvas') closeOffcanvas: ElementRef | undefined;
-constructor(public common: common,private api: ApiService,private router : Router){
-}
-ngOnInit(): void {
-  this.api.getUserDetails(this.common.userid).subscribe((res: any) => {
-    if (res.StatusCode == 200) {
-      console.log(res.UserTasksInfo[0]);
-      
-      this.profileData = res.UserTasksInfo[0].UserInfo[0];
-      // this.tasks = res.UserTasksInfo[0].Task;
-    }
-  })
-
-  this.getSidebarData();
-
-}
-
-// SideBar function
-getSidebarData() {
-  this.submodules = []
-  const obj = {
-    "roleid": this.common.roleid,
-    "flag": "D"
+  constructor(public common: common, private api: ApiService, private router: Router) {
   }
-  this.api.getSidebarListService('Permissions/getModules', obj).subscribe((response: any) => {
-    if (response.StatusCode == 200) {
-      const mainModules = response.menulist.filter((item: any) => item.ModParentId === 0 && item.StatusType === 'Y');
-      this.menuList = mainModules.map((mainModule: any) => ({
-        Identifier: mainModule.Identifier,
-        ModSequence: mainModule.ModSequence,
-        UID: mainModule.UID,
-        ModuleName: mainModule.ModuleName,
-        FileName: mainModule.FileName,
-        Status: mainModule.Status,
-        ModParentId: mainModule.ModParentId,
-        ModType: mainModule.ModType,
-        StatusType: mainModule.StatusType,
-        platform: mainModule.platform,
-        Component: mainModule.Component,
-        ShowComponent: mainModule.ShowComponent,
-        compstats: mainModule.compstats,
-        active: false,
-        submenu: response.menulist.filter((subModule: any) => mainModule.Identifier === subModule.ModParentId && subModule.StatusType === 'Y')
-          .map((subModule: any) => ({
-            Identifier: subModule.Identifier,
-            ModSequence: subModule.ModSequence,
-            UID: subModule.UID,
-            SubModuleName: subModule.ModuleName,
-            FileName: subModule.FileName,
-            Status: subModule.Status,
-            ModParentId: subModule.ModParentId,
-            ModType: subModule.ModType,
-            StatusType: subModule.StatusType,
-            platform: subModule.platform,
-            Component: subModule.Component,
-            ShowComponent: subModule.ShowComponent,
-            compstats: subModule.compstats,
-          }))
+  ngOnInit(): void {
+    this.api.getUserDetails(this.common.userid).subscribe((res: any) => {
+      if (res.StatusCode == 200) {
+        console.log(res.UserTasksInfo[0]);
 
-      }));
-    }
+        this.profileData = res.UserTasksInfo[0].UserInfo[0];
+        // this.tasks = res.UserTasksInfo[0].Task;
+      }
+    })
 
-  })
-}
+    this.getSidebarData();
 
-toggle(index: any) {
-console.log(index);
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentRoute = event.urlAfterRedirects;
+        this.updateActiveMenu();
+      }
+      else {
+        this.currentRoute = this.router.url;
+        this.updateActiveMenu();
 
-  // if (!this.config.multi) {
-    this.menuList.filter(
-      ((menu: any, i: any) => i !== index && menu.active
-      )).forEach((menu: any) => menu.active = !menu.active);
-  // }
-  this.menuList[index].active = !this.menuList[index].active;
+      }
+    });
 
 
-}
 
-submenuClick(url: any) {
-  this.router.navigateByUrl(url);
-  this.closeOffcanvas?.nativeElement.click()
-}
-
-
-closeSideNav(e: any) {
-  if (e.target.className.slice(0, 19) !== 'navbar-toggler-icon') {
-    this.closeOffcanvas?.nativeElement.click()
   }
-}
+
+  getSidebarData() {
+    const obj = {
+      "roleid": this.common.roleid,
+      "flag": "D"
+    };
+
+    this.api.getSidebarListService('Permissions/getModules', obj).subscribe(
+      (response: any) => {
+        console.log('API Response:', response); // Debugging output
+
+        if (response.StatusCode == 200 && response.menulist) {
+          const mainModules = response.menulist.filter(
+            (item: any) => item.ModParentId == 0 && item.StatusType == 'Y'
+          );
+
+          this.menuList = mainModules.map((mainModule: any) => {
+            // Filtering child modules (Submenus)
+            const submenu = response.menulist.filter(
+              (subModule: any) => subModule.ModParentId === mainModule.Identifier && subModule.StatusType === 'Y'
+            );
+
+            console.log(`Submenu for ${mainModule.ModuleName}:`, submenu); // Check submenu data
+
+            return {
+              ...mainModule,
+              path: `/${mainModule.FileName}`,
+              active: false,
+              submenu: submenu.map(subModule => ({
+                ...subModule,
+                path: `/${subModule.FileName}`,
+                active: false
+              }))
+            };
+          });
+
+          console.log('Processed menuList:', this.menuList); // Debugging output
+          this.updateActiveMenu(); // Update active state after fetching data
+        } else {
+          console.error('Invalid API response:', response);
+        }
+      },
+      (error) => {
+        console.error('API Error:', error);
+      }
+    );
+  }
+
+  updateActiveMenu() {
+    this.menuList.forEach(parent => {
+      parent.active = parent.path == this.router.url;
+
+      parent.submenu.forEach(child => {
+        child.active = child.path == this.router.url;
+        if (child.active) {
+          parent.active = true; // Ensure parent is also active if child is active
+        }
+      });
+    });
+  }
+
 }

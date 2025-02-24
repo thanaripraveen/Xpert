@@ -1,4 +1,5 @@
 <app-header *ngIf="show"></app-header>
+<!-- <app-menu *ngIf="show"></app-menu> -->
 <div class="container-fluid">
         <div class="row" *ngIf="currentURL == '/' || currentURL == '/login'"><router-outlet></router-outlet></div>
         <div class="row" *ngIf="currentURL != '/' && currentURL != '/login'">

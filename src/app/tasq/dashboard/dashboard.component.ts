@@ -16,7 +16,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-  
+  xpertProfileImg : any = environment.xpertProfileImg;
   priorties: any = [
     { id: 3, priorty: 'Low', color: 'green' },
     { id: 2, priorty: 'Medium', color: 'blue' },

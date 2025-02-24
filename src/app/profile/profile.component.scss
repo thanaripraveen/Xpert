@@ -1,7 +1,7 @@
 .container-fluid {
     .profileDiv {
         width: 100%;
-        height: calc(100vh - 45px);
+        height: calc(100vh - 81px);
         background: #fff;
         color: #000;
 
@@ -140,7 +140,7 @@
                 border-top: 1px solid #ccc;
 
                 .setHeight {
-                    max-height: 125px;
+                    max-height: 85px;
                     overflow: auto;
                     overflow-x: hidden;
                     height: auto;

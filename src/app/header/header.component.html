@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container-fluid ps-4">
-    <a class="navbar-brand pt-0"><img src="assets/images/menu_icon.png" alt="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+    <!-- <a class="navbar-brand pt-0"><img src="assets/images/menu_icon.png" alt="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
       aria-controls="offcanvasExample">
       <button class="navbar-toggler" type="button" style="padding: 0 !important;">
         <span class="navbar-toggler-icon"></span>
       </button>
-    </a>
+    </a> -->
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -40,31 +40,19 @@
   </div>
 </nav>
 
-<div class="offcanvas offcanvas-start" appClickOutside (onClickOutside)="closeSideNav($event)" tabindex="-1"
-  id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-  <div class="offcanvas-header">
-    <!-- <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5> -->
-    <button type="button" class="btn-close text-reset pe-0" id="close" data-bs-dismiss="offcanvas" aria-label="Close"
-      #closeOffcanvas></button>
-  </div>
-  <div class="offcanvas-body">
+<nav>
+  <ul class="nav-row">
+    <li *ngFor="let item of menuList" class="nav-item d-flex align-items-center" [class.active]="item.active">
+      <img src="assets/images/MenuIcons/{{item.ModuleName}}.png" alt="" height="15"><a >{{ item.ModuleName }}</a>
 
-    <ul id="accordion" class="accordion">
-      <li *ngFor="let menu of menuList; let i = index" [class.active]="menu.active">
+      <!-- Child Links -->
+      <ul *ngIf="item.submenu.length > 0" class="dropdown">
+        <li *ngFor="let child of item.submenu" [class.active]="child.active">
+          <a [routerLink]="child.path">{{ child.ModuleName }}</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
-        <div class="menu" (click)="toggle(i)">
-          <img src="assets/images/MenuIcons/{{menu.ModuleName}}.png" alt="">
-          <span>{{ menu.ModuleName }}</span>
-          <i class="fa fa-chevron-down"></i>
-        </div>
-
-        <ul class="submenu" #submenu [style.height.px]="menu.active ? submenu.scrollHeight : 0">
-          <li *ngFor="let submenu of menu.submenu">
-            <a (click)="submenuClick(submenu.FileName)">{{ submenu.SubModuleName }}</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div>
 
