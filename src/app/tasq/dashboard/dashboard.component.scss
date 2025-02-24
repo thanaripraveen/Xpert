@@ -139,6 +139,18 @@
         .thirdRow{
             background-color: #e6eff5;
             padding: 3px;
+            
+            .followers img {
+                height: 25px;
+                border-radius: 50px;
+                border: 1.5px solid white;
+                margin: 0 8px 0 0;
+            }
+            .keyName{
+                font-family: 'FaktPro-Medium';
+                font-size: .9rem;
+                color: #1472c1;
+            }
         }
     }
 
@@ -161,6 +173,10 @@
         opacity: 0.4 !important;
       }
 }
+
+
+
+
 
 
 

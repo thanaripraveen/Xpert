@@ -1,3 +1,8 @@
+<div class="overlay" id="overlay" *ngIf="spinner">
+    <div class="loader"></div>
+</div>
+
+
 <div class="dashBoardPage">
     <div class="col-12 d-flex align-items-center headerDesign">
         <div class="col-6 title">DashBoard</div>
@@ -73,31 +78,10 @@
                                 <span class="badge" *ngIf="task.cmtcnt > 0">
                                     {{task.cmtcnt}}</span>
                             </a>
-
-                            <!-- <span class=" ps-2">
-                                <img src="../../../assets/images/comment.png" alt="">
-                            </span> -->
-
                             <span class=" ps-2"><img src="../../../assets/images/viewIconImg.png" alt=""></span>
                             <span class=" ps-2"><img src="../../../assets/images/edit.png" alt=""></span>
                         </div>
 
-                        <!-- <div class="col-7 ps-2 doc">
-                            <a class="notification">
-                                <span>Doc's</span>
-                                <span class="badge"
-                                    *ngIf="task.DocumentsInfo.Documents != '' && task.DocumentsInfo.Documents.Document.length > 0">{{task.DocumentsInfo.Documents.Document.length}}</span>
-                            </a>
-                        </div>
-                        <div class="col ps-3 doc">
-                            <a class="notification">
-                                <span><img src="../../../assets/images/comment_icon.png" alt=""></span>
-                                <span class="badge"
-                                    *ngIf="task.DocumentsInfo.length > 0">{{task.DocumentsInfo.length}}</span>
-                            </a>
-                        </div>
-                        <div class="col icon"><img src="../../../assets/images/viewIcon.png" alt=""></div>
-                        <div class="col icon"><img src="../../../assets/images/editIcon.png" alt=""></div> -->
                     </div>
                 </div>
                 <div class="secondRow">
@@ -133,7 +117,14 @@
                                         </span>
                                     </div>
                                 </div>
-
+                                <div class="row" *ngIf="task.Reslovedby != '' && task.Reslovedby != null">
+                                    <div class="col">
+                                        <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Resolved By : </span>
+                                        <span style="font-size: 14px;">{{task.Reslovedby + ' @ '+
+                                            LocalTimeConvertioninHours(task.Resolvedts)}}
+                                        </span>
+                                    </div>
+                                </div>
                                 <div
                                     *ngIf="task.ClosedByUserId !=0 && task.ClosedByUserId !='' && task.ClosedByUserId != null && task.ClosedByUserName!=''">
                                     <div class="col">
@@ -171,7 +162,8 @@
                                     *ngIf="task.AckUSERNAME != '' && task.AssignUSERNAME == '' && task.ReqStatus != 'Resolved' && task.ReqStatus == 'Closed' ">
                                     <span>--</span>
                                 </div>
-                                <div *ngIf="task.AssignUSERNAME == '' && task.AckUSERNAME != '' && task.ReqStatus != 'Resolved' && task.ReqStatus != 'Closed'" class="assignToMe">
+                                <div *ngIf="task.AssignUSERNAME == '' && task.AckUSERNAME != '' && task.ReqStatus != 'Resolved' && task.ReqStatus != 'Closed'"
+                                    class="assignToMe">
                                     Assigned To Me
                                     <span><input type="checkbox" name="" id=""
                                             class="form-check-input border border-black mx-1"></span>
@@ -179,8 +171,9 @@
                                 </div>
 
                                 <div>
-                                    <span *ngIf="task.AssignUSERNAME != ''" >
-                                        <img class="assignProfileImg" [title]="task.AssignUSERNAME" src="{{xpertProfileImg}}{{task.AssignProfileImage_thumb}}" alt="">
+                                    <span *ngIf="task.AssignUSERNAME != ''">
+                                        <img class="assignProfileImg" [title]="task.AssignUSERNAME"
+                                            src="{{xpertProfileImg}}{{task.AssignProfileImage_thumb}}" alt="">
                                     </span>
                                 </div>
                             </div>
@@ -267,15 +260,39 @@
                                         <img class="statusImage" src="assets/images/statusImages/Complete-White.png"
                                             alt="" *ngIf="task.ReqStatus=='Closed'">
                                     </div>
-                                <!-- </div> -->
-                            </div>
+                                    <!-- </div> -->
+                                </div>
                             </div>
                         </div>
 
                     </div>
                 </div>
                 <div class="thirdRow">
-                    <div class="col-12">gdfgdf</div>
+                    <div class="col-12 d-flex">
+                        <div class="col-5">
+                            <div *ngIf="task.AssignByUserId != 0" class="keyName">Assigned To : <span
+                                    style="font-family: 'FaktPro-Normal';color: #000;">{{task.AssignUSERNAME + ' @ '+
+                                    LocalTimeConvertioninHours(task.AssignByUserTs)}}</span></div>
+                        </div>
+
+
+                        <div class="col-4">
+                            <img src="assets/images/followers_blk.png" alt="" class="me-2">
+                            <span class="followers" *ngFor="let Followers of task.FollowersInfo">
+                                <img title="{{Followers.FirstName + ' ' + Followers.LastName}}"
+                                    [src]="xpertProfileImg + Followers.ProfileImage_thumb" style="cursor: pointer;"
+                                    alt="">
+                            </span>
+                        </div>
+
+                        <div class="col-3 text-end text-black">
+                            <span style="font-size: 13px;font-family: FaktPro-Bold;">Due Date :</span>
+                            <span style="font-size: 13px;font-family: FaktPro-Medium;">{{task.Dueterms}}</span><span
+                                style="font-size: 13px;font-family: FaktPro-Medium;"
+                                class="px-2">{{LocalTimeConvertioninHours1(task.DueOn)}}</span>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </ng-container>

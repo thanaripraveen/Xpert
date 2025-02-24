@@ -16,6 +16,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
+  spinner : boolean = true;
   xpertProfileImg : any = environment.xpertProfileImg;
   priorties: any = [
     { id: 3, priorty: 'Low', color: 'green' },
@@ -35,6 +36,7 @@ export class DashboardComponent implements OnInit {
     this.BindDashboard();
   }
   BindDashboard() {  
+    this.spinner =true;
     const obj = {
       "id":0,
       "UserId":this.userID,
@@ -54,9 +56,11 @@ export class DashboardComponent implements OnInit {
       console.log(res);
     if (res.status === 200) {
       this.taskDetailsList = res.response;
+      this.spinner = false;
     }
     else{
-      this.taskDetailsList = []
+      this.taskDetailsList = [];
+      this.spinner=false;
     }
     });
   }
