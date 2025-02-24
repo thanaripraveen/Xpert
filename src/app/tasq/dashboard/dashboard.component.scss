@@ -21,6 +21,7 @@
 .taskGridTable{
     height: calc(100vh - 150px);
     overflow: auto;
+    border-bottom: 5px solid black
 }
     .taskGrid{
         font-family: 'FaktPro-Normal';

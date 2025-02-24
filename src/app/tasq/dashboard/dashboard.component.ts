@@ -9,6 +9,7 @@ import moment from 'moment';
 import { environment } from '../../../environments/environment'
 import { LoginComponent } from '../../login/login.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SavedocumentsComponent } from '../savedocuments/savedocuments.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -90,6 +91,14 @@ export class DashboardComponent implements OnInit {
     var dateWithTimezone = utcDate.local().format('MM/DD/YY');
     return dateWithTimezone;
 
+  }
+
+  openDocumentsComponent(){
+    this.modalService.open(SavedocumentsComponent, {
+          size: 'lg', // Large modal
+          backdrop: 'static', // Prevent closing on outside click
+          centered: true, // Centered modal
+        });
   }
 
 

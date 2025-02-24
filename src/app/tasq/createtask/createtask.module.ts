@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     CommonModule,
     CreatetaskRoutingModule,NgbModule
-  ]
+  ],
+  exports: [CreatetaskComponent]
 })
 export class CreatetaskModule { }

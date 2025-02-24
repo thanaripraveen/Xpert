@@ -1,0 +1,24 @@
+<div class="overlay" id="overlay" *ngIf="spinner">
+    <div class="loader"></div>
+</div>
+
+<div class="modal-header px-3 py-2">
+    <h5 class="modal-title text-black">Attachments</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()" aria-label="Close"></button>
+  </div>
+  <div class="modal-body text-black">
+    <div class="documentList">
+        <div>jfbhksjdgfbskjdfhg</div>
+    </div>
+    <fieldset class="custom-fieldset" style="color: #000;">
+        <legend class="custom-legend">Attachments</legend>
+        <div class="text-center"><span style="color: #1470c1;">Attach File</span><input type="file" class="ps-2"
+            name="" id="" #fileInput multiple></div>
+        <br>
+        <div class="text-center">
+          <button class="btn btn-primary" >Submit</button>&nbsp;
+          <button class="btn btn-secondary" data-bs-dismiss="modal"
+           >Cancel</button>
+        </div>
+      </fieldset>
+  </div>

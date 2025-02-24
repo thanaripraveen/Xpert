@@ -1,0 +1,36 @@
+.modal-header{
+    background-color: #bfcfd9;
+    .modal-title{
+        font-family: 'FaktPro-Bold';
+        font-size: 14px;
+    }
+}
+
+.modal-body{
+    .documentList{
+        height: 250px;
+        overflow: auto;
+    }
+
+    .custom-fieldset {
+        border: 2px solid #000;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 20px 0;
+        font-family: 'FaktPro-Normal';
+      
+      }
+      
+      .custom-legend {
+        padding: 0;
+        margin-bottom: .5rem;
+        text-align: center;
+        float: none;
+        width: 15%;
+        font-size: 1rem;
+        font-family: 'FaktPro-Normal';
+      
+      }
+      
+    
+}

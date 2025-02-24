@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'createtask', loadChildren: () => import('./tasq/createtask/createtask.module').then(m => m.CreatetaskModule) },
   { path: 'Alltasks', loadChildren: () => import('./tasq/alltasks/alltasks.module').then(m => m.AlltasksModule) },
   { path: 'admusers', loadChildren: () => import('./tasq/users/users.module').then(m => m.UsersModule) },
+  { path: 'tasq/savedocuments', loadChildren: () => import('./tasq/savedocuments/savedocuments.module').then(m => m.SavedocumentsModule) },
 ];
 
 @NgModule({

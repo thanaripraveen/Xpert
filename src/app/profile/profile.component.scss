@@ -140,12 +140,12 @@
                 border-top: 1px solid #ccc;
 
                 .setHeight {
-                    max-height: 85px;
                     overflow: auto;
                     overflow-x: hidden;
                     height: auto;
                     font-family: 'FaktPro-Normal';
                     font-size: .7rem;
+                    height: calc(30vh - 80px);
                 }
 
                 .onlineimage {
