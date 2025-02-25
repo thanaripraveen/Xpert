@@ -14,11 +14,12 @@ import { SavedocumentsComponent } from '../savedocuments/savedocuments.component
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss'
+  styleUrl: './dashboard.component.scss',
+  
 })
 export class DashboardComponent implements OnInit {
-  spinner : boolean = true;
-  xpertProfileImg : any = environment.xpertProfileImg;
+  spinner: boolean = true;
+  xpertProfileImg: any = environment.xpertProfileImg;
   priorties: any = [
     { id: 3, priorty: 'Low', color: 'green' },
     { id: 2, priorty: 'Medium', color: 'blue' },
@@ -26,9 +27,10 @@ export class DashboardComponent implements OnInit {
   ]
   userID: any;
   roleId: any;
-  taskDetailsList : any=[]
+  taskDetailsList: any = []
 
-  constructor(private api: ApiService, private toastr : ToastrService, private common : common,private modalService: NgbModal,){
+  txtSearch : any =""
+  constructor(private api: ApiService, private toastr: ToastrService, private common: common, private modalService: NgbModal,) {
     this.userID = this.common.userid;
     this.roleId = this.common.roleid;
   }
@@ -36,51 +38,57 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.BindDashboard();
   }
-  BindDashboard() {  
-    this.spinner =true;
+  BindDashboard() {
+    this.spinner = true;
     const obj = {
-      "id":0,
-      "UserId":this.userID,
-      "MaxId":0,
-      "SearchString":"",
-      "TaskStatus":9,
-      "orderby":"T_iD desc",
-      "srchflag":"",
-      "DlrTagids":"",
-      "DptTagids":"",
-      "dt1":"",
-      "dt2":"",
-      "tkttype":0
-  }
-  
+      "id": 0,
+      "UserId": this.userID,
+      "MaxId": 0,
+      "SearchString": this.txtSearch == "" ? "" : this.txtSearch,
+      "TaskStatus": 9,
+      "orderby": "T_iD desc",
+      "srchflag": "",
+      "DlrTagids": "",
+      "DptTagids": "",
+      "dt1": "",
+      "dt2": "",
+      "tkttype": 0
+    }
+
     this.api.postmethod1('xpert/GetTaskFeed', obj).subscribe(res => {
       console.log(res);
-    if (res.status === 200) {
-      this.taskDetailsList = res.response;
-      this.spinner = false;
-    }
-    else{
-      this.taskDetailsList = [];
-      this.spinner=false;
-    }
+      if (res.status === 200) {
+        this.taskDetailsList = res.response;
+        this.spinner = false;
+      }
+      else {
+        this.taskDetailsList = [];
+        this.spinner = false;
+      }
     });
+  }
+
+  onSrchTxtboxEmptyFunction(){
+    if(this.txtSearch == ""){
+      this.BindDashboard()
+    }
   }
 
   onSelectChange(event: any, Ticket: any): void {
     const obj = {
-      "ticketId":Ticket,
-      "priorityid":event.target.value
+      "ticketId": Ticket,
+      "priorityid": event.target.value
     }
-    this.api.changePriority('xpert/UpdateTicketPriority',obj).subscribe((res: any)=>{
-      if(res.status == 200){
+    this.api.changePriority('xpert/UpdateTicketPriority', obj).subscribe((res: any) => {
+      if (res.status == 200) {
         this.toastr.success("Priority updated successfully");
-      //  this.socketService.sendTask();
+        //  this.socketService.sendTask();
       }
-      
+
     })
   }
 
-    LocalTimeConvertioninHours(DateTime: any) {
+  LocalTimeConvertioninHours(DateTime: any) {
     var utcDate = moment.utc(DateTime);
     var dateWithTimezone = utcDate.local().format('MM.DD.YY hh:mm A');
     return dateWithTimezone;
@@ -93,12 +101,15 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  openDocumentsComponent(){
+  openDocumentsComponent(task: any) {
+    this.api.setTicketData(task)
     this.modalService.open(SavedocumentsComponent, {
-          size: 'lg', // Large modal
-          backdrop: 'static', // Prevent closing on outside click
-          centered: true, // Centered modal
-        });
+      windowClass: 'custom-modal-class',
+      size: 'lg', // Large modal
+      backdrop: 'static', // Prevent closing on outside click
+      centered: true, // Centered modal
+      // windowClass : 'documentModal'
+    });
   }
 
 

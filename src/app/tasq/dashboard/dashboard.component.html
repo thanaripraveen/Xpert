@@ -16,9 +16,9 @@
             <div class="col-5 ">
                 <div class="input-group">
 
-                    <input type="text" class="form-control py-0" placeholder="Search..." aria-label="Search">
+                    <input type="text" class="form-control py-0" placeholder="Search..." aria-label="Search" [(ngModel)]="txtSearch" (input)="onSrchTxtboxEmptyFunction()" (keyup.enter)="BindDashboard()" >
                     <span class="input-group-text bg-light">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <i class="fa-solid fa-magnifying-glass" (click)="BindDashboard()"></i>
                     </span>
                 </div>
 
@@ -63,12 +63,12 @@
 
                         <div class="col-7 text-end doc">
                             <a class="notification">
-                                <span class="ps-2" (click)="openDocumentsComponent()">
+                                <span class="ps-2" (click)="openDocumentsComponent(task)">
                                     Doc's
                                 </span>
-                                <span class="badge"
-                                    *ngIf="task.DocumentsInfo.Documents != '' && task.DocumentsInfo.Documents.Document.length > 0">
-                                    {{task.DocumentsInfo.Documents.Document.length}}</span>
+                                <span class="badge" *ngIf="task.DocumentsInfo?.Documents && task.DocumentsInfo?.Documents?.Document">
+                                    {{ task.DocumentsInfo.Documents.Document.length>0 ? task.DocumentsInfo.Documents.Document.length : task.DocumentsInfo.Documents.Document? 1:0}}
+                                </span>
                             </a>
 
                             <a class="notification">

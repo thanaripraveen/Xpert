@@ -175,6 +175,24 @@
       }
 }
 
+// .custom-modal-class .modal-dialog {
+//     max-width: 100%;
+//     /* Adjust as needed */
+//     width: 10%;
+//     /* For full control */
+  
+//   }
+  
+//   .custom-modal-class .modal-content {
+//     // padding: 20px; /* Optional: Customize padding */
+//     margin: auto;
+//     background-color: transparent !important;
+//   }
+
+  :host ::ng-deep .custom-modal-class .modal-content {
+    background-color: lightblue;
+  }
+
 
 
 
