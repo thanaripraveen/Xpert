@@ -121,6 +121,7 @@ export class SavedocumentsComponent implements OnInit {
     this.api.postMethod1('xpert/TaskFileUpdate', obj).subscribe((res: any) => {
       if (res.status == 200) {
         this.toastr.success('Ticket file deleted successfully');
+        this.bindDocuments()
         const obj = {
           "TaskId": this.ticketData.ID, "UserID": this.common.userid
         }

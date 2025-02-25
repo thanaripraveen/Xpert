@@ -145,7 +145,7 @@
                     height: auto;
                     font-family: 'FaktPro-Normal';
                     font-size: .7rem;
-                    height: calc(30vh - 80px);
+                    max-height: calc(30vh - 80px);
                 }
 
                 .onlineimage {

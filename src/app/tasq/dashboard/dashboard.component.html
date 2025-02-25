@@ -8,9 +8,11 @@
         <div class="col-6 title">DashBoard</div>
         <div class="col-6 d-flex align-items-center">
             <div class="col-6 d-flex justify-content-end">
-                <span class=" links">OverDue</span>
-                <span class="ps-2 links">New</span>
-                <span class="px-2 links">Active</span>
+                <span class="links" (click)="tickets('mytickets')">My Tickets<span class="ms-1">|</span></span>
+                <span class="links ms-2" (click)="tickets('Alltasks')">All Tickets<span class="ms-1">|</span></span>
+                <span class=" links ms-2" (click)="getsearchdata('9','ovrduediv')">OverDue<span class="ms-1">|</span></span>
+                <span class="ps-2 links" (click)="getsearchdata('7','divnewtask')">New<span class="ms-1">|</span></span>
+                <span class="px-2 links" (click)="getsearchdata('9','divactive');">Active</span>
             </div>
 
             <div class="col-5 ">
@@ -63,7 +65,7 @@
 
                         <div class="col-7 text-end doc">
                             <a class="notification">
-                                <span class="ps-2" (click)="openDocumentsComponent(task)">
+                                <span class="ps-2" (click)="openComponent(task,'doc')" style="cursor: pointer;">
                                     Doc's
                                 </span>
                                 <span class="badge" *ngIf="task.DocumentsInfo?.Documents && task.DocumentsInfo?.Documents?.Document">
@@ -73,13 +75,13 @@
 
                             <a class="notification">
                                 <span class="ps-2">
-                                    <img src="../../../assets/images/comment.png" alt="">
+                                    <img src="../../../assets/images/comment.png" (click)="openComponent(task,'comments')" alt="" style="cursor: pointer;">
                                 </span>
                                 <span class="badge" *ngIf="task.cmtcnt > 0">
                                     {{task.cmtcnt}}</span>
                             </a>
-                            <span class=" ps-2"><img src="../../../assets/images/viewIconImg.png" alt=""></span>
-                            <span class=" ps-2"><img src="../../../assets/images/edit.png" alt=""></span>
+                            <span class=" ps-2"><img src="../../../assets/images/viewIconImg.png" (click)="openComponent(task,'view')" alt="" style="cursor: pointer;"></span>
+                            <span class=" ps-2"><img src="../../../assets/images/edit.png" (click)="openComponent(task,'edit')" alt="" style="cursor: pointer;"></span>
                         </div>
 
                     </div>
@@ -296,6 +298,7 @@
                 </div>
             </div>
         </ng-container>
+        <div class="text-black text-center mt-5" *ngIf="spinner == false && taskDetailsList.length == 0">No Data Found</div>
 
 
     </div>

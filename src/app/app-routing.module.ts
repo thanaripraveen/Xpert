@@ -11,6 +11,9 @@ const routes: Routes = [
   { path: 'Alltasks', loadChildren: () => import('./tasq/alltasks/alltasks.module').then(m => m.AlltasksModule) },
   { path: 'admusers', loadChildren: () => import('./tasq/users/users.module').then(m => m.UsersModule) },
   { path: 'tasq/savedocuments', loadChildren: () => import('./tasq/savedocuments/savedocuments.module').then(m => m.SavedocumentsModule) },
+  { path: 'tasq/comments', loadChildren: () => import('./tasq/comments/comments.module').then(m => m.CommentsModule) },
+  { path: 'tasq/details', loadChildren: () => import('./tasq/details/details.module').then(m => m.DetailsModule) },
+  { path: 'tasq/edittask', loadChildren: () => import('./tasq/edittask/edittask.module').then(m => m.EdittaskModule) },
 ];
 
 @NgModule({

@@ -10,6 +10,8 @@ import { environment } from '../../../environments/environment'
 import { LoginComponent } from '../../login/login.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SavedocumentsComponent } from '../savedocuments/savedocuments.component';
+import { Router } from '@angular/router';
+import { CommentsComponent } from '../comments/comments.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,14 +31,31 @@ export class DashboardComponent implements OnInit {
   roleId: any;
   taskDetailsList: any = []
 
-  txtSearch : any =""
-  constructor(private api: ApiService, private toastr: ToastrService, private common: common, private modalService: NgbModal,) {
+  txtSearch : any ="";
+  dashboardType : any = 9;
+  dashboardOrderBy : any = "T_iD desc";
+
+  overdueToggleValue : boolean = false;
+  constructor(private api: ApiService, private toastr: ToastrService,
+    private common: common, private modalService: NgbModal,private router : Router) {
     this.userID = this.common.userid;
     this.roleId = this.common.roleid;
   }
 
   ngOnInit(): void {
-    this.BindDashboard();
+    this.api.getUpdateTaskValue().subscribe((res: any)=>{
+      console.log(res);
+      
+      if(res.updateValue == ""){
+        this.BindDashboard();
+      }
+      else{
+        const index = this.taskDetailsList.findIndex((item : any) => item.ID === res.data.response[0].ID);
+        if (index !== -1) {
+          this.taskDetailsList[index] = res.data.response[0];
+        }
+      }
+    })
   }
   BindDashboard() {
     this.spinner = true;
@@ -45,8 +64,8 @@ export class DashboardComponent implements OnInit {
       "UserId": this.userID,
       "MaxId": 0,
       "SearchString": this.txtSearch == "" ? "" : this.txtSearch,
-      "TaskStatus": 9,
-      "orderby": "T_iD desc",
+      "TaskStatus": this.dashboardType,
+      "orderby": this.dashboardOrderBy,
       "srchflag": "",
       "DlrTagids": "",
       "DptTagids": "",
@@ -101,16 +120,65 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  openDocumentsComponent(task: any) {
+  openComponent(task: any,component : any) {
+
     this.api.setTicketData(task)
-    this.modalService.open(SavedocumentsComponent, {
-      windowClass: 'custom-modal-class',
-      size: 'lg', // Large modal
-      backdrop: 'static', // Prevent closing on outside click
-      centered: true, // Centered modal
-      // windowClass : 'documentModal'
-    });
+    if(component == 'doc'){
+      this.modalService.open(SavedocumentsComponent, {
+        // windowClass: 'custom-modal-class',
+        size: 'lg', // Large modal
+        backdrop: 'static', // Prevent closing on outside click
+        centered: true, // Centered modal
+        // windowClass : 'documentModal'
+      });
+    }
+    else if(component == 'comments'){
+      this.modalService.open(CommentsComponent, {
+        // windowClass: 'custom-modal-class',
+        size: 'lg', // Large modal
+        backdrop: 'static', // Prevent closing on outside click
+        centered: true, // Centered modal
+        // windowClass : 'documentModal'
+      });
+    }
+    else if(component == 'view'){
+      this.modalService.open(CommentsComponent, {
+        // windowClass: 'custom-modal-class',
+        size: 'xl', // Large modal
+        backdrop: 'static', // Prevent closing on outside click
+        centered: true, // Centered modal
+        // windowClass : 'documentModal'
+      });
+    }
+    else if(component == 'edit'){
+      this.modalService.open(CommentsComponent, {
+        // windowClass: 'custom-modal-class',
+        size: 'xl', // Large modal
+        backdrop: 'static', // Prevent closing on outside click
+        centered: true, // Centered modal
+        // windowClass : 'documentModal'
+      });
+    }
+
+
   }
 
+  getsearchdata(type : any,srchflag : any){
+    this.taskDetailsList = [];
+    this.dashboardType = type;
+    if(srchflag == 'ovrduediv'){
+      this.overdueToggleValue = !this.overdueToggleValue;
+      this.dashboardOrderBy = this.overdueToggleValue ? "Dueindays desc" : "Dueindays"; 
+    }
+    else{
+      this.dashboardOrderBy = "T_id desc";
+    }
 
+    this.BindDashboard();
+
+  }
+
+  tickets(url : any){
+    this.router.navigateByUrl(url)
+  }
 }
