@@ -1,34 +1,54 @@
-.modal-body{
-    .titleClass{
-        h6{
+.modal-body {
+    padding-bottom: 5px;
+
+    .titleClass {
+        h6 {
             font-family: 'FaktPro-Bold';
             color: #1470c1;
 
-            .title{
+            .title {
                 font-family: 'FaktPro-Medium';
                 color: #000;
             }
         }
-        
+
     }
-    .commentsList{
-        height: 250px;
+
+    .commentsList {
+        height: calc(40vh - 90px);
         overflow: auto;
         overflow-x: hidden;
 
-        label{
-            padding-left: 5px; cursor: pointer; font-size: 13px; font-family: 'FaktPro-Normal'; color: #000;text-decoration: underline;
+        label {
+            padding-left: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: 'FaktPro-Normal';
+            color: #000;
+            text-decoration: underline;
         }
 
         .commentsdata {
             font-family: 'FaktPro-Bold';
             font-size: .9rem;
             color: #1470c1;
-          }
-        
-          .commentMessage {
+        }
+
+        .commentMessage {
             font-family: 'FaktPro-Normal';
             font-size: .9rem;
-          }
+        }
     }
+
+    // .commentFormStyles{
+    //     .toolbar ::ng-deep.angular-editor-textarea{
+    //         height: 12rem !important;
+    //     }
+    // }
+
+}
+
+::ng-deep .angular-editor-textarea {
+    height: 12rem !important;
+
 }

@@ -5,6 +5,8 @@ import { common } from '../../common';
 import moment from 'moment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import * as bootstrap from 'bootstrap';
+
 
 
 @Component({
@@ -13,12 +15,6 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
   styleUrl: './comments.component.scss'
 })
 export class CommentsComponent implements OnInit {
-  commentsArray : any =[];
-  ticketData : any;
-  spinner : boolean = true;
-  userID : any;
-  commentForm: FormGroup | any;
-
   config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
@@ -31,6 +27,17 @@ export class CommentsComponent implements OnInit {
     defaultParagraphSeparator: 'p',
     sanitize:false 
   };
+
+  commentsArray : any =[];
+  ticketData : any;
+  spinner : boolean = true;
+  userID : any;
+  commentForm: FormGroup | any;
+  publicStatus: any = 'N';
+  sendMailStatus: boolean = false;
+
+
+  
   constructor(public activeModal: NgbActiveModal,private api : ApiService,private common : common,private fb : FormBuilder){
     this.commentForm = this.fb.group({
       txtNotes: ['', [Validators.required]]
@@ -79,8 +86,52 @@ export class CommentsComponent implements OnInit {
 
   }
 
+  publicStatusEvent(e: any) {
+    if (e.target.checked) {
+      this.publicStatus = 'Y'
+    }
+    else {
+      this.publicStatus = 'N'
+    }
+  }
+
+  sendMailEvent(e: any) {
+    this.sendMailStatus = e.target.checked;
+    if (this.sendMailStatus == true && this.ticketData.ReqDealerId == 100) {
+      this.getDealerBasedData();
+    }
+  }
+
+  internalusername: any = '';
+  internaluseremail: any = '';
+  getDealerBasedData() {
+    let obj = {
+      'userid': this.common.userid,
+      'ticketid': this.ticketData.Ticket,
+    }
+    this.api.postmethod('Comments/GetInternalUser', obj).subscribe((res: any) => {
+      if (res.responsecode == 200) {
+        this.internalusername = res.InternalUsersData[0].ReqUserName;
+        this.internaluseremail = res.InternalUsersData[0].ReqUserEmail;
+      }
+
+    })
+  }
+
   
   closeModal() {
     this.activeModal.close();
   }
+
+  selectedImage: any;
+  onImageClick(event: MouseEvent) {
+    const target = event.target as HTMLImageElement;
+    if (target && target.tagName === 'IMG') {
+      this.selectedImage = target.src
+      const modal = new bootstrap.Modal(document.getElementById('screenshotModal') as HTMLElement);
+      modal.show();
+    }
+  }
+
+
 }

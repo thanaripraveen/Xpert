@@ -31,8 +31,8 @@
                 </div>
             </div>
             <div class="row">
-                <div for="" [innerHTML]="comment.commentEditDesc" class="image-view mb-1 col-10"
-                       ></div>
+                <div for=""  [innerHTML]="comment.commentEditDesc" class="image-view mb-1 col-10"
+                (click)="onImageClick($event)"   ></div>
             </div>
         </ng-container>
 
@@ -40,31 +40,52 @@
     <div class="commentFormStyles">
         <form [formGroup]="commentForm">
 
-            <div class="row" style="padding: 25px 0">
+            <div class="row" style="padding: 5px 0">
 
                 <div class="toolbar">                                                          
-                <angular-editor formControlName="txtNotes" [config]="config" ></angular-editor>
+                <angular-editor formControlName="txtNotes" [config]="config"  ></angular-editor>
                 </div>                           
                
             </div>
-            <div class="row" style="padding: 0 25px 10px 25px">
+            <div class="row" style="padding: 0 25px 0px 25px">
 
-                <div class="col-3 d-flex align-items-center justify-content-end"><input type="checkbox"
-                        class="form-check" value="Public" 
-                        ><span class="ps-2" style="font-family: 'FaktPro-Normal'; color:#0754c5">Public</span>
-
-
-                </div>
-                <div class="col-3 d-flex align-items-center">
-                    <input type="checkbox" class="form-check ps-4" value="Send Mail"
+                <div class="col-3"></div>
+                <div class="col-6 d-flex align-items-center justify-content-center ">
+                   <div class="d-flex align-items-center mx-2"><input type="checkbox"
+                    class="form-check" value="Public" [checked]="this.publicStatus == 'Y'"
+                    (change)="publicStatusEvent($event)"
+                    ><span class="ps-2" style="font-family: 'FaktPro-Normal'; color:#0754c5">Public</span></div> 
+                   <div class="d-flex align-items-center">
+                    <input type="checkbox" class="form-check ps-4" value="Send Mail" [checked]="sendMailStatus" (change)="sendMailEvent($event)"
                        ><span class="ps-2" style="font-family:'FaktPro-Normal' ; color:#0754c5">Send
                         Mail</span>
+                   </div> 
+                   <div class="mx-2">
+                    <button type="submit" class="btn btn-primary"
+                     >Submit</button>
+                   </div> 
+                   <div>
+                    <button type="button"  class="btn btn-secondary"
+                        >Cancel</button>
+                   </div> 
                 </div>
-                <div class="col-3"><button type="submit" class="btn btn-primary"
-                       >Submit</button></div>
-                <div class="col-3"><button type="button"  class="btn btn-secondary"
-                        >Cancel</button></div>
+                <div class="col-3"></div>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Screen Short Modal -->
+<div class="modal fade" id="screenshotModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img [src]="selectedImage" class="img-fluid">
+            </div>
+        </div>
     </div>
 </div>

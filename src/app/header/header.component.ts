@@ -127,7 +127,6 @@ export class HeaderComponent implements OnInit {
     // Toggle current menu
     item.isOpen = !item.isOpen;
   }
-
   // Detect click outside menu
   @HostListener('document:click', ['$event'])
   closeMenu(event: Event) {

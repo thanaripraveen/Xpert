@@ -86,16 +86,15 @@
                     </div>
                 </div>
                 <div class="secondRow">
-                    <!-- <div> &nbsp; -- <span style="margin-left: .6rem;" [innerHTML]="task.Details"></span></div> -->
-                    <div class="col-12 d-flex ">
-                        <div class="title">{{task.Title}}</div>
-                        <!-- <div class="col">
-                            <div [innerHTML]="task.Details"></div>
-                        </div> -->
-                    </div>
-                    <div class="col-12 d-flex ">
-                        <div>
-                            <div [innerHTML]="task.Details"></div>
+                
+
+                    <div class="col-12">
+                        <div class="d-flex">
+                            <span style="font-family: 'FaktPro-Medium';font-size: 1.1rem;padding-right:1rem;text-wrap-mode:nowrap;"> {{task.Title
+                                !=
+                                ''? task.Title :'-'}} -- </span>
+                            <!-- <span  > -- </span> -->
+                            <div class="cesd" [innerHTML]="task.Details"></div>
                         </div>
                     </div>
                     <div class="col-12 d-flex align-items-center">

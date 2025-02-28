@@ -137,7 +137,7 @@ export class DashboardComponent implements OnInit {
         windowClass: 'commentsModal',
         size: 'lg', 
         backdrop: 'static',
-        centered: true, 
+        centered : true, 
       });
     }
     else if(component == 'view'){
