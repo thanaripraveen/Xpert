@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+// @import '@kolkov/angular-editor/css/angular-editor.css';
+
 
 @font-face {
     font-family: 'FaktPro-Bold';
@@ -113,6 +115,39 @@ body { margin: 0; font-family: 'FaktPro-Normal' }
   left: 0;
   border-radius: 4px;
 }
+
+
+.modal-header{
+  background-color: #bfcfd9;
+  .modal-title{
+      font-family: 'FaktPro-Bold';
+      font-size: 14px;
+  }
+}
+
+.documentModal .modal-dialog {
+  max-width: 45% !important;
+  width: 45% !important;
+
+}
+.commentsModal .modal-dialog {
+  max-width: 70% !important;
+  width: 70% !important;
+
+}
+.viewModal .modal-dialog {
+  max-width: 90% !important;
+  width: 90% !important;
+
+}
+.editModal .modal-dialog {
+  max-width: 90% !important;
+  width: 90% !important;
+
+}
+
+
+
 
 @keyframes bxSpin {
   17% {

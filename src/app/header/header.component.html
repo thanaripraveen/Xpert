@@ -39,14 +39,13 @@
     </div>
   </div>
 </nav>
-
 <nav>
-  <ul class="nav-row">
+  <ul class="nav-row" #menuContainer>
     <li *ngFor="let item of menuList" class="nav-item d-flex align-items-center" [class.active]="item.active">
-      <img src="assets/images/MenuIcons/{{item.ModuleName}}.png" alt="" height="15"><a >{{ item.ModuleName }}</a>
+      <img src="assets/images/MenuIcons/{{item.ModuleName}}.png" alt="" height="15"><a (click)="toggleMenu(item, $event)" style="cursor: pointer;">{{ item.ModuleName }}</a>
 
       <!-- Child Links -->
-      <ul *ngIf="item.submenu.length > 0" class="dropdown">
+      <ul *ngIf="item.isOpen" class="dropdown">
         <li *ngFor="let child of item.submenu" [class.active]="child.active">
           <a [routerLink]="child.path">{{ child.ModuleName }}</a>
         </li>

@@ -177,14 +177,13 @@
       }
 }
 
-// .custom-modal-class .modal-dialog {
-//     max-width: 100%;
-//     /* Adjust as needed */
-//     width: 10%;
-//     /* For full control */
+.custom-modal-class .modal-dialog {
+    max-width: 100% !important;
+    /* Adjust as needed */
+    width: 100% !important;
+    /* For full control */
   
-//   }
-  
+  }
 //   .custom-modal-class .modal-content {
 //     // padding: 20px; /* Optional: Customize padding */
 //     margin: auto;

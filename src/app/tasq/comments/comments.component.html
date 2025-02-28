@@ -1,1 +1,70 @@
-<p>comments works!</p>
+<div class="overlay" id="overlay" *ngIf="spinner">
+    <div class="loader"></div>
+</div>
+
+<div class="modal-header px-3 py-2">
+    <h5 class="modal-title text-black">Comments</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()" aria-label="Close"></button>
+</div>
+
+<div class="modal-body text-black">
+    <div class="row titleClass">
+        <h6>Title : <span class="title">{{ticketData.Title}}</span></h6>
+    </div>
+    <div class="commentsList">
+        <ng-container *ngFor="let comment of commentsArray">
+            <div class="row">
+                <div class="col-10">
+                    <div class="commentsdata">{{comment.createdUserName}} -
+                        {{LocalTimeConvertioninHours(comment.createdDate) }} - {{comment.postedOn}}
+                        <img *ngIf="comment.publicStatus === 'Y'" src="assets/images/mul-pers.png" width="19" />
+                    </div>
+                </div>
+                <div class="col-2 text-center" *ngIf="comment.createdUserId == userID">
+                    <span><img src="assets/images/editIcon.png" title="Edit Comment"
+                         title="Edit Comment"
+                        style="cursor:pointer;"></span>
+                <span>
+                    <img class="ps-4" src="assets/images/deleteIcon.png" title="Delete Comment"
+                        style="cursor:pointer;">
+                </span>
+                </div>
+            </div>
+            <div class="row">
+                <div for="" [innerHTML]="comment.commentEditDesc" class="image-view mb-1 col-10"
+                       ></div>
+            </div>
+        </ng-container>
+
+    </div>
+    <div class="commentFormStyles">
+        <form [formGroup]="commentForm">
+
+            <div class="row" style="padding: 25px 0">
+
+                <div class="toolbar">                                                          
+                <angular-editor formControlName="txtNotes" [config]="config" ></angular-editor>
+                </div>                           
+               
+            </div>
+            <div class="row" style="padding: 0 25px 10px 25px">
+
+                <div class="col-3 d-flex align-items-center justify-content-end"><input type="checkbox"
+                        class="form-check" value="Public" 
+                        ><span class="ps-2" style="font-family: 'FaktPro-Normal'; color:#0754c5">Public</span>
+
+
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                    <input type="checkbox" class="form-check ps-4" value="Send Mail"
+                       ><span class="ps-2" style="font-family:'FaktPro-Normal' ; color:#0754c5">Send
+                        Mail</span>
+                </div>
+                <div class="col-3"><button type="submit" class="btn btn-primary"
+                       >Submit</button></div>
+                <div class="col-3"><button type="button"  class="btn btn-secondary"
+                        >Cancel</button></div>
+            </div>
+        </form>
+    </div>
+</div>

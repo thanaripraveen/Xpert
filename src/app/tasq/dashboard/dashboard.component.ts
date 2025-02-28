@@ -12,6 +12,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SavedocumentsComponent } from '../savedocuments/savedocuments.component';
 import { Router } from '@angular/router';
 import { CommentsComponent } from '../comments/comments.component';
+import { DetailsComponent } from '../details/details.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -125,38 +126,34 @@ export class DashboardComponent implements OnInit {
     this.api.setTicketData(task)
     if(component == 'doc'){
       this.modalService.open(SavedocumentsComponent, {
-        // windowClass: 'custom-modal-class',
-        size: 'lg', // Large modal
-        backdrop: 'static', // Prevent closing on outside click
-        centered: true, // Centered modal
-        // windowClass : 'documentModal'
+        windowClass: 'documentModal',
+        size: 'lg', 
+        backdrop: 'static',
+        centered: true, 
       });
     }
     else if(component == 'comments'){
       this.modalService.open(CommentsComponent, {
-        // windowClass: 'custom-modal-class',
-        size: 'lg', // Large modal
-        backdrop: 'static', // Prevent closing on outside click
-        centered: true, // Centered modal
-        // windowClass : 'documentModal'
+        windowClass: 'commentsModal',
+        size: 'lg', 
+        backdrop: 'static',
+        centered: true, 
       });
     }
     else if(component == 'view'){
-      this.modalService.open(CommentsComponent, {
-        // windowClass: 'custom-modal-class',
-        size: 'xl', // Large modal
-        backdrop: 'static', // Prevent closing on outside click
-        centered: true, // Centered modal
-        // windowClass : 'documentModal'
+      this.modalService.open(DetailsComponent, {
+        windowClass: 'viewModal',
+        size: 'xl', 
+        backdrop: 'static',
+        centered: true, 
       });
     }
     else if(component == 'edit'){
       this.modalService.open(CommentsComponent, {
-        // windowClass: 'custom-modal-class',
-        size: 'xl', // Large modal
-        backdrop: 'static', // Prevent closing on outside click
-        centered: true, // Centered modal
-        // windowClass : 'documentModal'
+        windowClass: 'editModal',
+        size: 'xl', 
+        backdrop: 'static',
+        centered: true, 
       });
     }
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { common } from '../common';
 import { ApiService } from '../providers/api.service';
 import { NavigationEnd, Router } from '@angular/router';
@@ -24,6 +24,7 @@ export class HeaderComponent implements OnInit {
   imageUrl = environment.imgUrl;
 
   @ViewChild('closeOffcanvas') closeOffcanvas: ElementRef | undefined;
+  @ViewChild('menuContainer', { static: true }) menuContainer!: ElementRef;
   constructor(public common: common, private api: ApiService, private router: Router) {
   }
   ngOnInit(): void {
@@ -112,6 +113,27 @@ export class HeaderComponent implements OnInit {
         }
       });
     });
+  }
+
+  toggleMenu(item: any,event: Event) {
+    event.stopPropagation();
+    // Close other open menus
+    this.menuList.forEach(menu => {
+      if (menu.Identifier !== item.Identifier) {
+        menu.isOpen = false;
+      }
+    });
+  
+    // Toggle current menu
+    item.isOpen = !item.isOpen;
+  }
+
+  // Detect click outside menu
+  @HostListener('document:click', ['$event'])
+  closeMenu(event: Event) {
+    if (this.menuContainer && !this.menuContainer.nativeElement.contains(event.target)) {
+      this.menuList.forEach(menu => menu.isOpen = false);
+    }
   }
 
 }

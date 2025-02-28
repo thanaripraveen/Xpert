@@ -74,29 +74,24 @@
 }
 
 /* Dropdown */
-.dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100vw;
-  background: white;
-  padding: 10px 0;
-  list-style: none;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  // border-top: 2px solid #007bff;
-  z-index: 1000;
-  text-align: center;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-10px);
-  transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
-}
-
-/* Show dropdown when hovering */
 .nav-item:hover .dropdown {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+/* Ensure dropdown only appears when `*ngIf` is true */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100vw; /* Adjust as needed */
+  background: white;
+  padding: 10px 0;
+  list-style: none;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  text-align: center;
 }
 
 /* Active Child Link */

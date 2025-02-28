@@ -2,12 +2,11 @@
     <div class="loader"></div>
 </div>
 
-
 <div class="dashBoardPage">
     <div class="col-12 d-flex align-items-center headerDesign">
-        <div class="col-6 title">DashBoard</div>
-        <div class="col-6 d-flex align-items-center">
-            <div class="col-6 d-flex justify-content-end">
+        <div class="col-4 title">DashBoard</div>
+        <div class="col-8 d-flex align-items-center">
+            <div class="col-7 d-flex justify-content-end">
                 <span class="links" (click)="tickets('mytickets')">My Tickets<span class="ms-1">|</span></span>
                 <span class="links ms-2" (click)="tickets('Alltasks')">All Tickets<span class="ms-1">|</span></span>
                 <span class=" links ms-2" (click)="getsearchdata('9','ovrduediv')">OverDue<span class="ms-1">|</span></span>
@@ -15,7 +14,7 @@
                 <span class="px-2 links" (click)="getsearchdata('9','divactive');">Active</span>
             </div>
 
-            <div class="col-5 ">
+            <div class="col-4 ">
                 <div class="input-group">
 
                     <input type="text" class="form-control py-0" placeholder="Search..." aria-label="Search" [(ngModel)]="txtSearch" (input)="onSrchTxtboxEmptyFunction()" (keyup.enter)="BindDashboard()" >

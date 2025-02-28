@@ -11,6 +11,7 @@ import { HeaderModule } from './header/header.module';
 import { ProfileModule } from './profile/profile.module';
 import { NgxEditorModule } from 'ngx-editor';
 import { ToastrModule } from 'ngx-toastr';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ToastrModule } from 'ngx-toastr';
       timeOut: 3000,
       positionClass: 'toast-top-right',
       preventDuplicates: true,
-    })
+    }),
+    AngularEditorModule
     
   ],
   providers: [
