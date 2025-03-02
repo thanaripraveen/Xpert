@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-details',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class DetailsComponent {
 
+  constructor(private modalService : NgbModal){}
+ 
 }

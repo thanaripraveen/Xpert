@@ -47,8 +47,12 @@
     // }
 
 }
+.invalid-border ::ng-deep .angular-editor-wrapper{
+  border: 1px solid red;
+}
 
 ::ng-deep .angular-editor-textarea {
     height: 12rem !important;
 
 }
+

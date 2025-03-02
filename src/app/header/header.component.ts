@@ -128,7 +128,7 @@ export class HeaderComponent implements OnInit {
     item.isOpen = !item.isOpen;
   }
   // Detect click outside menu
-  @HostListener('document:click', ['$event'])
+  @HostListener('mouseleave', ['$event'])
   closeMenu(event: Event) {
     if (this.menuContainer && !this.menuContainer.nativeElement.contains(event.target)) {
       this.menuList.forEach(menu => menu.isOpen = false);
