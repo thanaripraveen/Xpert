@@ -3,44 +3,62 @@
 
 
 @font-face {
-    font-family: 'FaktPro-Bold';
-    src: url('assets/fonts/FaktPro-Bold.otf') format('otf'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-         url('assets/fonts/FaktPro-Bold.otf') format('opentype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-  }
-@font-face {
-    font-family: 'FaktPro-Light';
-    src: url('assets/fonts/FaktPro-Light.otf') format('otf'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-         url('assets/fonts/FaktPro-Light.otf') format('opentype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-  }
-@font-face {
-    font-family: 'FaktPro-Medium';
-    src: url('assets/fonts/FaktPro-Medium.otf') format('otf'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-         url('assets/fonts/FaktPro-Medium.otf') format('opentype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-  }
-@font-face {
-    font-family: 'FaktPro-Normal';
-    src: url('assets/fonts/FaktPro-Normal.otf') format('otf'), /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-         url('assets/fonts/FaktPro-Normal.otf') format('opentype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-  }
+  font-family: 'FaktPro-Bold';
+  src: url('assets/fonts/FaktPro-Bold.otf') format('otf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/FaktPro-Bold.otf') format('opentype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
 
-    body {
-        margin: 0px;
-        padding: 0px;
-        border: 0px;
-        width: auto;
-        height: auto;
-        color: #fff;
-        font-family: "FaktPro-Normal";
-        background: url(/assets/images/tasq_innerbg.png) no-repeat fixed;
-        background-repeat: no-repeat;
-        background-color: #222f43;
-        background-size: cover;
-        background-position: 50% 50%;
-        font-size: 12px;
-    }
+@font-face {
+  font-family: 'FaktPro-Light';
+  src: url('assets/fonts/FaktPro-Light.otf') format('otf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/FaktPro-Light.otf') format('opentype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: 'FaktPro-Normal' }
+@font-face {
+  font-family: 'FaktPro-Medium';
+  src: url('assets/fonts/FaktPro-Medium.otf') format('otf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/FaktPro-Medium.otf') format('opentype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+  font-family: 'FaktPro-Normal';
+  src: url('assets/fonts/FaktPro-Normal.otf') format('otf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/FaktPro-Normal.otf') format('opentype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: auto;
+  height: auto;
+  color: #fff;
+  font-family: "FaktPro-Normal";
+  background: url(/assets/images/tasq_innerbg.png) no-repeat fixed;
+  background-repeat: no-repeat;
+  background-color: #222f43;
+  background-size: cover;
+  background-position: 50% 50%;
+  font-size: 12px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'FaktPro-Normal'
+}
 
 ::-webkit-scrollbar {
 
@@ -56,7 +74,7 @@ body { margin: 0; font-family: 'FaktPro-Normal' }
 
 ::-webkit-scrollbar-thumb {
 
-    background: #001124;
+  background: #001124;
 }
 
 
@@ -72,8 +90,7 @@ body { margin: 0; font-family: 'FaktPro-Normal' }
   background: rgba(0, 0, 0, 0.7);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(0px);
-  display: flex
-;
+  display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
@@ -116,12 +133,22 @@ body { margin: 0; font-family: 'FaktPro-Normal' }
   border-radius: 4px;
 }
 
+.loading {
+  position: absolute;
+  top: 56%;
+  font-size: 1rem;
+  color: white !important;
+  font-family: 'FaktPro-Medium';
+  
+}
 
-.modal-header{
+
+.modal-header {
   background-color: #bfcfd9;
-  .modal-title{
-      font-family: 'FaktPro-Bold';
-      font-size: 14px;
+
+  .modal-title {
+    font-family: 'FaktPro-Bold';
+    font-size: 14px;
   }
 }
 
@@ -130,21 +157,25 @@ body { margin: 0; font-family: 'FaktPro-Normal' }
   width: 45% !important;
 
 }
+
 .commentsModal .modal-dialog {
   max-width: 60% !important;
   width: 60% !important;
 
 }
+
 .viewModal .modal-dialog {
   max-width: 90% !important;
   width: 90% !important;
 
 }
+
 .editModal .modal-dialog {
   max-width: 90% !important;
   width: 90% !important;
 
 }
+
 // .deleteCommentModal .modal-dialog {
 //   padding: 5px;
 
@@ -157,29 +188,33 @@ body { margin: 0; font-family: 'FaktPro-Normal' }
   17% {
     border-bottom-right-radius: 3px;
   }
+
   25% {
     transform: translateY(9px) rotate(22.5deg);
   }
+
   50% {
     transform: translateY(18px) scale(1, .9) rotate(45deg);
     border-bottom-right-radius: 40px;
   }
+
   75% {
     transform: translateY(9px) rotate(67.5deg);
   }
+
   100% {
     transform: translateY(0) rotate(90deg);
   }
 }
 
 @keyframes shadow {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1, 1);
   }
+
   50% {
     transform: scale(1.2, 1);
   }
 }
-
-
-

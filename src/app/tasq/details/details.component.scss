@@ -1,0 +1,19 @@
+.modal-body{
+    height: calc(80vh - 0px);
+    overflow: auto;
+    overflow-x: hidden;
+
+    .keyName{
+        font-family: 'FaktPro-Medium';
+        font-size: .9rem;
+        color: #1470c2;
+    }
+    .valueName{
+        font-size: .8rem;
+        margin-left: 10px;
+    }
+    .profile-img{
+        height: 40px;
+        border-radius: 50%;
+    }
+}
