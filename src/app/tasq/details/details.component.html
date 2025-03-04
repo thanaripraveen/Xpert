@@ -10,12 +10,12 @@
 </div>
 <div class="modal-body text-black">
     <div class="row mt-3">
-        <div class="col-4">
+        <div class="col-2">
             <div> <span class="keyName">Ticket Id :</span> <span class="valueName">{{viewTicketInfo.Ticket}}</span>
             </div>
         </div>
 
-        <div class="col-4">
+        <div class="col-3 text-center">
             <div><span class="keyName">Dealer Name :</span> <span class="valueName">{{viewTicketInfo.ReqDealerName!= ""
                     ? viewTicketInfo.ReqDealerName : "- -"}}</span></div>
         </div>
@@ -25,6 +25,12 @@
                     viewTicketInfo.UserName + ' '+ '@' :
                     viewTicketInfo.ReqUserName +' '+ '@'}}
                     {{LocalTimeConvertioninHours(viewTicketInfo.CreatedDate)}}</span> </div>
+        </div>
+        <div class="col-3">
+            <div>
+                <span class="keyName">Due On :</span><span class="valueName">{{viewTicketInfo.DueOn}}</span>
+
+            </div>
         </div>
 
     </div>
@@ -36,64 +42,16 @@
                 [innerHtml]="viewTicketInfo.Details"></span>
         </div>
     </div>
-    <div class="row mt-3">
-        <div class="col-4">
-            <div>
-                <span class="keyName">Due On :</span><span class="valueName">{{viewTicketInfo.DueOn}}</span>
 
-            </div>
-
-            <div class="mt-3">
-                <span class="keyName ">E-mail :</span><span class="valueName">Resolved</span>
-
-            </div>
-
-
-
-        </div>
-        <div class="col-4">
-            <div>
-                <span class="keyName">Status :</span><span class="valueName">{{viewTicketInfo.ReqStatus}}</span>
-            </div>
-
-            <div class="mt-3">
-                <span class="keyName">Mobile :</span><span class="valueName">Resolved</span>
-
-            </div>
-
-
-
-
-        </div>
-        <div class="col-4">
-            <div>
-                <span class="keyName">Priorty :</span><span class="valueName">{{viewTicketInfo.Priority == 1? 'High' :
-                    viewTicketInfo.Priority == 2 ? 'Medium':'Low'}}</span>
-
-            </div>
-            <div class="mt-3">
-                <span class="keyName">Followers :</span><span *ngFor="let Follower of viewTicketInfo.FollowersInfo">
-                    <img style="margin-right: 5px; height: 18px;border-radius: 50px;border: 1.5px solid white;"
-                        title="{{Follower.FirstName + ' ' + Follower.LastName}}"
-                        [src]="xpertProfileImg + Follower.ProfileImage_thumb">
-                </span>
-
-            </div>
-
-
-
-        </div>
-    </div>
-
-    <div class="row mt-3">
-        <div *ngIf="viewTicketInfo.AckUSERNAME != ''">
+    <div class="row mt-3" *ngIf="viewTicketInfo.AckUSERNAME != ''">
+        <div>
             <span class="keyName">Acknowledged By :</span><span class="valueName">{{viewTicketInfo.AckUSERNAME + " @ "
                 + LocalTimeConvertioninHours(viewTicketInfo.AckDATE)}}</span>
 
         </div>
     </div>
-    <div class="row mt-3">
-        <div *ngIf="viewTicketInfo.AssignByUserName != ''">
+    <div class="row mt-3" *ngIf="viewTicketInfo.AssignByUserName != ''">
+        <div>
             <span class="keyName">Assigned By :</span><span class="valueName">{{viewTicketInfo.AssignByUserName +" @ "
                 +
                 LocalTimeConvertioninHours(viewTicketInfo.AssignByUserTs)}}</span>
@@ -101,23 +59,65 @@
         </div>
 
     </div>
-    <div class="row mt-3">
-        <div *ngIf="viewTicketInfo.AssignUSERNAME != ''">
+    <div class="row mt-3" *ngIf="viewTicketInfo.AssignUSERNAME != ''">
+        <div>
             <span class="keyName">Assigned To :</span><span class="valueName">{{viewTicketInfo.AssignUSERNAME}}
                 <span><img class="profile-img" title="{{viewTicketInfo.AssignUSERNAME}}" alt=""
                         src="{{xpertProfileImg}}{{viewTicketInfo.AssignProfileImage_thumb}}"></span></span>
 
         </div>
     </div>
+    <div class="mt-3">
+        <span class="keyName">Followers :</span><span *ngFor="let Follower of viewTicketInfo.FollowersInfo">
+            <img style="margin-right: 5px; height: 30px;border-radius: 50px;border: 1.5px solid white;"
+                title="{{Follower.FirstName + ' ' + Follower.LastName}}"
+                [src]="xpertProfileImg + Follower.ProfileImage_thumb">
+        </span>
+
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-2">
+            <span class="keyName">Status :</span><span class="valueName">{{viewTicketInfo.ReqStatus}}</span>
+        </div>
+
+        <div class="col-3 text-center">
+            <span class="keyName">Priorty :</span><span class="valueName">{{viewTicketInfo.Priority == 1? 'High' :
+                viewTicketInfo.Priority == 2 ? 'Medium':'Low'}}</span>
+
+        </div>
+        <div class="col-4">
+            <span class="keyName">Email :</span><span class="valueName">{{viewTicketInfo.ReqUserEmail}}</span>
+
+        </div>
+        <div class="col-3">
+            <span class="keyName">Mobile :</span><span class="valueName">
+                <span>{{(viewTicketInfo.ReqUserPhone == "" || viewTicketInfo.ReqUserPhone == 'null') ? '---' :
+                    viewTicketInfo.ReqUserPhone}}</span>
+            </span>
+
+        </div>
+
+    </div>
+
 
     <div class="row mt-3">
         <div class="col-4">
-            <div><span class="keyName">Documents :</span><span class="valueName"><a (click)="openDocumentsOrCommentsComponent(viewTicketInfo,'documents')">View (or) Add
+            <div><span class="keyName">Documents :</span><span class="valueName"><a
+                        (click)="openDocumentsOrCommentsComponent(viewTicketInfo,'documents')">View (or) Add
                         Documents</a></span><span class="ms-2">Count</span></div>
         </div>
+       
+    </div>
+    <div class="row mt-3">
         <div class="col-4">
-            <div><span class="keyName">Comments :</span><span class="valueName"><a (click)="openDocumentsOrCommentsComponent(viewTicketInfo, 'comments')">View Comments</a></span></div>
-        </div>
+            
+                <div><span class="keyName">Comments :</span><span class="valueName"><a
+                            (click)="openDocumentsOrCommentsComponent(viewTicketInfo, 'comments')">View Comments</a></span>
+                </div>
+            </div>
+        
+       
     </div>
 
 

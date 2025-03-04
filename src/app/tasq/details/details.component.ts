@@ -58,7 +58,6 @@ export class DetailsComponent implements OnInit {
               centered : true, 
             });
     }
-   
   }
 
 
