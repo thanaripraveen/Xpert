@@ -13,6 +13,7 @@
         }
 
         .profileData {
+            padding: 12px;
             .profileImg {
                 padding-top: .5rem;
                 padding-left: 1.3rem;
@@ -89,6 +90,10 @@
                 font-size: .7rem;
                 margin-top: 5px;
 
+                .shiftRowStyle{
+                    padding: 0px 10px 0 10px;
+                }
+
                 .date {
                     padding-left: 4px;
                     color: #1471c2;
@@ -106,6 +111,7 @@
 
                 .shiftEditIcon {
                     text-align: end;
+                    cursor: pointer;
 
                     img {
                         height: 15px;

@@ -21,19 +21,20 @@ export class HeaderComponent implements OnInit {
   profileData: any;
 
   // Image Url
-  imageUrl = environment.imgUrl;
+  imageUrl = environment.xpertProfileImg;
 
   @ViewChild('closeOffcanvas') closeOffcanvas: ElementRef | undefined;
   @ViewChild('menuContainer', { static: true }) menuContainer!: ElementRef;
   constructor(public common: common, private api: ApiService, private router: Router) {
   }
   ngOnInit(): void {
-    this.api.getUserDetails(this.common.userid).subscribe((res: any) => {
-      if (res.StatusCode == 200) {
-        console.log(res.UserTasksInfo[0]);
-
-        this.profileData = res.UserTasksInfo[0].UserInfo[0];
-        // this.tasks = res.UserTasksInfo[0].Task;
+    const obj ={
+      "id" : this.common.userid
+    }
+    this.api.postMethod1('users/getUserDetails',obj).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.profileData = res.response.UserTasksInfo[0].UserInfo[0];
+        // this.tasks = res.response.UserTasksInfo[0].Task;
       }
     })
 

@@ -262,13 +262,13 @@ export class ApiService implements OnDestroy {
     }
   }
 
-  getNotes(gId: any) {
-    return this.http.post<any>(`${environment.xpertdataurl}TaskManagement/GetXpertUserNotes?GroupId=` + gId, httpOptions)
-  }
+  // getNotes(gId: any) {
+  //   return this.http.post<any>(`${environment.xpertdataurl}TaskManagement/GetXpertUserNotes?GroupId=` + gId, httpOptions)
+  // }
 
-  acknowledgeApi(ticktId : any,loginId: any,Title:any,Details:any,ReqUserEmail:any) {
-    return this.http.post<any>(`${environment.xpertdataurl}TaskManagement/AcknowledgeSupportTask?TicketID=${ticktId}&LoginId=${loginId}&Title=${Title}&Details=${Details}&ReqUserEmail=${ReqUserEmail}`,httpOptions)
-  }
+  // acknowledgeApi(ticktId : any,loginId: any,Title:any,Details:any,ReqUserEmail:any) {
+  //   return this.http.post<any>(`${environment.xpertdataurl}TaskManagement/AcknowledgeSupportTask?TicketID=${ticktId}&LoginId=${loginId}&Title=${Title}&Details=${Details}&ReqUserEmail=${ReqUserEmail}`,httpOptions)
+  // }
 
   releaseNotication(obj: any){
     return this.http.post<any>('https://commsapi.axelautomotive.com/api/Communications/sendNotification',obj)
@@ -316,9 +316,7 @@ export class ApiService implements OnDestroy {
   }
 
 
-  GetEditProfile(uid: number): Observable<any> {
-    return this.http.post<any>(`${environment.xpertdataurl}UserManagement/Edit?uid=${uid}`, httpOptions);
-  }
+  
 
   setUpdateTaskValue(value : any){
     this.taskUpdateValue.next(value)

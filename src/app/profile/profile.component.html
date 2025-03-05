@@ -4,17 +4,18 @@
         <div class="profileData">
             <div class="col-12" *ngIf="profileData != undefined">
                 <div class="row">
-                    <div class="col-3 profileImg"><img src="{{imageUrl}}{{profileData.profileimage}}" alt=""></div>
+                    <div class="col-3 profileImg"><img src="{{imageUrl}}{{profileData.profileimage_thumb}}" alt=""></div>
                     <div class="col-9 profileInfo">
-                        <div class="profileInfoStyle">{{profileData.u_doj}}</div>
+                        
                         <div class="profileInfoStyle">{{profileData.fullname}}</div>
                         <div class="profileInfoTitle">{{profileData.title}}</div>
+                        <div class="profileInfoStyle">{{profileData.u_doj}}</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="profileSchedule mt-3">
+        <div class="profileSchedule">
             <div class="shiftSchedule">
                 <img src="assets/images/shift_icon (1).png" height="15" alt=""><span class="ps-1">SHIFT SCHEDULE</span>
             </div>
@@ -27,15 +28,16 @@
             </div>
             <div class="bindShiftDataStyle">
                 <ng-container *ngFor="let shift of ShiftScheduleData">
-                    <div class="col-12 d-flex align-items-center mt-1">
-                        <div class="col-3 date">{{shift.Days}}</div>
-                        <div class="col-8 shiftHours" *ngIf="shift.Types != 'Off'">
-                            <span *ngIf="shift.shiftval != ''">Shift</span>{{shift.shiftval != '' ? shift.shiftval :
-                            'Custom'}}
-                            <span> [{{shift.StartTimes}} - {{shift.EndTimes}}]
+                    <div class="col-12 d-flex align-items-center mt-1 shiftRowStyle">
+                        <div class="col-4 date">{{shift.Days}}</div>
+                        <div class="col-7 d-flex justify-content-left shiftHours" *ngIf="shift.Types != 'Off'">
+                            <!-- <span *ngIf="shift.shiftval != ''">Shift</span>{{shift.shiftval != '' ? shift.shiftval :
+                            'Custom'}} -->
+                            <span>
+                               [{{shift.StartTimes}} - {{shift.EndTimes}}]
                             </span>
                         </div>
-                        <div class="col-8 shiftHours shiftHoursOff" *ngIf="shift.Types == 'Off'">Off</div>
+                        <div class="col-7 shiftHoursOff" *ngIf="shift.Types == 'Off'">Off</div>
                         <div class="col-1 shiftEditIcon">
                             <img src="assets/images/editIcon.png" title="Edit Shift Hours" data-bs-toggle="modal"
                                 data-bs-target="#changeShiftHoursdialog" (click)="editShiftDetails(shift)">
@@ -72,7 +74,7 @@
         <div class="accordion-body" *ngIf="isOpen(1)">
           <div class="setHeight">
             <div *ngFor="let users of onofusers">
-              <div class="row" style="padding: 2px 5px;">
+              <div class="row" style="padding: 10px 10px 0 10px;">
   
                 <div class="col-2"><img [src]="users.im_imagename_thumb ? imageUrl + users.im_imagename_thumb : imageUrl + 'DefaultUserImg.jpg'" alt="User Image" class="onlineimage" /></div>
                 <div class="col-8 " >{{users.U_FIRST_NAME}} {{users.u_last_name}}

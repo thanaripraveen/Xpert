@@ -99,9 +99,14 @@ export class ProfileComponent implements OnInit {
   }
 
   getLoginUserData() {
-    this.api.getUserDetails(this.common.userid).subscribe((res: any) => {
-      if (res.StatusCode == 200) {
-        this.profileData = res.UserTasksInfo[0].UserInfo[0];
+    const obj ={
+      "id" : this.common.userid
+    }
+    this.api.postMethod1('users/getUserDetails',obj).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.profileData = res.response.UserTasksInfo[0].UserInfo[0];
+        console.log(this.imageUrl,this.profileData);
+        
          this.tasks = res.UserTasksInfo[0].Task;
       }
 
