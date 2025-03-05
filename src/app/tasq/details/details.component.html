@@ -75,6 +75,14 @@
         </span>
 
     </div>
+    <div class=" mt-3">
+        <span class="keyName">Tags List :</span>
+        <span *ngFor="let tag of viewTicketInfo.TaskTagsListInfo" class="tag-box mb-2" 
+        [ngClass]="tag.TagType">{{ tag.TagName }}
+           
+        </span>
+
+    </div>
 
     <div class="row mt-2">
         <div class="col-2">

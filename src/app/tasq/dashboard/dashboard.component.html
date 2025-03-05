@@ -41,7 +41,7 @@
                         <div class="col-6">
                             <div>
                                 <span class="tagname">Tags :</span>
-                                <span class="tagsStyle" *ngFor="let tag of task.TaskTagsListInfo">{{tag.TagName}}</span>
+                                <span class="tag-box" [ngClass]="tag.TagType" *ngFor="let tag of task.TaskTagsListInfo">{{tag.TagName}}</span>
                             </div>
                         </div>
 

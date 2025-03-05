@@ -4,6 +4,7 @@ import { ApiService } from '../../providers/api.service';
 import { environment } from '../../../environments/environment';
 import { common } from '../../common';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-savedocuments',
@@ -16,19 +17,23 @@ export class SavedocumentsComponent implements OnInit {
   ticketDocuments: any = [];
   xpertNodefiles = environment.xpertNodefiles;
   roleId: any;
-
+  private subscription! : Subscription;
   @ViewChild('fileInput') fileInput!: ElementRef;
   constructor(public activeModal: NgbActiveModal, private api: ApiService, private common: common, private toastr: ToastrService) {
     // this.spinner =true
     this.roleId = this.common.roleid;
   }
   ngOnInit(): void {
-    this.api.getTicketData().subscribe((res: any) => {
+   this.subscription = this.api.getTicketData().subscribe((res: any) => {
       if (res) {
         this.ticketData = res;
         this.bindDocuments()
       }
     })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   bindDocuments() {

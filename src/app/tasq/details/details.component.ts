@@ -5,6 +5,7 @@ import moment from 'moment';
 import { environment } from '../../../environments/environment';
 import { SavedocumentsComponent } from '../savedocuments/savedocuments.component';
 import { CommentsComponent } from '../comments/comments.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -15,13 +16,12 @@ export class DetailsComponent implements OnInit {
   spinner: boolean = false;
   viewTicketInfo: any;
   xpertProfileImg = environment.xpertProfileImg;
-
+  private subscription!: Subscription;
   constructor(private modalService: NgbModal, public activeModal: NgbActiveModal, private api: ApiService) { }
 
   ngOnInit(): void {
     this.spinner = true;
-    this.api.getTicketData().subscribe((res: any) => {
-      console.log(res);
+   this.subscription =  this.api.getTicketData().subscribe((res: any) => {
       if (res) {
         this.viewTicketInfo = res;
         this.spinner = false;
@@ -30,6 +30,10 @@ export class DetailsComponent implements OnInit {
         this.spinner = false;
       }
     })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 

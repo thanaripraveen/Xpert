@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import * as bootstrap from 'bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 
 
@@ -39,7 +40,7 @@ export class CommentsComponent implements OnInit {
   private modalRef!: NgbModalRef;
 
   usersInfoList: any = [];
-  
+  subscription : Subscription
   constructor(public activeModal: NgbActiveModal,private api : ApiService,private common : common,private fb : FormBuilder,
     private modalService: NgbModal, private toastr : ToastrService){
     this.commentForm = this.fb.group({
@@ -51,13 +52,17 @@ export class CommentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.commentsArray = [];
-    this.api.getTicketData().subscribe((res: any)=>{
+   this.subscription = this.api.getTicketData().subscribe((res: any)=>{
       if(res){
         this.ticketData = res;
         this.getComments();
         this.usersInfo()
       }
     })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   getComments(){

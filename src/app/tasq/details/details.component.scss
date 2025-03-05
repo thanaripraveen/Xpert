@@ -16,4 +16,18 @@
         height: 40px;
         border-radius: 50%;
     }
+
+    .tag-box {
+        padding: 5px;
+        margin: 5px;
+        border-radius: 5px;
+        font-size: .7rem;
+        display: inline-block;
+      }
+      
+      .S { background-color: #1471c2; color: #fff; }  // Blue
+      .I { background-color: #ff0000; color: #fff; }  // Green
+      .R { background-color: #14c243; color: #fff; }  // Yellow
+      .V { background-color: #ffc107; color: #fff; }  // Red
+      .C { background-color: #a914c2; color: #fff; }
 }
