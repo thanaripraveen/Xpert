@@ -37,7 +37,6 @@ export class HeaderComponent implements OnInit {
         // this.tasks = res.response.UserTasksInfo[0].Task;
       }
     })
-
     this.getSidebarData();
 
     this.router.events.subscribe(event => {
