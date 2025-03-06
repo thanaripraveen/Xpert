@@ -55,22 +55,23 @@ export class LoginComponent implements OnInit {
       this.submitted = false;
       this.signInSpinner = true;
       const obj = {
-        "UserID": this.loginForm.value.email,
-        "PWD": this.loginForm.value.password
+        "txtusername": this.loginForm.value.email,
+        "txtpassword": this.loginForm.value.password
       }
-      this.api.postMethod1('users/login',obj).subscribe((res: any)=>{
+      
+      this.api.postmethod('Login/LoginUser', obj).subscribe(res => {
      
-        if(res.status == 200){
+        if (res.returnVal == "SUCCESS") {
           this.signInSpinner = false;
           this.router.navigate(['dashboard']);
-          this.common.userid = res.response.Identifier;
-          this.common.roleid = res.response.RoleId;
-          this.common.usertags = res.response.UserTags;
-          this.common.token = res.response.Token;
-          this.common.name = res.response.Name;
-          this.common.email = res.response.Email;
-          this.common.profileimage = res.response.ProfileImage;
-          this.common.roles = { admin: res.response.Admin, front: res.response.Front };
+          this.common.userid = res.Identifier;
+          this.common.roleid = res.RoleId;
+          this.common.usertags = res.UserTags;
+          this.common.token = res.Token;
+          this.common.name = res.Name;
+          this.common.email = res.Email;
+          this.common.profileimage = res.ProfileImage;
+          this.common.roles = { admin: res.Admin, front: res.Front };
           if(this.remStatus){
             this.rememberUserData = {
               username: btoa(this.loginForm.controls.email.value),

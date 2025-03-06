@@ -70,6 +70,9 @@ export class HeaderComponent implements OnInit {
             (item: any) => item.ModParentId == 0 && item.StatusType == 'Y'
           );
 
+          console.log(mainModules);
+          
+
           this.menuList = mainModules.map((mainModule: any) => {
             // Filtering child modules (Submenus)
             const submenu = response.menulist.filter(

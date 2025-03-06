@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit {
         this.profileData = res.response.UserTasksInfo[0].UserInfo[0];
         console.log(this.imageUrl,this.profileData);
         
-         this.tasks = res.UserTasksInfo[0].Task;
+         this.tasks = res.response.UserTasksInfo[0].Task;
       }
 
     })

@@ -174,13 +174,11 @@
 
     .pagination {
         display: flex;
-            gap: 10px;
+            gap: 20px;
             justify-content: end;
             align-items: center;
-            /* margin-top: 5px; */
-            /* padding-right: 5px; */
-            background: #f0f4ff;
-            padding: 5px 5px 0 5px;
+            /* background: #f0f4ff; */
+            padding: 10px 25px 0 5px;
         button {
           padding: 3px 10px;
           cursor: pointer;
