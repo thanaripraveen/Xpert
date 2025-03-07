@@ -390,7 +390,7 @@ export class ProfileComponent implements OnInit {
 
     this.opacity = 'Y';
     const obj = { "TaskId": e.Id, "UserID": this.common.userid }
-    this.api.postmethod('TaskManagement/GetTaskFeedByTaskId', obj).subscribe((res: any) => {
+    this.api.postMethod1('TaskManagement/GetTaskFeedByTask_Ids', obj).subscribe((res: any) => {
       if (res.UserTasksInfo) {
         this.viewTaskData = res.UserTasksInfo[0];
         // this.isLoading = false;

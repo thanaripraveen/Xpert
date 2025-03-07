@@ -61,42 +61,34 @@ export class HeaderComponent implements OnInit {
       "flag": "D"
     };
 
-    this.api.getSidebarListService('Permissions/getModules', obj).subscribe(
-      (response: any) => {
-        console.log('API Response:', response); // Debugging output
-
-        if (response.StatusCode == 200 && response.menulist) {
-          const mainModules = response.menulist.filter(
-            (item: any) => item.ModParentId == 0 && item.StatusType == 'Y'
+    this.api.postMethod1('users/getModules', obj).subscribe(
+      (res: any) => {
+        console.log(res);
+        
+        if (res.status == 200) {
+          const mainModules = res.response.filter(
+            (item: any) => item.Mod_ParentId == 0 && item.status == 'Y'
           );
-
-          console.log(mainModules);
-          
-
           this.menuList = mainModules.map((mainModule: any) => {
             // Filtering child modules (Submenus)
-            const submenu = response.menulist.filter(
-              (subModule: any) => subModule.ModParentId === mainModule.Identifier && subModule.StatusType === 'Y'
+            const submenu =res.response.filter(
+              (subModule: any) => subModule.Mod_ParentId == mainModule.Mod_ID && subModule.status == 'Y'
             );
-
-            console.log(`Submenu for ${mainModule.ModuleName}:`, submenu); // Check submenu data
 
             return {
               ...mainModule,
-              path: `/${mainModule.FileName}`,
+              path: `/${mainModule.mod_filename}`,
               active: false,
               submenu: submenu.map(subModule => ({
                 ...subModule,
-                path: `/${subModule.FileName}`,
+                path: `/${subModule.mod_filename}`,
                 active: false
               }))
             };
           });
-
-          console.log('Processed menuList:', this.menuList); // Debugging output
           this.updateActiveMenu(); // Update active state after fetching data
         } else {
-          console.error('Invalid API response:', response);
+          console.error('Invalid API response:', res);
         }
       },
       (error) => {
@@ -122,7 +114,7 @@ export class HeaderComponent implements OnInit {
     event.stopPropagation();
     // Close other open menus
     this.menuList.forEach(menu => {
-      if (menu.Identifier !== item.Identifier) {
+      if (menu.Mod_ID !== item.Mod_ID) {
         menu.isOpen = false;
       }
     });

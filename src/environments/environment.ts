@@ -9,6 +9,11 @@ export const environment = {
   xpertProfileImg: "https://xpertsupportapi.axelautomotive.com/api/v1/resources/profiles/thumbs/",
   axelHelpImagePath: "https://xpertsupportapi.axelautomotive.com/api/v1/resources/axelHelp/",
 
+  // xpertNodeApi: "https://devxpertapi.axelautomotive.com/api/",
+  // xpertNodefiles: "https://devxpertapi.axelautomotive.com/api/v1/resources/tasks/",
+  // xpertProfileImg: "https://devxpertapi.axelautomotive.com/api/v1/resources/profiles/thumbs/",
+  // axelHelpImagePath: "https://devxpertapi.axelautomotive.com/api/v1/resources/axelHelp/",
+
 //  xpertdataurl:"https://devsupportapi.axelautomotive.com/API/",
  //xpertdataurl:"http://localhost:53746/API/",
 //   imgUrl : "https://devsupportapi.axelautomotive.com/AIFiles/TMS/",
