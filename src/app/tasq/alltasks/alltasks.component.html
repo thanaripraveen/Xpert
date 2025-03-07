@@ -31,4 +31,282 @@
 
   </div>
 
+  <div class="taskGridTable">
+    <ng-container *ngFor="let task of allTasksData">
+        <div class="taskGrid">
+            <div class="col-12 d-flex align-items-center firstRow">
+                <div class="col-9 d-flex align-items-center">
+                    <div class="col-2 ticketStyle" (click)="openComponent(task,'view')">#{{task.Ticket}}</div>
+
+                    <div class="col-6">
+                        <div>
+                            <span class="tagname">Tags :</span>
+                            <span class="tag-box" [ngClass]="tag.TagType" *ngFor="let tag of task.TaskTagsListInfo">{{tag.TagName}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-4 dealerSTyle">{{task.ReqDealerName}}</div>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                    <div class="col-5 ps-0" *ngIf="roleId !== 100"
+                        [ngStyle]="{'color': task.T_Priority == 3 ? 'green': task.T_Priority == 2 ? '#0064ff' : 'red'}">
+                        {{task.T_Priority == 3 ? 'Low' : task.T_Priority == 2 ? 'Medium' : 'High'}}
+
+                    </div>
+                    <div class="col-5 p-0" *ngIf="roleId === 100"><select name="" id="" class="form-select py-0"
+                            [(ngModel)]="task.T_Priority" (change)="onSelectChange($event,task.Ticket)"
+                            [style.color]="task.T_Priority == 3 ? 'green': task.T_Priority == 2 ? '#0064ff' : 'red'">
+                            <option *ngFor="let option of priorties" [ngStyle]="{'color': option.color}"
+                                [value]="option.id">
+                                {{ option.priorty }}
+                            </option>
+                        </select></div>
+
+
+                    <div class="col-7 text-end doc">
+                        <a class="notification">
+                            <span class="ps-2" (click)="openComponent(task,'doc')" style="cursor: pointer;">
+                                Doc's
+                            </span>
+                            <span class="badge" *ngIf="task.DocumentsInfo?.Documents && task.DocumentsInfo?.Documents?.Document">
+                                {{ task.DocumentsInfo.Documents.Document.length>0 ? task.DocumentsInfo.Documents.Document.length : task.DocumentsInfo.Documents.Document? 1:0}}
+                            </span>
+                        </a>
+
+                        <a class="notification">
+                            <span class="ps-2">
+                                <img src="../../../assets/images/comment.png" (click)="openComponent(task,'comments')" alt="" style="cursor: pointer;">
+                            </span>
+                            <span class="badge" *ngIf="task.cmtcnt > 0">
+                                {{task.cmtcnt}}</span>
+                        </a>
+                        <span class=" ps-2"><img src="../../../assets/images/viewIconImg.png" (click)="openComponent(task,'view')" alt="" style="cursor: pointer;"></span>
+                        <span class=" ps-2"><img src="../../../assets/images/edit.png" (click)="openComponent(task,'edit')" alt="" style="cursor: pointer;"></span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="secondRow">
+            
+
+                <div class="col-12">
+                    <div class="d-flex">
+                        <span style="font-family: 'FaktPro-Medium';font-size: 1.1rem;padding-right:1rem;text-wrap-mode:nowrap;"> {{task.Title
+                            !=
+                            ''? task.Title :'-'}} -- </span>
+                        <!-- <span  > -- </span> -->
+                        <div class="cesd" [innerHTML]="task.Details"></div>
+                    </div>
+                </div>
+                <div class="col-12 d-flex align-items-center">
+                    <div class="col-8 d-flex align-items-center">
+                        <div class="col-7 mt-2">
+                            <div>
+                                <span class="keyName">Requested By :</span>
+                                <span style="font-size: 14px;">{{task.ReqSource == 'A' ? task.UserName + ' '+ '@' :
+                                    task.ReqUserName +' '+ '@'}}
+                                    {{LocalTimeConvertioninHours(task.CreatedDate)}}
+                                </span>
+                            </div>
+
+                            <div *ngIf="task.AckUID !=0 && task.AckUID !='' && task.AckUID != null">
+                                <div class="col">
+                                    <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Acknowledged By :
+                                    </span>
+                                    <span style="font-size: 14px;">{{task.AckUSERNAME +' '+ '@'}}
+                                        {{LocalTimeConvertioninHours(task.AckDATE)}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="task.Reslovedby != '' && task.Reslovedby != null">
+                                <div class="col">
+                                    <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Resolved By : </span>
+                                    <span style="font-size: 14px;">{{task.Reslovedby + ' @ '+
+                                        LocalTimeConvertioninHours(task.Resolvedts)}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div
+                                *ngIf="task.ClosedByUserId !=0 && task.ClosedByUserId !='' && task.ClosedByUserId != null && task.ClosedByUserName!=''">
+                                <div class="col">
+                                    <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Closed By : </span>
+                                    <span style="font-size: 14px;">{{task.ClosedByUserName +' '+ '@'}}
+                                        {{LocalTimeConvertioninHours(task.ClosedTS)}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-5 text-center">
+                            <div
+                                *ngIf="task.AckUSERNAME == '' && task.AssignUSERNAME == '' && task.ReqStatus != 'Resolved' && task.ReqStatus != 'Closed' ">
+                                <span class="acknowledgeBtn">Acknowledge</span>
+                            </div>
+
+                            <div
+                                *ngIf="task.AckUSERNAME == '' && task.AssignUSERNAME == '' && task.ReqStatus == 'Resolved' && task.ReqStatus != 'Closed' ">
+                                <span>--</span>
+                            </div>
+                            <div
+                                *ngIf="task.AckUSERNAME == '' && task.AssignUSERNAME == '' && task.ReqStatus != 'Resolved' && task.ReqStatus == 'Closed' ">
+                                <span>--</span>
+                            </div>
+                            <div
+                                *ngIf="task.AckUSERNAME == '' && task.AssignUSERNAME == '' && task.ReqStatus != 'Resolved' && task.ReqStatus == 'Closed' ">
+                                <span>--</span>
+                            </div>
+                            <div
+                                *ngIf="task.AckUSERNAME != '' && task.AssignUSERNAME == '' && task.ReqStatus == 'Resolved' && task.ReqStatus != 'Closed' ">
+                                <span>--</span>
+                            </div>
+                            <div
+                                *ngIf="task.AckUSERNAME != '' && task.AssignUSERNAME == '' && task.ReqStatus != 'Resolved' && task.ReqStatus == 'Closed' ">
+                                <span>--</span>
+                            </div>
+                            <div *ngIf="task.AssignUSERNAME == '' && task.AckUSERNAME != '' && task.ReqStatus != 'Resolved' && task.ReqStatus != 'Closed'"
+                                class="assignToMe">
+                                Assigned To Me
+                                <span><input type="checkbox" name="" id=""
+                                        class="form-check-input border border-black mx-1"></span>
+                                <span class="assignToBtn">Assign To</span>
+                            </div>
+
+                            <div>
+                                <span *ngIf="task.AssignUSERNAME != ''">
+                                    <img class="assignProfileImg" [title]="task.AssignUSERNAME"
+                                        src="{{xpertProfileImg}}{{task.AssignProfileImage_thumb}}" alt="">
+                                </span>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="col-4">
+                        <div class="row">
+                            <!-- <div class="col-12"> -->
+                            <div class="col-3 ">
+                                <div class="row">
+                                    <div style="font-size: .6rem;color: #000;"
+                                        *ngIf="task.AckUSERNAME !='' || task.AssignUSERNAME !='' || task.ReqStatus=='Resolved' || task.ReqStatus =='Closed'">
+                                        Acknowledged</div>
+                                    <div style="font-size: .6rem;color: grey;"
+                                        *ngIf="task.AckUSERNAME =='' && task.AssignUSERNAME=='' && task.ReqStatus!='Resolved' && task.ReqStatus!='Closed'">
+                                        Acknowledged</div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <img class="statusImage" src="assets/images/statusImages/acknowledge_off.png"
+                                        alt=""
+                                        *ngIf="task.AckUSERNAME =='' && task.AssignUSERNAME=='' && task.ReqStatus!='Resolved' && task.ReqStatus!='Closed'" />
+
+                                    <img class="statusImage" src="assets/images/statusImages/acknowledge.png" alt=""
+                                        *ngIf="task.AckUSERNAME !='' || task.AssignUSERNAME !='' || task.ReqStatus=='Resolved' || task.ReqStatus =='Closed'" />
+                                    <span style="color:grey;padding-left:15px"
+                                        *ngIf="task.AckUSERNAME =='' && task.AssignUSERNAME=='' && task.ReqStatus!='Resolved' && task.ReqStatus!='Closed'">....</span>
+                                    <span style="padding-left: 2rem;"
+                                        *ngIf="task.AckUSERNAME !='' || task.AssignUSERNAME !='' || task.ReqStatus=='Resolved' || task.ReqStatus =='Closed'">....</span>
+                                </div>
+
+                            </div>
+
+                            <div class="col-3">
+                                <div style="font-size: .6rem;color: #000;"
+                                    *ngIf="task.AssignUSERNAME !=''|| task.ReqStatus=='Resolved' || task.ReqStatus =='Closed'">
+                                    Assigned</div>
+                                <div style="font-size: .6rem;color: grey;"
+                                    *ngIf="task.AssignUSERNAME ==''&& task.ReqStatus!='Resolved' && task.ReqStatus!='Closed'">
+                                    Assigned</div>
+
+                                <div class="d-flex align-items-center">
+
+                                    <img class="statusImage" src="assets/images/statusImages/assignment_off.png"
+                                        alt=""
+                                        *ngIf="task.AssignUSERNAME==''&& task.ReqStatus!='Resolved' && task.ReqStatus!='Closed'" /><span
+                                        style="color:grey;padding-left:15px"
+                                        *ngIf="task.AssignUSERNAME ==''&& task.ReqStatus!='Resolved' && task.ReqStatus!='Closed'">....</span>
+                                    <img class="statusImage" src="assets/images/statusImages/assignment.png" alt=""
+                                        *ngIf="task.AssignUSERNAME!=''|| task.ReqStatus=='Resolved' || task.ReqStatus =='Closed'"><span
+                                        style="padding-left: 2rem;"
+                                        *ngIf="task.AssignUSERNAME !=''|| task.ReqStatus=='Resolved' || task.ReqStatus =='Closed'">....</span>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div style="font-size: .6rem;"
+                                    *ngIf="task.ReqStatus =='Resolved' || task.ReqStatus =='Closed'">Resolved</div>
+                                <div style="font-size: .6rem;color: grey;"
+                                    *ngIf="task.ReqStatus !='Resolved' && task.ReqStatus!='Closed'">Resolved</div>
+
+                                <div class="d-flex align-items-center">
+
+                                    <img class="statusImage" src="assets/images/statusImages/InProgress-Grey.png"
+                                        alt="" *ngIf="task.ReqStatus!='Resolved' && task.ReqStatus!='Closed'"><span
+                                        style="color:grey;padding-left:15px"
+                                        *ngIf="task.ReqStatus !='Resolved' && task.ReqStatus!='Closed'">....</span>
+                                    <img class="statusImage" src="assets/images/statusImages/InProgress-White.png"
+                                        alt="" *ngIf="task.ReqStatus=='Resolved' || task.ReqStatus=='Closed'"><span
+                                        style="padding-left: 2rem;"
+                                        *ngIf="task.ReqStatus =='Resolved' || task.ReqStatus =='Closed'">....</span>
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div style="font-size: .6rem;" *ngIf="task.ReqStatus=='Closed'">Closed</div>
+                                <div style="font-size: .6rem;color: grey;" *ngIf="task.ReqStatus!='Closed'">Closed
+                                </div>
+
+                                <div class="d-flex align-items-center">
+
+                                    <img class="statusImage" src="assets/images/statusImages/Complete-Grey.png"
+                                        alt="" *ngIf="task.ReqStatus!='Closed'">
+                                    <img class="statusImage" src="assets/images/statusImages/Complete-White.png"
+                                        alt="" *ngIf="task.ReqStatus=='Closed'">
+                                </div>
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="thirdRow">
+                <div class="col-12 d-flex">
+                    <div class="col-5">
+                        <div *ngIf="task.AssignByUserId != 0" class="keyName">Assigned To : <span
+                                style="font-family: 'FaktPro-Normal';color: #000;">{{task.AssignUSERNAME + ' @ '+
+                                LocalTimeConvertioninHours(task.AssignByUserTs)}}</span></div>
+                    </div>
+
+
+                    <div class="col-4">
+                        <img src="assets/images/followers_blk.png" alt="" class="me-2">
+                        <span class="followers" *ngFor="let Followers of task.FollowersInfo">
+                            <img title="{{Followers.FirstName + ' ' + Followers.LastName}}"
+                                [src]="xpertProfileImg + Followers.ProfileImage_thumb" style="cursor: pointer;"
+                                alt="">
+                        </span>
+                    </div>
+
+                    <div class="col-3 text-end text-black">
+                        <span style="font-size: 13px;font-family: FaktPro-Bold;">Due Date :</span>
+                        <span style="font-size: 13px;font-family: FaktPro-Medium;">{{task.Dueterms}}</span><span
+                            style="font-size: 13px;font-family: FaktPro-Medium;"
+                            class="px-2">{{LocalTimeConvertioninHours1(task.DueOn)}}</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <div class="text-black text-center mt-5" *ngIf="spinner == false && allTasksData.length == 0">No Data Found</div>
+</div>
+<div class="pagination ">
+
+    <img src="../../../assets/images/first.png" alt="">
+    <img src="../../../assets/images/previous.png" alt="">
+    <span class="text-black">Page 10 of 10</span>
+    <img src="../../../assets/images/next.png" alt="">
+    <img src="../../../assets/images/last.png" alt="">
+</div>
+
+
 </div>
