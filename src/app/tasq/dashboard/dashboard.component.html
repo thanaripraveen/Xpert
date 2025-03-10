@@ -1,8 +1,12 @@
-<div class="overlay" id="overlay" *ngIf="spinner">
-    <div class="loader"></div>
-    <div class="loading">Loading...</div>
+<div class="spinner-container" *ngIf="spinner">
+    <div class="spinner-wrapper">
+        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+        <div class="spinner"></div>
+        <span class="logo-text">
+            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+        </span>
+    </div>
 </div>
-
 <div class="dashBoardPage">
     <div class="col-12 d-flex align-items-center headerDesign">
         <div class="col-4 title">DashBoard</div>

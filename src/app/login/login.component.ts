@@ -120,7 +120,6 @@ export class LoginComponent implements OnInit {
   }
 
   InsertMenustatus(id: any, custstatus: any, name: any) {
-
     const userid = this.common.userid;
     const obj = {
       "loginfrom": "D",
@@ -132,7 +131,6 @@ export class LoginComponent implements OnInit {
     }
     this.api.postMethod1('users/UpdateProfilestatus', obj).subscribe(res => {
       console.log(res);
-      
       this.loadUserProfile()
     })
 

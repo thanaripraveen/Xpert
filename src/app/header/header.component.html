@@ -1,3 +1,16 @@
+
+
+<div class="spinner-container" *ngIf="spinner">
+  <div class="spinner-wrapper">
+      <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+      <div class="spinner"></div>
+      <span class="logo-text">
+          <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+      </span>
+  </div>
+</div>
+
+
 <nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container-fluid ps-4">
     <!-- <a class="navbar-brand pt-0"><img src="assets/images/menu_icon.png" alt="" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
@@ -10,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#"><img src="assets/images/Xpert_logo.png" alt=""
+          <a class="nav-link active" aria-current="page" [routerLink]="'/dashboard'"><img src="assets/images/Xpert_logo.png" alt=""
               height="30"></a>
         </li>
       </ul>
@@ -26,7 +39,7 @@
           <!-- Username (allocate more space here) -->
           <div class="col mt-1 profileInfo">
             <span class="text-white">{{profileData.fullname}}</span>
-            <div class="text-white">{{profileUserStatus}}
+            <div [style.color]="getColor(profileUserStatus)">{{profileUserStatus}}
               <span>
                 <img src="../../assets/images/editIcon1.png" alt="" (click)="toggleStatus($event)" height="15px" style="cursor: pointer;">
               </span>
@@ -35,20 +48,21 @@
 
             <div class="profileStatusStyles" [class.open]="isStatusOpen">
               <div class="statusStyles" *ngFor="let status of profileStatusData"
-                   [style.color]="status.TYPE_COLOR"
+                   [style.color]="status.TYPE_COLOR" (click)="saveProfileStatus(status)"
                    [style.backgroundColor]="statusHover === status.TYPE_ID ? 'rgba(255,255,255,0.2)' : 'transparent'"
                    (mouseenter)="statusHover = status.TYPE_ID"
                    (mouseleave)="statusHover = null">
                 {{status.TYPE_NAME}}
               </div>
-              <div class="px-1"><input type="text" [(ngModel)]="profileStatusText" class="form-control mt-1 py-1" placeholder="Enter status here"></div>
+              <div class="px-1"><input type="text" (keyup.enter)="saveCutomStatus()" [(ngModel)]="profileStatusText" class="form-control mt-1 py-1" placeholder="Enter status here"></div>
               
             </div>
           </div>
 
           <!-- Sign-out Icon -->
           <div class="col-auto">
-            <img src="../../assets/images/sign_out_img.png" alt="" class="signOut pe-3" class="signOutImg">
+            <img src="../../assets/images/sign_out_img.png" alt="" class="signOut pe-3" class="signOutImg"
+            (click)="signOutClick()" style="cursor: pointer;">
           </div>
         </div>
       </div>

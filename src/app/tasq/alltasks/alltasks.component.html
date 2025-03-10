@@ -1,7 +1,11 @@
-<div class="overlay" id="overlay" *ngIf="spinner">
-  <div class="loader"></div>
-  <div class="loading">Loading...</div>
-
+<div class="spinner-container" *ngIf="spinner">
+    <div class="spinner-wrapper">
+        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+        <div class="spinner"></div>
+        <span class="logo-text">
+            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+        </span>
+    </div>
 </div>
 
 <div class="allTaskspage">
@@ -31,47 +35,50 @@
 
   </div>
   
-  <div class="col-12 d-flex align-items-center">
+  <div class="col-12 d-flex align-items-center filterRow">
     <!-- <div class="row"> -->
         <div class="col-10 d-flex align-items-center">
            <!-- <div class="row"> -->
             <span class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                <select name="" id="" class="form-select" [(ngModel)]="filterDealer" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
                     <option value="">Dealer</option>
                 </select>
             </span>
             <span  class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
-                    <option value="">Dealer</option>
+                <select name="" id="" [(ngModel)]="filterStatus" class="form-select" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                    <option value="">status</option>
                 </select>
+            </span>
+            <span  class="ms-1 position-relative" style="width: 12%;">
+                <input class="form-control" name="date"  autocomplete="off"
+                        placeholder="Due Date" [(ngModel)]="filterDueDate" (bsValueChange)="onDateChange()" #d="bsDatepicker" bsDatepicker
+                        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false }" />
+                    <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear"
+                        (click)="OnClear();">
+
             </span>
             <span  class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
-                    <option value="">Dealer</option>
+                <select name="" id="" class="form-select" [(ngModel)]="filterTags" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                    <option value="">Tags</option>
                 </select>
             </span>
-            <span  class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+            <span class="ms-1" style="width: 12%;">
+                <select name="" id="" class="form-select" [(ngModel)]="filterPriority" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                    <option value="">Priority</option>
+                </select>
+            </span>
+            <span class="ms-1" style="width: 12%;">
+                <select name="" id="" class="form-select" [(ngModel)]="filterAssignedUser" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
                     <option value="">Dealer</option>
                 </select>
             </span>
             <span class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
-                    <option value="">Dealer</option>
+                <select name="" id="" class="form-select" [(ngModel)]="filterSortBy" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                    <option value="">Sort By</option>
                 </select>
             </span>
             <span class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
-                    <option value="">Dealer</option>
-                </select>
-            </span>
-            <span class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
-                    <option value="">Dealer</option>
-                </select>
-            </span>
-            <span class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                <select name="" id="" class="form-select" [(ngModel)]="filterCreatedBy" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
                     <option value="">Dealer</option>
                 </select>
             </span>

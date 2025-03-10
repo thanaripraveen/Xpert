@@ -4,6 +4,7 @@ import { ApiService } from '../providers/api.service';
 import { NavigationEnd, Router } from '@angular/router';
 // import { Config } from '../../app/types/Config'
 import { environment } from '../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -26,22 +27,14 @@ export class HeaderComponent implements OnInit {
   // Image Url
   imageUrl = environment.xpertProfileImg;
 
+  spinner : boolean = false;
   @ViewChild('closeOffcanvas') closeOffcanvas: ElementRef | undefined;
   @ViewChild('menuContainer', { static: true }) menuContainer!: ElementRef;
-  constructor(public common: common, private api: ApiService, private router: Router) {
+  constructor(public common: common, private api: ApiService, private router: Router,private toastr : ToastrService) {
   }
 
   ngOnInit(): void {
-    const obj ={
-      "id" : this.common.userid
-    }
-    this.api.postMethod1('users/getUserDetails',obj).subscribe((res: any) => {
-      if (res.status == 200) {
-        this.profileData = res.response.UserTasksInfo[0].UserInfo[0];
-        this.profileUserStatus = res.response.UserTasksInfo[0].UserInfo[0].UserStatus;
-        // this.tasks = res.response.UserTasksInfo[0].Task;
-      }
-    })
+    this.getUserData();
     this.getSidebarData();
     this.bindUserStatus();
 
@@ -59,6 +52,25 @@ export class HeaderComponent implements OnInit {
 
 
 
+  }
+
+  getUserData(){
+    this.spinner = true;
+    const obj ={
+      "id" : this.common.userid
+    }
+    this.api.postMethod1('users/getUserDetails',obj).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.profileData = res.response.UserTasksInfo[0].UserInfo[0];
+        this.profileUserStatus = res.response.UserTasksInfo[0].UserInfo[0].UserStatus;
+        // this.tasks = res.response.UserTasksInfo[0].Task;
+        this.spinner = false;
+      }
+      else{
+        this.profileData = '';
+        this.spinner = false;
+      }
+    })
   }
 
   bindUserStatus(){
@@ -86,15 +98,98 @@ export class HeaderComponent implements OnInit {
     if (!targetElement.closest('.profileStatusStyles') && this.isStatusOpen) {
       this.isStatusOpen = false;
       this.profileStatusText = "";
-
     }
   }
 
+  getColor(status: string): string {
+    switch (status) {
+      case 'Online':
+        return '#00ff00';
+      case 'Busy':
+        return '#ff4545';
+      case 'Meeting':
+        return '#39d0ff';
+      case 'Away':
+        return '#eb884b';
+      case 'Break':
+        return '#fdaa29';
+      case 'Offline':
+        return '#ff0000';
+      case 'Dinner':
+        return '#fafafa';
+      case 'On Support':
+        return '#00ff00';
+      default:
+        return '#ffffff';
+    }
+  }
+
+  saveProfileStatus(statusData : any){
+    this.spinner = true;
+    const obj = {
+      "loginfrom": "D",
+      "ip": "",
+      "typeid": statusData.TYPE_ID,
+      "Cust_status": statusData.TYPE_NAME,
+      "statusname": statusData.TYPE_NAME,
+      "loginUser_id": this.common.userid
+    }
+    this.api.postMethod1('users/UpdateProfilestatus', obj).subscribe(res => {
+      console.log(res);
+      if(res.status == 200){
+        this.toastr.success('Status updated successfully');
+        this.getUserData();
+        this.isStatusOpen = false;
+        this.profileStatusText = "";
+        this.spinner = false;
+      }
+      else{
+        this.toastr.error('Unable to process your request. please try again');
+        this.isStatusOpen = false;
+        this.profileStatusText = "";
+        this.spinner = false;
+      }
+   
+    })
+  }
+  saveCutomStatus(){
+    this.spinner = true;
+    const obj = {
+      "loginfrom": "D",
+      "ip": "",
+      "typeid": 1,
+      "Cust_status": this.profileStatusText,
+      "statusname": this.profileStatusText,
+      "loginUser_id": this.common.userid
+    }
+    this.api.postMethod1('users/UpdateProfilestatus', obj).subscribe(res => {
+      console.log(res);
+      if(res.status == 200){
+        this.toastr.success('Status updated successfully');
+        this.getUserData();
+        this.isStatusOpen = false;
+        this.profileStatusText = "";
+        this.spinner = false;
+      }
+      else{
+        this.toastr.error('Unable to process your request. please try again');
+        this.isStatusOpen = false;
+        this.profileStatusText = "";
+        this.spinner = false;
+      }
+   
+    })
+  }
+
+  
   getSidebarData() {
     const obj = {
+      "ModID":0,
+      "expression":"mod_status='Y'",
+      "Type":"A",
       "roleid": this.common.roleid,
       "flag": "D"
-    };
+  }
 
     this.api.postMethod1('users/getModules', obj).subscribe(
       (res: any) => {
@@ -144,7 +239,13 @@ export class HeaderComponent implements OnInit {
       });
     });
   }
-
+ // Detect click outside menu
+  @HostListener('mouseleave', ['$event'])
+  closeMenu(event: Event) {
+    if (this.menuContainer && !this.menuContainer.nativeElement.contains(event.target)) {
+      this.menuList.forEach(menu => menu.isOpen = false);
+    }
+  }
   toggleMenu(item: any,event: Event) {
     event.stopPropagation();
     // Close other open menus
@@ -157,12 +258,13 @@ export class HeaderComponent implements OnInit {
     // Toggle current menu
     item.isOpen = !item.isOpen;
   }
-  // Detect click outside menu
-  @HostListener('mouseleave', ['$event'])
-  closeMenu(event: Event) {
-    if (this.menuContainer && !this.menuContainer.nativeElement.contains(event.target)) {
-      this.menuList.forEach(menu => menu.isOpen = false);
-    }
+
+
+  signOutClick(){
+    localStorage.clear();
+    this.router.navigateByUrl('')
   }
 
 }
+
+

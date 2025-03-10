@@ -17,7 +17,8 @@ import { EdittaskComponent } from '../edittask/edittask.component';
 @Component({
   selector: 'app-alltasks',
   templateUrl: './alltasks.component.html',
-  styleUrl: './alltasks.component.scss'
+  styleUrl: './alltasks.component.scss',
+  
 })
 export class AlltasksComponent implements OnInit{
 spinner : boolean = false;
@@ -41,6 +42,19 @@ priorties: any = [
 ]
 userID: any;
 roleId: any;
+selectedDate: Date = new Date();
+
+
+// Filter Data
+
+filterDealer : any ="";
+filterStatus : any =""
+filterDueDate : any ="";
+filterTags : any ="";
+filterPriority : any ="";
+filterAssignedUser : any ="";
+filterSortBy : any ="";
+filterCreatedBy : any =""
   constructor(private api: ApiService,private fb: FormBuilder, private common: common,
     private router: Router, private toastr: ToastrService,private modalService : NgbModal){
       this.userID = this.common.userid;
@@ -147,6 +161,14 @@ roleId: any;
         var dateWithTimezone = utcDate.local().format('MM/DD/YY');
         return dateWithTimezone;
     
+      }
+
+      onDateChange(){
+
+      }
+
+      OnClear(){
+        
       }
     
 }
