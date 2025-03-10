@@ -71,6 +71,10 @@ export class ProfileComponent implements OnInit {
     {id : 9, status : 'Vacation'},
     {id : 0, status : 'View All'},
   ]
+  isTeamLoading = false;
+  isHitListLoading = false;
+  shiftScheduleLoading : boolean = false;
+
 
   selectedStatus : any = 1;
   tasks: any = [];
@@ -99,6 +103,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getLoginUserData() {
+    this.isHitListLoading = true;
     const obj ={
       "id" : this.common.userid
     }
@@ -108,15 +113,19 @@ export class ProfileComponent implements OnInit {
         console.log(this.imageUrl,this.profileData);
         
          this.tasks = res.response.UserTasksInfo[0].Task;
+         this.isHitListLoading = false;
+      }
+      else{
+        this.isHitListLoading = false;
+        this.tasks = []
       }
 
     })
   }
 
 
-
   getSchedule(uid: any, date: any) {
-
+    this.shiftScheduleLoading = true;
     const obj = {
       'userid': uid,
       'date': date
@@ -124,6 +133,10 @@ export class ProfileComponent implements OnInit {
     this.api.postmethod('Schedule/GetSchedule', obj).subscribe(res => {
       if (res.StatusCode == 200) {
         this.ShiftScheduleData = res.Schedule;
+        this.shiftScheduleLoading = false;
+      }
+      else{
+        this.shiftScheduleLoading = false;
       }
     });
   }
@@ -377,10 +390,12 @@ export class ProfileComponent implements OnInit {
   }
   onofusers : any =[]
   selectStatus(){
-    
+    this.onofusers= []
+    this.isTeamLoading = true;
     const obj={"statusType":this.selectedStatus};
     this.api.postMethod1('users/GetOnlineUsers',obj).subscribe((res: any) => {   
-      this.onofusers = res.response.filter((itm: any) => itm.u_uid != this.common.userid);   
+      this.onofusers = res.response.filter((itm: any) => itm.u_uid != this.common.userid); 
+      this.isTeamLoading = false;  
     });
   }
 

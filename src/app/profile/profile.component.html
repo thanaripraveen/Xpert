@@ -19,12 +19,16 @@
             <div class="shiftSchedule">
                 <img src="assets/images/shift_icon (1).png" height="15" alt=""><span class="ps-1">SHIFT SCHEDULE</span>
             </div>
+            
             <div class="displayWeek">
                 <div class="col-12 d-flex align-items-center justify-content-center">
                     <div class="col-1 leftArrow" (click)="showPreviousWeek()">&lt;</div>
                     <div class="col-10 week">{{ startDate | date:'MMM dd' }} - {{ endDate | date:'dd, YYYY' }}</div>
                     <div class="col-1 rightArrow" (click)="showNextWeek()">&gt;</div>
                 </div>
+            </div>
+            <div *ngIf="shiftScheduleLoading" class="loader-container">
+              <div class="loader"></div>
             </div>
             <div class="bindShiftDataStyle">
                 <ng-container *ngFor="let shift of ShiftScheduleData">
@@ -44,6 +48,7 @@
                         </div>
                     </div>
                 </ng-container>
+                <div *ngIf="ShiftScheduleData.length == 0 && shiftScheduleLoading == false">No data found!</div>
 
             </div>
         </div>
@@ -53,6 +58,7 @@
         <div class="teamHitList mt-3">
             <div class="accordian">
                 <!-- Team -->
+    
     <div class="accordion-item">
         <div class="accordion-header" (click)="toggleDiv(1)">
           <div class="row">
@@ -71,7 +77,11 @@
           </div>
   
         </div>
+       
         <div class="accordion-body" *ngIf="isOpen(1)">
+          <div *ngIf="isTeamLoading" class="loader-container">
+            <div class="loader"></div>
+          </div>
           <div class="setHeight">
             <div *ngFor="let users of onofusers">
               <div class="row" style="padding: 10px 10px 0 10px;">
@@ -87,9 +97,10 @@
   
               </div>
             </div>
-            <div *ngIf="onofusers.length == 0" class="noStatusFound" style="font-family: 'FaktPro-Normal'">No data found!</div>
+            <div *ngIf="onofusers.length == 0 && isTeamLoading == false" class="noStatusFound" style="font-family: 'FaktPro-Normal'">No data found!</div>
           </div>
-        </div>
+        
+    </div>
       </div>
   
       <!-- Hit List -->
@@ -102,7 +113,9 @@
         </div>
         </div>
         <div class="accordion-body p-0" *ngIf="isOpen(2)">
-
+          <div *ngIf="isHitListLoading" class="loader-container">
+            <div class="loader"></div>
+          </div>
             <div class="hitlist">
                 <div class="row">
                     <div class="col-2">Type</div>
@@ -121,7 +134,7 @@
               <div class="col-3 text-end"><img src="assets/images/view_iconsml.png" style="cursor: pointer;"
                   (click)="viewHitList(task)" alt="" data-bs-toggle="modal" data-bs-target="#viewTaskDetail1"></div>
             </div>
-            <div class="noStatusFound"  *ngIf="tasks.length == 0">
+            <div class="noStatusFound"  *ngIf="tasks.length == 0 && isHitListLoading == false">
               No list for today
             </div>
           </div>
@@ -230,3 +243,5 @@
 
 </div>
 <!-- <button class="btn btn-primary" (click)="openFirstModal()">Open First Modal</button> -->
+
+

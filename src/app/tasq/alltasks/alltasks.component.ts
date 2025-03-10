@@ -111,6 +111,22 @@ filterCreatedBy : any =""
     })
   }
 
+  bindDealerData(){
+
+  }
+  bindTagsData(){
+
+  }
+  bindStatusData(){
+
+  }
+  bindUsersData(){
+
+  }
+  bindCreatedUsersData(){
+    
+  }
+
   openComponent(task: any,component : any) {
   
       this.api.setTicketData(task)
