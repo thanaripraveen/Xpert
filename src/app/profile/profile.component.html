@@ -30,15 +30,15 @@
                 <ng-container *ngFor="let shift of ShiftScheduleData">
                     <div class="col-12 d-flex align-items-center mt-1 shiftRowStyle">
                         <div class="col-4 date">{{shift.Days}}</div>
-                        <div class="col-7 d-flex justify-content-left shiftHours" *ngIf="shift.Types != 'Off'">
+                        <div class="col-6 d-flex  justify-content-center shiftHours" *ngIf="shift.Types != 'Off'">
                             <!-- <span *ngIf="shift.shiftval != ''">Shift</span>{{shift.shiftval != '' ? shift.shiftval :
                             'Custom'}} -->
                             <span>
                                [{{shift.StartTimes}} - {{shift.EndTimes}}]
                             </span>
                         </div>
-                        <div class="col-7 shiftHoursOff" *ngIf="shift.Types == 'Off'">Off</div>
-                        <div class="col-1 shiftEditIcon">
+                        <div class="col-6 shiftHoursOff d-flex justify-content-center" *ngIf="shift.Types == 'Off'">Off</div>
+                        <div class="col-2 shiftEditIcon">
                             <img src="assets/images/editIcon.png" title="Edit Shift Hours" data-bs-toggle="modal"
                                 data-bs-target="#changeShiftHoursdialog" (click)="editShiftDetails(shift)">
                         </div>

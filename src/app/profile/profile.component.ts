@@ -71,9 +71,9 @@ export class ProfileComponent implements OnInit {
     {id : 9, status : 'Vacation'},
     {id : 0, status : 'View All'},
   ]
+
   selectedStatus : any = 1;
   tasks: any = [];
-
   @ViewChild('confirm') openConfirmDialog: ElementRef | undefined;
   @ViewChild('editProfileModal') editProfileModal: ElementRef | undefined;
   constructor(private common: common, private api: ApiService, private modalService: NgbModal,
@@ -112,6 +112,8 @@ export class ProfileComponent implements OnInit {
 
     })
   }
+
+
 
   getSchedule(uid: any, date: any) {
 

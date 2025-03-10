@@ -19,7 +19,10 @@ export class HeaderComponent implements OnInit {
 
   // For Binding Profile Date
   profileData: any;
-
+  profileStatusData : any =[];
+  statusHover: number | null = null;
+  profileStatusText : any ="";
+  profileUserStatus : any ="";
   // Image Url
   imageUrl = environment.xpertProfileImg;
 
@@ -27,6 +30,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild('menuContainer', { static: true }) menuContainer!: ElementRef;
   constructor(public common: common, private api: ApiService, private router: Router) {
   }
+
   ngOnInit(): void {
     const obj ={
       "id" : this.common.userid
@@ -34,10 +38,12 @@ export class HeaderComponent implements OnInit {
     this.api.postMethod1('users/getUserDetails',obj).subscribe((res: any) => {
       if (res.status == 200) {
         this.profileData = res.response.UserTasksInfo[0].UserInfo[0];
+        this.profileUserStatus = res.response.UserTasksInfo[0].UserInfo[0].UserStatus;
         // this.tasks = res.response.UserTasksInfo[0].Task;
       }
     })
     this.getSidebarData();
+    this.bindUserStatus();
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -53,6 +59,35 @@ export class HeaderComponent implements OnInit {
 
 
 
+  }
+
+  bindUserStatus(){
+    const obj = { exp: '' };
+    this.api.postMethod1('users/GetUserStatusType', obj).subscribe((res: any) => {
+      if (res && res.response) {
+        this.profileStatusData = res.response;   
+        // console.log();
+            
+      } else {
+        this.profileStatusData = [];
+      }
+    });
+  }
+  isStatusOpen = false;
+  toggleStatus(event: Event) {
+    event.stopPropagation();
+    this.isStatusOpen = !this.isStatusOpen;
+    this.profileStatusText ="";
+  }
+
+  @HostListener('document:click', ['$event'])
+  closeDropdown(event: Event) {
+    const targetElement = event.target as HTMLElement;
+    if (!targetElement.closest('.profileStatusStyles') && this.isStatusOpen) {
+      this.isStatusOpen = false;
+      this.profileStatusText = "";
+
+    }
   }
 
   getSidebarData() {

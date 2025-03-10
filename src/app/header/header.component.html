@@ -26,7 +26,24 @@
           <!-- Username (allocate more space here) -->
           <div class="col mt-1 profileInfo">
             <span class="text-white">{{profileData.fullname}}</span>
-            <div class="text-white">{{profileData.UserStatus}}</div>
+            <div class="text-white">{{profileUserStatus}}
+              <span>
+                <img src="../../assets/images/editIcon1.png" alt="" (click)="toggleStatus($event)" height="15px" style="cursor: pointer;">
+              </span>
+            </div>
+            <!-- <button (click)="toggleStatus()">Toggle Status</button> -->
+
+            <div class="profileStatusStyles" [class.open]="isStatusOpen">
+              <div class="statusStyles" *ngFor="let status of profileStatusData"
+                   [style.color]="status.TYPE_COLOR"
+                   [style.backgroundColor]="statusHover === status.TYPE_ID ? 'rgba(255,255,255,0.2)' : 'transparent'"
+                   (mouseenter)="statusHover = status.TYPE_ID"
+                   (mouseleave)="statusHover = null">
+                {{status.TYPE_NAME}}
+              </div>
+              <div class="px-1"><input type="text" [(ngModel)]="profileStatusText" class="form-control mt-1 py-1" placeholder="Enter status here"></div>
+              
+            </div>
           </div>
 
           <!-- Sign-out Icon -->
