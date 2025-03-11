@@ -1,0 +1,51 @@
+.modal-body{
+    .scrollUsersInfo{
+        margin-top: 2rem;
+        height: auto;
+        max-height: calc(100vh - 300px);
+        overflow: auto;
+        overflow-x: hidden;
+
+        .contact-check {
+        margin-bottom: 1.125rem !important;
+        
+        #assignRadio{
+          border: 1px solid #000;
+        }
+    }
+    
+    .contact {
+        border: 1px solid #6d6a67;
+        // background-color: rgba(0, 0, 0, .5);
+        color: #fff;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        border-radius: 65px 10px 10px 65px;
+        padding-right: 10px;
+        // border: 1px solid red;
+        margin-bottom: 1rem;
+        height: 65px;
+        width: 100%;
+    
+        img {
+            width: 65px;
+            height: 65px;
+            border-radius: 50px;
+            border: 1px solid #6d6a67;
+        }
+    
+        h5 {
+            color: #000;
+            font-family: 'FaktPro-Normal';
+            font-size: 0.8rem;
+    
+        }
+    
+        h6 {
+            font-size: 0.6rem;
+        }
+    }
+} 
+    }
+   

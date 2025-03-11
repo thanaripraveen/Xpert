@@ -8,6 +8,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import * as bootstrap from 'bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { AnimationStyleMetadata } from '@angular/animations';
 
 
 
@@ -248,7 +249,7 @@ export class CommentsComponent implements OnInit {
           'dealerid': this.ticketData.ReqDealerId
 
       }
-      this.api.postmethod('Comments/CommentsAction', obj).subscribe((res: any) => {
+      this.api.postMethod1('Comments/CommentsAction', obj).subscribe((res: any) => {
         if(res.responsecode == 200 && this.action == 'A'){
 
             this.toastr.success('Comment added successfully')
@@ -363,12 +364,16 @@ export class CommentsComponent implements OnInit {
   }
 
   selectedImage: any;
-  onImageClick(event: MouseEvent) {
+  onImageClick(event: MouseEvent,content: any) {
     const target = event.target as HTMLImageElement;
+
     if (target && target.tagName === 'IMG') {
       this.selectedImage = target.src
-      const modal = new bootstrap.Modal(document.getElementById('screenshotModal') as HTMLElement);
-      modal.show();
+      this.modalRef =  this.modalService.open(content,{
+        windowClass: 'screenshotModal',
+          size: 'xl', 
+          backdrop: 'static',
+      })
     }
   }
 

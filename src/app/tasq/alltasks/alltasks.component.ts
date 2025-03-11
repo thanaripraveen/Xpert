@@ -12,6 +12,7 @@ import { SavedocumentsComponent } from '../savedocuments/savedocuments.component
 import { CommentsComponent } from '../comments/comments.component';
 import { DetailsComponent } from '../details/details.component';
 import { EdittaskComponent } from '../edittask/edittask.component';
+import { UsersinfoComponent } from '../usersinfo/usersinfo.component';
 
 
 @Component({
@@ -62,6 +63,15 @@ filterCreatedBy : any =""
   }
 
   ngOnInit(): void {
+    this.api.getUserInfoData().subscribe((res: any)=>{
+      console.log(res);
+      
+      if(res){
+         this.filterAssignedUser = res.FirstName + ' ' + res.MiddleName + ' '+ res.LastName;
+      }
+    })
+    this.bindDealerData();
+    this.bindTagsData();
     this.getAllTickets()
   }
 
@@ -110,16 +120,41 @@ filterCreatedBy : any =""
 
     })
   }
-
+  dealersData : any =[];
+  tagsData : any = [];
   bindDealerData(){
-
+    const obj ={
+      "searchstring": this.filterDealer ,
+      "userId":this.common.userid 
+    }
+    this.api.postMethod1('users/GetAutoCompleteDealersData',obj).subscribe((res: any)=>{
+      console.log(res);
+      
+      if(res.status == 200){
+        this.dealersData = res.response;
+      }
+      else{
+        this.dealersData = [];
+      }
+    })
   }
   bindTagsData(){
-
+    const obj ={
+      "exp": "",
+      "userid": this.common.userid
+    }
+    this.api.postMethod1('xpert/GetSuggestedTagsList',obj).subscribe((res: any)=>{
+      console.log(res);
+      
+      if(res.status == 200){
+        this.tagsData = res.response;
+      }
+      else{
+        this.tagsData = [];
+      }
+    })
   }
-  bindStatusData(){
 
-  }
   bindUsersData(){
 
   }
@@ -161,9 +196,17 @@ filterCreatedBy : any =""
           backdrop: 'static',
           centered: true, 
         });
-      }
-  
-  
+      }  
+    }
+
+    openUserInfoComponent(){
+        this.modalService.open(UsersinfoComponent, {
+          windowClass: 'userInfoModal',
+          size: 'lg', 
+           backdrop: 'static',
+          centered : true, 
+        });
+      
     }
 
       LocalTimeConvertioninHours(DateTime: any) {
@@ -184,7 +227,7 @@ filterCreatedBy : any =""
       }
 
       OnClear(){
-        
+
       }
     
 }

@@ -10,10 +10,11 @@ const routes: Routes = [
   { path: 'createtask', loadChildren: () => import('./tasq/createtask/createtask.module').then(m => m.CreatetaskModule) },
   { path: 'Alltasks', loadChildren: () => import('./tasq/alltasks/alltasks.module').then(m => m.AlltasksModule) },
   { path: 'admusers', loadChildren: () => import('./tasq/users/users.module').then(m => m.UsersModule) },
-  { path: 'tasq/savedocuments', loadChildren: () => import('./tasq/savedocuments/savedocuments.module').then(m => m.SavedocumentsModule) },
-  { path: 'tasq/comments', loadChildren: () => import('./tasq/comments/comments.module').then(m => m.CommentsModule) },
-  { path: 'tasq/details', loadChildren: () => import('./tasq/details/details.module').then(m => m.DetailsModule) },
-  { path: 'tasq/edittask', loadChildren: () => import('./tasq/edittask/edittask.module').then(m => m.EdittaskModule) },
+  { path: 'savedocuments', loadChildren: () => import('./tasq/savedocuments/savedocuments.module').then(m => m.SavedocumentsModule) },
+  { path: 'comments', loadChildren: () => import('./tasq/comments/comments.module').then(m => m.CommentsModule) },
+  { path: 'details', loadChildren: () => import('./tasq/details/details.module').then(m => m.DetailsModule) },
+  { path: 'edittask', loadChildren: () => import('./tasq/edittask/edittask.module').then(m => m.EdittaskModule) },
+  { path: 'tasq/usersinfo', loadChildren: () => import('./tasq/usersinfo/usersinfo.module').then(m => m.UsersinfoModule) },
 ];
 
 @NgModule({

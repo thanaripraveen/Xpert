@@ -37,7 +37,7 @@
             </div>
             <div class="row">
                 <div for="" [innerHTML]="comment.commentEditDesc" class="image-view mb-1 col-10"
-                    (click)="onImageClick($event)"></div>
+                    (click)="onImageClick($event,screenshotModal)"></div>
             </div>
         </ng-container>
 
@@ -67,7 +67,7 @@
                             Mail</span>
                     </div>
                     <div class="mx-2">
-                        <button type="submit" class="btn btn-primary" (click)="saveAndEditComment()">Submit</button>
+                        <button type="submit" class="btn btn-primary" style="background-color: #f37121;border: 1px solid #f37121" (click)="saveAndEditComment()">Submit</button>
                     </div>
                     <div>
                         <button type="button" class="btn btn-secondary">Cancel</button>
@@ -96,20 +96,15 @@
 </div>
 
 <!-- Screen Short Modal -->
-<div class="modal fade" id="screenshotModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-center">
-                <img [src]="selectedImage" class="img-fluid">
-            </div>
-        </div>
+<ng-template #screenshotModal let-modal>
+    <div class="modal-header px-3 py-2">
+        <h5 class="modal-title text-black"></h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
     </div>
-</div>
-
+    <div class="modal-body text-black text-center">
+        <img [src]="selectedImage" class="img-fluid">
+    </div>
+</ng-template>
 
 <ng-template #content let-modal>
     <div class="modal-header px-3 py-2">

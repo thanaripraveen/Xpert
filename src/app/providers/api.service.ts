@@ -44,6 +44,7 @@ export class ApiService implements OnDestroy {
   public taskUpdateValue = new BehaviorSubject<any>({data : '' , updateValue : ''});
 
   private ticketData = new BehaviorSubject<any>('');
+  private selectUserInfo = new BehaviorSubject<any>('');
 
 
   constructor(private http: HttpClient, private common: common,private ngZone: NgZone) {
@@ -333,6 +334,14 @@ export class ApiService implements OnDestroy {
 
   getTicketData(){
    return this.ticketData.asObservable()
+  }
+
+  setUserInfoData(data : any){
+    this.selectUserInfo.next(data);
+  }
+
+  getUserInfoData(){
+   return this.selectUserInfo.asObservable();
   }
  
 }

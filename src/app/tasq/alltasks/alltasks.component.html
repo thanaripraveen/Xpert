@@ -42,17 +42,26 @@
             <span class="ms-1" style="width: 12%;">
                 <select name="" id="" class="form-select" [(ngModel)]="filterDealer" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
                     <option value="">Dealer</option>
+                    <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
                 </select>
             </span>
             <span  class="ms-1" style="width: 12%;">
                 <select name="" id="" [(ngModel)]="filterStatus" class="form-select" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
-                    <option value="">status</option>
+                    <option value="">Status</option>
+                    <option value="7">Un Assigned</option>
+                    <option value="1">Open</option>
+                    <option value="11">In Development</option>
+                    <option value="13">Ready For Release</option>
+                    <option value="14">Released</option>
+                    <option value="5">Resolved</option>
+                    <option value="4">Closed</option>
+                    <option value="12">Testing</option>
                 </select>
             </span>
             <span  class="ms-1 position-relative" style="width: 12%;">
                 <input class="form-control" name="date"  autocomplete="off"
                         placeholder="Due Date" [(ngModel)]="filterDueDate" (bsValueChange)="onDateChange()" #d="bsDatepicker" bsDatepicker
-                        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false }" />
+                        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false }" style="padding: .175rem .25rem .175rem .25rem;"/>
                     <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear"
                         (click)="OnClear();">
 
@@ -60,17 +69,21 @@
             <span  class="ms-1" style="width: 12%;">
                 <select name="" id="" class="form-select" [(ngModel)]="filterTags" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
                     <option value="">Tags</option>
+                    <option *ngFor="let tag of tagsData" [value]="tag.Tag_id" >{{tag.Tag_Name}}</option>
                 </select>
             </span>
             <span class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" [(ngModel)]="filterPriority" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
-                    <option value="">Priority</option>
+                <select name="" id="" class="form-select" [(ngModel)]="filterPriority" 
+                [style.color]="filterPriority == 1 ? 'red' : filterPriority == 2 ? 'blue' : filterPriority == 3 ? 'green' : 'black' " style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                    <option value="" style="color : black">Priority</option>
+                    <option *ngFor="let priority of priorties" [value]="priority.id" [style.color]="priority.color">{{priority.priorty}}</option>
                 </select>
             </span>
-            <span class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" [(ngModel)]="filterAssignedUser" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
-                    <option value="">Dealer</option>
-                </select>
+           
+            <span  class="ms-1 position-relative" style="width: 12%;">
+                <input type="text" class="form-control" placeholder="Assigned To" [(ngModel)]="filterAssignedUser" style="padding: .175rem 0 .175rem .0;" (click)="openUserInfoComponent()">
+            <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear">
+
             </span>
             <span class="ms-1" style="width: 12%;">
                 <select name="" id="" class="form-select" [(ngModel)]="filterSortBy" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
@@ -86,7 +99,7 @@
            <!-- </div> -->
         </div>
         <div class="col-2">
-            <button class="btn btn-primary" style="padding: .175rem .85rem .175rem .75rem;margin: 3px 5px;">Submit</button>
+            <button class="btn btn-primary" style="padding: .175rem .85rem .175rem .75rem;margin: 3px 5px;background-color: #f37121;border: 1px solid #f37121">Submit</button>
             <button class="btn btn-secondary" style="padding: .175rem .85rem .175rem .75rem;margin: 3px 5px;">Cancel</button>
         </div>
     <!-- </div> -->
@@ -102,7 +115,7 @@
                     <div class="col-6">
                         <div>
                             <span class="tagname">Tags :</span>
-                            <span class="tag-box" [ngClass]="tag.TagType" *ngFor="let tag of task.TaskTagsListInfo">{{tag.TagName}}</span>
+                            <span class="tag-box" [ngClass]="tag.TagType" *ngFor="let tag of task.TaskTagsLists.TaskTagsLists.TaskTagsList">{{tag.TagName}}</span>
                         </div>
                     </div>
 
@@ -129,8 +142,8 @@
                             <span class="ps-2" (click)="openComponent(task,'doc')" style="cursor: pointer;">
                                 Doc's
                             </span>
-                            <span class="badge" *ngIf="task.DocumentsInfo?.Documents && task.DocumentsInfo?.Documents?.Document">
-                                {{ task.DocumentsInfo.Documents.Document.length>0 ? task.DocumentsInfo.Documents.Document.length : task.DocumentsInfo.Documents.Document? 1:0}}
+                            <span class="badge" *ngIf="task.Documents.Documents && task.Documents.Documents.Document">
+                                {{ task.Documents.Documents.Document.length>0 ? task.Documents.Documents.Document.length : task.Documents.Documents.Document? 1:0}}
                             </span>
                         </a>
 
@@ -152,9 +165,9 @@
 
                 <div class="col-12">
                     <div class="d-flex">
-                        <span style="font-family: 'FaktPro-Medium';font-size: 1.1rem;padding-right:1rem;text-wrap-mode:nowrap;"> {{task.Title
+                        <span style="font-family: 'FaktPro-Medium';font-size: 1.1rem;padding-right:1rem;text-wrap-mode:nowrap;"> {{task.TaskTitle
                             !=
-                            ''? task.Title :'-'}} -- </span>
+                            ''? task.TaskTitle :'-'}} -- </span>
                         <!-- <span  > -- </span> -->
                         <div class="cesd" [innerHTML]="task.Details"></div>
                     </div>
@@ -166,11 +179,11 @@
                                 <span class="keyName">Requested By :</span>
                                 <span style="font-size: 14px;">{{task.ReqSource == 'A' ? task.UserName + ' '+ '@' :
                                     task.ReqUserName +' '+ '@'}}
-                                    {{LocalTimeConvertioninHours(task.CreatedDate)}}
+                                    {{LocalTimeConvertioninHours(task.CREATEDDATE)}}
                                 </span>
                             </div>
 
-                            <div *ngIf="task.AckUID !=0 && task.AckUID !='' && task.AckUID != null">
+                            <div *ngIf="task.AckID !=0 && task.AckID !='' && task.AckID != null">
                                 <div class="col">
                                     <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Acknowledged By :
                                     </span>
@@ -179,10 +192,10 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="row" *ngIf="task.Reslovedby != '' && task.Reslovedby != null">
+                            <div class="row" *ngIf="task.reslovedby != '' && task.reslovedby != null">
                                 <div class="col">
                                     <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Resolved By : </span>
-                                    <span style="font-size: 14px;">{{task.Reslovedby + ' @ '+
+                                    <span style="font-size: 14px;">{{task.reslovedby + ' @ '+
                                         LocalTimeConvertioninHours(task.Resolvedts)}}
                                     </span>
                                 </div>
@@ -340,11 +353,13 @@
 
                     <div class="col-4">
                         <img src="assets/images/followers_blk.png" alt="" class="me-2">
-                        <span class="followers" *ngFor="let Followers of task.FollowersInfo">
+                        <ng-container *ngIf="task.Folowers.Folowers && task.Folowers.Folowers.Folower">
+                        <span class="followers" *ngFor="let Followers of task.Folowers.Folowers.Folower">
                             <img title="{{Followers.FirstName + ' ' + Followers.LastName}}"
-                                [src]="xpertProfileImg + Followers.ProfileImage_thumb" style="cursor: pointer;"
+                                [src]="xpertProfileImg + Followers.profileimage_thumb" style="cursor: pointer;"
                                 alt="">
                         </span>
+                    </ng-container>
                     </div>
 
                     <div class="col-3 text-end text-black">

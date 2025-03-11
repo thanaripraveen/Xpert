@@ -1,0 +1,62 @@
+<div class="spinner-container" *ngIf="spinner">
+    <div class="spinner-wrapper">
+        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+        <div class="spinner"></div>
+        <span class="logo-text">
+            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+        </span>
+    </div>
+</div>
+
+<div class="modal-header px-3 py-2">
+    <h5 class="modal-title text-black">Assign User</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()" aria-label="Close"></button>
+</div>
+
+<div class="modal-body text-black">
+    <div class="row">
+        <div class="col-6">
+            <select name="" id="" class="form-select" [(ngModel)]="ddlDeptSelect" (change)="deptSelect()">
+            <option value="0">All</option>
+            <option *ngFor="let dept of departmentData" [value]="dept.Tag_Id">{{dept.Tag_Name}}</option>
+            </select>
+        </div>
+        <div class="col-6">
+            <input type="text" class="form-control" [(ngModel)]="txtsearch" (keyup)="SearchByName()">
+        </div>
+    </div>
+    <div class="scrollUsersInfo">
+    <div class="row" style="padding-right: 5px;">
+        <div class="col-6" *ngFor="let user of usersInfoList">
+            <label class="d-flex justify-content-start align-items-center" for="selectContact"
+                (click)="selectUserAndCheck(user, assignRadio)">
+                <div class="form-check contact-check">
+                    <input class="form-check-input" #assignRadio id="assignRadio"
+                        (change)="selectUser(user)" type="radio" name="selectContact">
+                </div>
+                <div class="contact">
+                    <img [src]="xpertProfileImg+user.ImageData" alt="">
+                    <div class="d-flex flex-column ps-2">
+                        <h5 class="m-0 p-0">{{ (user.FirstName + ' ' + user.LastName)}}
+                        </h5>
+                        <h6 class="m-0 p-0" style="color: #f37121;font-size: 13px;">
+                            {{user.Title}}</h6>
+                    </div>
+                </div>
+            </label>
+        </div>
+
+
+    </div>
+    <div class="text-center" *ngIf="usersInfoList.length == 0 && spinner == false">No data found</div>
+
+</div>
+</div>
+<div class="modal-footer ">
+    <div class="col-lg-12 text-center">
+        <button type="button" class="btn btn-primary" style="background-color: #f37121;border: 1px solid #f37121">Submit</button>&nbsp;
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #assigncancel
+            >Cancel</button>
+    </div>
+
+</div>
