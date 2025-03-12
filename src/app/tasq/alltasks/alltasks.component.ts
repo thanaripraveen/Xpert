@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 import moment from 'moment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { SavedocumentsComponent } from '../savedocuments/savedocuments.component';
 import { CommentsComponent } from '../comments/comments.component';
@@ -34,7 +34,7 @@ statusData : any =[
   {'name' : 'Un Resolved' , count : 179},
 ]
 
-allTasksData : any =[];
+allTasksData : any[] =[];
 xpertProfileImg: any = environment.xpertProfileImg;
 priorties: any = [
   { id: 3, priorty: 'Low', color: 'green' },
@@ -44,6 +44,7 @@ priorties: any = [
 userID: any;
 roleId: any;
 selectedDate: Date = new Date();
+  private modalRef!: NgbModalRef;
 
 
 // Filter Data
@@ -75,6 +76,7 @@ filterCreatedBy : any =""
     this.getAllTickets()
   }
 
+
   getAllTickets(){
     this.spinner = true;
 
@@ -96,7 +98,7 @@ filterCreatedBy : any =""
     this.api.postMethod1('xpert/GetAllTasks',obj).subscribe((res: any)=>{
       console.log(res);
       if(res.status == 200){
-        this.allTasksData = res.response;
+        // this.allTasksData = res.response;
         this.spinner = false;
       }
       else{
@@ -209,6 +211,17 @@ filterCreatedBy : any =""
       
     }
 
+    openCreatedByModal(modal : any){
+      this.bindCreatedUsersList();
+      
+      this.modalRef =  this.modalService.open(modal,{
+        windowClass: 'createdBYModal',
+          size: 'lg', 
+          backdrop: 'static',
+          centered : true
+      })
+    }
+
       LocalTimeConvertioninHours(DateTime: any) {
         var utcDate = moment.utc(DateTime);
         var dateWithTimezone = utcDate.local().format('MM.DD.YY hh:mm A');
@@ -228,6 +241,35 @@ filterCreatedBy : any =""
 
       OnClear(){
 
+      }
+      createdUsersList : any =[]
+bindCreatedUsersList(){
+  this.spinner = true;
+
+  const obj= {
+    "dealerid": this.filterDealer == "" ? 0 : this.filterDealer
+  }
+  this.api.postMethod1('users/GetCreatedUserlist',obj).subscribe((res: any)=>{
+    if(res.status == 200){
+      this.createdUsersList = res.response;
+      this.spinner = false;
+
+    }
+    else{
+      this.createdUsersList = []
+      this.spinner = false;
+    }
+  })
+}
+      selectedUser: any = null;
+      hoveredUser: any = null;
+    
+      selectUser(user: any) {
+        this.selectedUser = user;
+      }
+    
+      hoverUser(user: any) {
+        this.hoveredUser = user;
       }
     
 }

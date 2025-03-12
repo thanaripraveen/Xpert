@@ -202,3 +202,35 @@
         cursor: not-allowed !important;
         opacity: 0.4 !important;
       }
+
+.createdByModalStyles{
+
+    height: auto;
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 400px;
+    .user-button {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        background-color: #ebeced;
+        color: black;
+        text-align: center;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      
+      .user-button.selected {
+        background-color: #f37121;
+        color: white;
+      }
+      
+      .user-button.hovered {
+        background-color: #007bff;
+        color: #fff;
+      }
+}
+      
+      

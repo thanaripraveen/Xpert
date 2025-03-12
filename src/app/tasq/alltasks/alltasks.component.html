@@ -90,10 +90,10 @@
                     <option value="">Sort By</option>
                 </select>
             </span>
-            <span class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" [(ngModel)]="filterCreatedBy" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
-                    <option value="">Dealer</option>
-                </select>
+            <span  class="ms-1 position-relative" style="width: 12%;">
+                <input type="text" class="form-control" placeholder="Created By" [(ngModel)]="filterAssignedUser" style="padding: .175rem 0 .175rem .0;" (click)="openCreatedByModal(createdByModel)">
+            <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear">
+
             </span>
          
            <!-- </div> -->
@@ -386,3 +386,34 @@
 
 
 </div>
+
+
+<ng-template #createdByModel let-modal>
+    <div class="modal-header px-3 py-2">
+        <h5 class="modal-title text-black">Created BY</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body text-black text-center">
+        <div class="createdByModalStyles">
+            <div class="row">
+              <div class="col-3 mb-2" *ngFor="let user of createdUsersList" (click)="selectUser(user)" 
+                   (mouseover)="hoverUser(user)" (mouseleave)="hoverUser(null)">
+                <button class="user-button" [ngClass]="{'selected': selectedUser === user, 'hovered': hoveredUser === user}">
+                  {{ user.T_UserName }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="createdUsersList.length == 0 && spinner == false">No users found</div>
+          
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary" style="background-color:#f37121;border: #f37121;">Submit</button>
+        <button type="submit" class="btn btn-secondary">Cancel</button>
+    </div>
+</ng-template>
+
+
+
+
