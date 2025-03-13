@@ -1,214 +1,281 @@
-
-.headerDesign{
+.headerDesign {
     background: #bfcfd9;
     padding: 3px;
-    .title{
+
+    .title {
         padding: 5px;
         font-family: "FaktPro-Bold";
         font-size: 0.8rem;
         margin-left: 10px;
     }
-    .statusCounts{
-          background: #1e5584;
-          padding: 3px;
-          border-radius: 5px;
-          margin-right: 2px;
-          font-size: .62rem;
+
+    .statusCounts {
+        background: #1e5584;
+        padding: 3px;
+        border-radius: 5px;
+        margin-right: 2px;
+        font-size: .62rem;
     }
 }
 
-.allTaskspage{
-    .filterRow{
+.allTaskspage {
+    .filterRow {
         background-color: #8da9ba;
         padding: 5px 0;
 
         .close-icon {
             position: absolute;
-            top: 7px;      
-            right: 2px;   
+            top: 7px;
+            right: 2px;
             cursor: pointer;
-            width: 16px;   
+            width: 16px;
             height: 16px;
-          }
+        }
+
+        .filterSubmitBtn {
+            background: #fd6305;
+            padding: 7px 5px;
+            border-radius: 5px;
+            font-family: 'FaktPro-Medium';
+            cursor: pointer;
+        }
+
+        .filterCancelBtn {
+            background: #696969;
+            padding: 7px 5px;
+            border-radius: 5px;
+            font-family: 'FaktPro-Medium';
+            margin-left: 2px;
+            margin-right: 2px;
+            cursor: pointer;
+
+        }
+        .fa-sort-up{
+            top: 5px;
+            position: relative;
+            margin-left: 2px;
+        }
+        .fa-sort-down{
+            margin-left: 2px;
+        }
     }
 }
 
-.taskGridTable{
+.taskGridTable {
     height: calc(100vh - 200px);
     overflow: auto;
     border-bottom: 5px solid black
 }
-    .taskGrid{
-        font-family: 'FaktPro-Normal';
-        font-size: .8rem;
-        color: #000;
-        border-top: 5px solid;
-        overflow-x: hidden;
-       
-        .firstRow{
-            background-color: #e6eff5;
-            padding: 5px;
 
-            .ticketStyle{
-                font-family: 'FaktPro-Bold';
-                font-size: 1rem;
-                cursor: pointer;
-            }
-            .dealerSTyle{
-                font-family: 'FaktPro-Bold';
-                font-size: 1rem;  
-                color: #d1681b;
-            }
-         
-            .tagname{
-                font-family: 'FaktPro-Bold';
-                font-size: 1rem;
-                margin-left: 1rem;
-            }
-            // .tagsStyle{
-            //     background: #1472c1;
-            //     color: #fff;
-            //     padding: .3rem;
-            //     border-radius: 5px;
-            //     margin-left: 2px;
-            //     font-size: .5rem;
-            // }
+.taskGrid {
+    font-family: 'FaktPro-Normal';
+    font-size: .8rem;
+    color: #000;
+    border-top: 5px solid;
+    overflow-x: hidden;
 
-            .tag-box {
-                padding: 3px;
-                margin: 2px;
-                border-radius: 5px;
-                display: inline-block;
-                font-size: .7rem;
-              }
-              
-              .S { background-color: #1471c2; color: #fff; }  // Blue
-              .I { background-color: #ff0000; color: #fff; }  // Green
-              .R { background-color: #14c243; color: #fff; }  // Yellow
-              .V { background-color: #ffc107; color: #fff; }  // Red
-              .C { background-color: #a914c2; color: #fff; }
+    .firstRow {
+        background-color: #e6eff5;
+        padding: 5px;
 
-            .doc{
-                color: #1472c1;
-                text-decoration: underline;
-                font-size: 1rem;
-
-                .notification {
-                    position: relative;
-                    display: inline-block;
-                  }
-                  
-                  
-                  .notification .badge {
-                    position: absolute;
-                    top: -5px;
-                    right: -10px;
-                    padding: 2px 5px;
-                    border-radius: 50%;
-                    background-color: red;
-                    color: white;
-                  }
-            }
-            .icon{
-                .notification {
-                    position: relative;
-                    display: inline-block;
-                  }
-                  
-                  
-                  .notification .badge {
-                    position: absolute;
-                    top: -5px;
-                    right: -10px;
-                    padding: 2px 5px;
-                    border-radius: 50%;
-                    background-color: red;
-                    color: white;
-                  }
-            }
+        .ticketStyle {
+            font-family: 'FaktPro-Bold';
+            font-size: 1rem;
+            cursor: pointer;
         }
-        .secondRow{
-            background-color: #fff;
-            padding: 5px;
-            .title{
-                font-family: 'FaktPro-Medium';
-                font-size: 1rem;
-                display: flex;
-                gap: 20px;
-                
-            }
-            .keyName{
-                font-family: 'FaktPro-Medium';
-                font-size: .9rem;
-                color: #1472c1;
-            }
-            .acknowledgeBtn{
-                background: #1472c1;
-                color: #fff;
-                padding: 5px;
-                margin-left: 5px;
-            }
-            .assignToMe{
-                font-family: 'FaktPro-Medium';
-                .form-check-input{
-                    width: 1rem;
-                    height: 1rem;
-                }
-                .assignToBtn{
-                    background: #1472c1;
-                    color: #fff;
-                    padding: 4px;
-                    margin-left: 5px;
-                }
-            }
-            
-            .assignProfileImg{
-                height: 45px;
-                border-radius: 50%;
-                border: 1px solid lightgray;
-            }
+
+        .dealerSTyle {
+            font-family: 'FaktPro-Bold';
+            font-size: 1rem;
+            color: #d1681b;
         }
-        .thirdRow{
-            background-color: #e6eff5;
+
+        .tagname {
+            font-family: 'FaktPro-Bold';
+            font-size: 1rem;
+            margin-left: 1rem;
+        }
+
+        // .tagsStyle{
+        //     background: #1472c1;
+        //     color: #fff;
+        //     padding: .3rem;
+        //     border-radius: 5px;
+        //     margin-left: 2px;
+        //     font-size: .5rem;
+        // }
+
+        .tag-box {
             padding: 3px;
-            
-            .followers img {
-                height: 25px;
-                border-radius: 50px;
-                border: 1.5px solid white;
-                margin: 0 8px 0 0;
+            margin: 2px;
+            border-radius: 5px;
+            display: inline-block;
+            font-size: .7rem;
+        }
+
+        .S {
+            background-color: #1471c2;
+            color: #fff;
+        }
+
+        // Blue
+        .I {
+            background-color: #696969;
+            color: #fff;
+        }
+
+        // Green
+        .R {
+            background-color: #14c243;
+            color: #fff;
+        }
+
+        // Yellow
+        .V {
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        // Red
+        .C {
+            background-color: #a914c2;
+            color: #fff;
+        }
+
+        .doc {
+            color: #1472c1;
+            text-decoration: underline;
+            font-size: 1rem;
+
+            .notification {
+                position: relative;
+                display: inline-block;
             }
-            .keyName{
-                font-family: 'FaktPro-Medium';
-                font-size: .9rem;
-                color: #1472c1;
+
+
+            .notification .badge {
+                position: absolute;
+                top: -5px;
+                right: -10px;
+                padding: 2px 5px;
+                border-radius: 50%;
+                background-color: red;
+                color: white;
+            }
+        }
+
+        .icon {
+            .notification {
+                position: relative;
+                display: inline-block;
+            }
+
+
+            .notification .badge {
+                position: absolute;
+                top: -5px;
+                right: -10px;
+                padding: 2px 5px;
+                border-radius: 50%;
+                background-color: red;
+                color: white;
             }
         }
     }
 
-    .pagination {
-        display: flex;
-            gap: 20px;
-            justify-content: end;
-            align-items: center;
-            /* background: #f0f4ff; */
-            padding: 10px 25px 0 5px;
-        button {
-          padding: 3px 10px;
-          cursor: pointer;
-        }
-      }
-      button:disabled {
-        cursor: not-allowed !important;
-        opacity: 0.4 !important;
-      }
+    .secondRow {
+        background-color: #fff;
+        padding: 5px;
 
-.createdByModalStyles{
+        .title {
+            font-family: 'FaktPro-Medium';
+            font-size: 1rem;
+            display: flex;
+            gap: 20px;
+
+        }
+
+        .keyName {
+            font-family: 'FaktPro-Medium';
+            font-size: .9rem;
+            color: #1472c1;
+        }
+
+        .acknowledgeBtn {
+            background: #1472c1;
+            color: #fff;
+            padding: 5px;
+            margin-left: 5px;
+        }
+
+        .assignToMe {
+            font-family: 'FaktPro-Medium';
+
+            .form-check-input {
+                width: 1rem;
+                height: 1rem;
+            }
+
+            .assignToBtn {
+                background: #1472c1;
+                color: #fff;
+                padding: 4px;
+                margin-left: 5px;
+            }
+        }
+
+        .assignProfileImg {
+            height: 45px;
+            border-radius: 50%;
+            border: 1px solid lightgray;
+        }
+    }
+
+    .thirdRow {
+        background-color: #e6eff5;
+        padding: 3px;
+
+        .followers img {
+            height: 25px;
+            border-radius: 50px;
+            border: 1.5px solid white;
+            margin: 0 8px 0 0;
+        }
+
+        .keyName {
+            font-family: 'FaktPro-Medium';
+            font-size: .9rem;
+            color: #1472c1;
+        }
+    }
+}
+
+.pagination {
+    display: flex;
+    gap: 20px;
+    justify-content: end;
+    align-items: center;
+    /* background: #f0f4ff; */
+    padding: 10px 25px 0 5px;
+
+    button {
+        padding: 3px 10px;
+        cursor: pointer;
+    }
+}
+
+button:disabled {
+    cursor: not-allowed !important;
+    opacity: 0.4 !important;
+}
+
+.createdByModalStyles {
 
     height: auto;
     overflow: auto;
     overflow-x: hidden;
     max-height: 400px;
+
     .user-button {
         width: 100%;
         padding: 10px;
@@ -217,20 +284,20 @@
         background-color: #ebeced;
         color: black;
         text-align: center;
-        font-weight: bold;
+        // font-weight: bold;
         cursor: pointer;
         transition: background-color 0.3s ease;
-      }
-      
-      .user-button.selected {
+        font-family: 'FaktPro-Normal';
+        font-size: .8rem;
+    }
+
+    .user-button.selected {
         background-color: #f37121;
         color: white;
-      }
-      
-      .user-button.hovered {
+    }
+
+    .user-button.hovered {
         background-color: #007bff;
         color: #fff;
-      }
+    }
 }
-      
-      

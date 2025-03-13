@@ -26,9 +26,9 @@
     <div class="col-3">
       <div class="input-group">
 
-                    <input type="text" class="form-control py-0" placeholder="Search..." aria-label="Search">
+                    <input type="text" class="form-control py-0" (keyup)="filterTextChange()" (keyup.enter)="getAllTickets()" placeholder="Search..." aria-label="Search" [(ngModel)]="filterSearch">
                     <span class="input-group-text bg-light">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <i class="fa-solid fa-magnifying-glass" style="cursor:pointer" (click)="getAllTickets()"></i>
                     </span>
                 </div>
     </div>
@@ -37,7 +37,7 @@
   
   <div class="col-12 d-flex align-items-center filterRow">
     <!-- <div class="row"> -->
-        <div class="col-10 d-flex align-items-center">
+        <div class="col-12 d-flex align-items-center">
            <!-- <div class="row"> -->
             <span class="ms-1" style="width: 12%;">
                 <select name="" id="" class="form-select" [(ngModel)]="filterDealer" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
@@ -58,14 +58,7 @@
                     <option value="12">Testing</option>
                 </select>
             </span>
-            <span  class="ms-1 position-relative" style="width: 12%;">
-                <input class="form-control" name="date"  autocomplete="off"
-                        placeholder="Due Date" [(ngModel)]="filterDueDate" (bsValueChange)="onDateChange()" #d="bsDatepicker" bsDatepicker
-                        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false }" style="padding: .175rem .25rem .175rem .25rem;"/>
-                    <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear"
-                        (click)="OnClear();">
-
-            </span>
+         
             <span  class="ms-1" style="width: 12%;">
                 <select name="" id="" class="form-select" [(ngModel)]="filterTags" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
                     <option value="">Tags</option>
@@ -79,34 +72,55 @@
                     <option *ngFor="let priority of priorties" [value]="priority.id" [style.color]="priority.color">{{priority.priorty}}</option>
                 </select>
             </span>
-           
+
+            <span class="ms-1 d-flex align-items-center" style="width: 13%;">
+                <select name="" id="" class="form-select" [(ngModel)]="filterSortBy" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                    <option value="">Sort By</option>
+                </select>
+                <div>
+                    <i class="fa-solid fa-sort-up" [style.color]="sortValue == 'A' ? 'black' : 'white'" (click)="SortByAscDesc('A')"></i>
+                    <i class="fa-solid fa-sort-down" [style.color]="sortValue == 'D' ? 'black' : 'white'" (click)="SortByAscDesc('D')"></i>
+                </div>
+            </span>
+
             <span  class="ms-1 position-relative" style="width: 12%;">
+                <input class="form-control" name="date"  autocomplete="off"
+                        placeholder="Due Date" [(ngModel)]="filterDueDate" (bsValueChange)="onDateChange()" #d="bsDatepicker" bsDatepicker
+                        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false }" style="padding: .175rem .25rem .175rem .25rem;"/>
+                    <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear"
+                        (click)="OnClear();">
+
+            </span>
+           
+            <span  class="ms-1 position-relative" style="width: 15%;">
                 <input type="text" class="form-control" placeholder="Assigned To" [(ngModel)]="filterAssignedUser" style="padding: .175rem 0 .175rem .0;" (click)="openUserInfoComponent()">
             <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear">
 
             </span>
-            <span class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" [(ngModel)]="filterSortBy" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
-                    <option value="">Sort By</option>
-                </select>
-            </span>
-            <span  class="ms-1 position-relative" style="width: 12%;">
-                <input type="text" class="form-control" placeholder="Created By" [(ngModel)]="filterAssignedUser" style="padding: .175rem 0 .175rem .0;" (click)="openCreatedByModal(createdByModel)">
+       
+            <span  class="ms-1 position-relative" style="width: 15%;">
+                <input type="text" class="form-control" placeholder="Created By" [(ngModel)]="filterCreatedBy" style="padding: .175rem 0 .175rem .0;" (click)="openCreatedByModal(createdByModel)">
             <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear">
 
+            </span>
+
+            <span class="ms-1 d-flex">
+                <div class="filterSubmitBtn" (click)="filterGrid()">Submit</div>
+                <div class="filterCancelBtn">Cancel</div>
             </span>
          
            <!-- </div> -->
         </div>
-        <div class="col-2">
-            <button class="btn btn-primary" style="padding: .175rem .85rem .175rem .75rem;margin: 3px 5px;background-color: #f37121;border: 1px solid #f37121">Submit</button>
+        <!-- <div class="col-2">
+            <button class="btn btn-primary" style="padding: .175rem .85rem .175rem .75rem;margin: 3px 5px;background-color: #f37121;border: 1px solid #f37121" 
+            (click)="filterGrid()">Submit</button>
             <button class="btn btn-secondary" style="padding: .175rem .85rem .175rem .75rem;margin: 3px 5px;">Cancel</button>
-        </div>
+        </div> -->
     <!-- </div> -->
   </div>
 
   <div class="taskGridTable">
-    <ng-container *ngFor="let task of allTasksData">
+    <ng-container *ngFor="let task of alltasks">
         <div class="taskGrid">
             <div class="col-12 d-flex align-items-center firstRow">
                 <div class="col-9 d-flex align-items-center">
@@ -115,7 +129,9 @@
                     <div class="col-6">
                         <div>
                             <span class="tagname">Tags :</span>
-                            <span class="tag-box" [ngClass]="tag.TagType" *ngFor="let tag of task.TaskTagsLists.TaskTagsLists.TaskTagsList">{{tag.TagName}}</span>
+                            <span>
+                            <span class="tag-box"  [ngClass]="tag.TagType" *ngFor="let tag of task.TaskTagsLists.TaskTagsLists.TaskTagsList">{{tag.TagName}}</span>
+                        </span>
                         </div>
                     </div>
 
@@ -142,9 +158,9 @@
                             <span class="ps-2" (click)="openComponent(task,'doc')" style="cursor: pointer;">
                                 Doc's
                             </span>
-                            <span class="badge" *ngIf="task.Documents.Documents && task.Documents.Documents.Document">
+                            <!-- <span class="badge" *ngIf="task.Documents.Documents && task.Documents.Documents.Document">
                                 {{ task.Documents.Documents.Document.length>0 ? task.Documents.Documents.Document.length : task.Documents.Documents.Document? 1:0}}
-                            </span>
+                            </span> -->
                         </a>
 
                         <a class="notification">
@@ -353,7 +369,7 @@
 
                     <div class="col-4">
                         <img src="assets/images/followers_blk.png" alt="" class="me-2">
-                        <ng-container *ngIf="task.Folowers.Folowers && task.Folowers.Folowers.Folower">
+                        <ng-container *ngIf="task.Folowers.Folowers != ''">
                         <span class="followers" *ngFor="let Followers of task.Folowers.Folowers.Folower">
                             <img title="{{Followers.FirstName + ' ' + Followers.LastName}}"
                                 [src]="xpertProfileImg + Followers.profileimage_thumb" style="cursor: pointer;"
@@ -373,7 +389,7 @@
             </div>
         </div>
     </ng-container>
-    <div class="text-black text-center mt-5" *ngIf="spinner == false && allTasksData.length == 0">No Data Found</div>
+    <div class="text-black text-center mt-5" *ngIf="spinner == false && alltasks.length == 0">No Data Found</div>
 </div>
 <div class="pagination ">
 
