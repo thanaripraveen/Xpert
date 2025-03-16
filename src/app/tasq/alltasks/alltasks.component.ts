@@ -23,16 +23,18 @@ import { UsersinfoComponent } from '../usersinfo/usersinfo.component';
 })
 export class AlltasksComponent implements OnInit {
   spinner: boolean = false;
-  statusData: any = [
-    { 'name': 'Open', count: 179 },
-    { 'name': 'Closed', count: 179 },
-    { 'name': 'Resolved', count: 179 },
-    { 'name': 'Un Assigned', count: 179 },
-    { 'name': 'In Development', count: 179 },
-    { 'name': 'Testing', count: 179 },
-    { 'name': 'Ready For Release', count: 179 },
-    { 'name': 'Un Resolved', count: 179 },
-  ]
+  // statusData: any = [
+  //   { 'name': 'Open', count: 179 },
+  //   { 'name': 'Closed', count: 179 },
+  //   { 'name': 'Resolved', count: 179 },
+  //   { 'name': 'Un Assigned', count: 179 },
+  //   { 'name': 'In Development', count: 179 },
+  //   { 'name': 'Testing', count: 179 },
+  //   { 'name': 'Ready For Release', count: 179 },
+  //   { 'name': 'Un Resolved', count: 179 },
+  // ]
+
+  statusData: any = []
 
   allTasksData: any[] = [];
   alltasks: any = []
@@ -58,9 +60,9 @@ export class AlltasksComponent implements OnInit {
   filterAssignedUser: any = "";
   filterSortBy: any = "";
   filterCreatedBy: any = "";
-  filterSearch : any ="";
-  filterAssignUserId : any = 0;
-  sortValue : any = 'A'
+  filterSearch: any = "";
+  filterAssignUserId: any = 0;
+  sortValue: any = 'A'
   constructor(private api: ApiService, private fb: FormBuilder, private common: common,
     private router: Router, private toastr: ToastrService, private modalService: NgbModal) {
     this.userID = this.common.userid;
@@ -74,11 +76,14 @@ export class AlltasksComponent implements OnInit {
       if (res) {
         this.filterAssignedUser = res.FirstName + ' ' + res.MiddleName + ' ' + res.LastName;
         this.filterAssignUserId = res.UserId;
+        this.bindStatusCounts()
+
       }
     })
     this.bindDealerData();
     this.bindTagsData();
-    this.getAllTickets()
+    this.getAllTickets();
+    this.bindStatusCounts()
   }
 
 
@@ -88,7 +93,7 @@ export class AlltasksComponent implements OnInit {
 
     const obj = {
       "assignid": this.filterAssignUserId == 0 ? 0 : this.filterAssignUserId,
-      "duedate": this.filterDueDate == "" || this.filterDueDate == null || this.filterDueDate== undefined || this.filterDueDate =='Invalid date'? "" : moment(this.filterDueDate).format('MM/DD/YYYY'),
+      "duedate": this.filterDueDate == "" || this.filterDueDate == null || this.filterDueDate == undefined || this.filterDueDate == 'Invalid date' ? "" : moment(this.filterDueDate).format('MM/DD/YYYY'),
       "exp": this.filterSearch == "" ? "" : this.filterSearch,
       "exp2": this.filterDealer == "" ? '' : "T_DealerId=" + this.filterDealer,
       "maxId": 0,
@@ -102,22 +107,23 @@ export class AlltasksComponent implements OnInit {
       "createdby": this.filterCreatedBy == "" ? "" : this.selectedUser.T_UserEmail
     }
     console.log(obj);
-    
+
     this.api.postMethod1('xpert/GetAllTasks', obj).subscribe((res: any) => {
       console.log(res);
       if (res.status == 200) {
-        // this.allTasksData = res.response;
-        this.alltasks = res.response;
+         const allTasksData = res.response;
+        this.alltasks = Array.isArray(allTasksData) ? allTasksData : (allTasksData ? [allTasksData] : []);
         this.alltasks.forEach(item => {
           const taskTags = item?.TaskTagsLists?.TaskTagsLists?.TaskTagsList;
           item.TaskTagsLists.TaskTagsLists.TaskTagsList = Array.isArray(taskTags) ? taskTags : (taskTags ? [taskTags] : []);
 
-          if(item?.Folowers?.Folowers){
+          if (item?.Folowers?.Folowers) {
             const followers = item?.Folowers?.Folowers?.Folower;
             item.Folowers.Folowers.Folower = Array.isArray(followers) ? followers : (followers ? [followers] : []);
           }
-        });
         this.spinner = false;
+
+        });
       }
       else {
         this.alltasks = [];
@@ -126,11 +132,38 @@ export class AlltasksComponent implements OnInit {
     })
   }
 
-  filterTextChange(){
-    if(this.filterSearch == ""){
+  bindStatusCounts() {
+    const obj = {
+      "id": this.filterDealer,
+      "assignid": this.filterAssignUserId == 0 ? 0 : this.filterAssignUserId,
+      "duedate": this.filterDueDate == "" || this.filterDueDate == null || this.filterDueDate == undefined || this.filterDueDate == 'Invalid date' ? "" : moment(this.filterDueDate).format('MM/DD/YYYY'),
+      "createdby": this.filterCreatedBy == "" ? "" : this.selectedUser.T_UserEmail,
+      "priority": this.filterPriority == 0 ? 0 : this.filterPriority,
+      "stat": this.filterStatus == "" ? "" : this.filterStatus,
+      "tagid": this.filterTags == 0 ? 0 : this.filterTags
+    }
+    this.api.postMethod1('xpert/GetTicketcountsbyDealeridV1', obj).subscribe((res: any) => {
+      console.log(res);
+      if (res.status == 200) {
+        this.statusData = res.response;
+      }
+
+    })
+  }
+  countStatusClick(data : any){
+    this.filterStatus = data.ID;
+    this.getAllTickets();
+  }
+  filterStatusCountChange() {
+    this.bindStatusCounts()
+  }
+
+  filterTextChange() {
+    if (this.filterSearch == "") {
       this.getAllTickets()
     }
   }
+
 
   onSelectChange(event: any, Ticket: any): void {
     const obj = {
@@ -187,12 +220,11 @@ export class AlltasksComponent implements OnInit {
 
   }
 
-  SortByAscDesc(sortValue : any) {
+  SortByAscDesc(sortValue: any) {
     this.sortValue = sortValue;
   }
 
-  filterGrid(){
-    alert()
+  filterGrid() {
     this.getAllTickets();
   }
 
@@ -262,14 +294,19 @@ export class AlltasksComponent implements OnInit {
     return dateWithTimezone;
 
   }
-
+  firstLoadForDate = true; // To prevent first automatic trigger
   onDateChange() {
+    if (this.firstLoadForDate) {
 
+      this.firstLoadForDate = false; // First trigger ni ignore cheyyadam
+      return;
+    }
+    else{
+    this.bindStatusCounts()
+
+    }
   }
 
-  OnClear() {
-
-  }
   createdUsersList: any = []
   bindCreatedUsersList() {
     this.spinner = true;
@@ -306,11 +343,32 @@ export class AlltasksComponent implements OnInit {
 
   selectUser(user: any) {
     this.selectedUser = user;
-    this.filterCreatedBy = user.T_UserName;
   }
 
   hoverUser(user: any) {
     this.hoveredUser = user;
+  }
+
+  createdUserListFunction(){
+    this.filterCreatedBy = this.selectedUser.T_UserName;
+
+    this.bindStatusCounts();
+    this.modalRef.dismiss();
+    
+  }
+
+  clearDueDate(){
+    this.filterDueDate = "";
+    this.bindStatusCounts();
+  }
+  clearAssignedby(){
+    this.filterAssignedUser = "";
+    this.filterAssignUserId = 0;
+    this.bindStatusCounts();
+  }
+  clearCreatedBy(){
+    this.filterCreatedBy = "";
+    this.bindStatusCounts();
   }
 
 }

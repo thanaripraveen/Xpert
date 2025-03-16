@@ -72,7 +72,7 @@ export class DashboardComponent implements OnInit {
       "DptTagids": "",
       "dt1": "",
       "dt2": "",
-      "tkttype": 0
+      "tkttype": ""
     }
 
     this.api.postmethod1('xpert/GetTaskFeed', obj).subscribe(res => {

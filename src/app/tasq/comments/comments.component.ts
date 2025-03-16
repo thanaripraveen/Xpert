@@ -54,6 +54,8 @@ export class CommentsComponent implements OnInit {
   ngOnInit(): void {
     this.commentsArray = [];
    this.subscription = this.api.getTicketData().subscribe((res: any)=>{
+    console.log(res);
+    
       if(res){
         this.ticketData = res;
         this.getComments();

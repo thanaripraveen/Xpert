@@ -19,7 +19,7 @@
           </span>
         </div>
         <div class="col-10 d-flex align-items-center">
-          <span class="statusCounts" *ngFor="let d of statusData">{{d.name}} - {{d.count}}</span>
+          <span class="statusCounts" (click)="countStatusClick(d)" *ngFor="let d of statusData">{{d.Status == 'New' ? 'Un Assigned' : d.Status}} - {{d.count}}</span>
         </div>
       </div>
     </div>
@@ -40,13 +40,13 @@
         <div class="col-12 d-flex align-items-center">
            <!-- <div class="row"> -->
             <span class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" [(ngModel)]="filterDealer" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                <select name="" id="" class="form-select" (change)="filterStatusCountChange()" [(ngModel)]="filterDealer" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
                     <option value="">Dealer</option>
                     <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
                 </select>
             </span>
             <span  class="ms-1" style="width: 12%;">
-                <select name="" id="" [(ngModel)]="filterStatus" class="form-select" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                <select name="" id="" (change)="filterStatusCountChange()" [(ngModel)]="filterStatus" class="form-select" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
                     <option value="">Status</option>
                     <option value="7">Un Assigned</option>
                     <option value="1">Open</option>
@@ -60,13 +60,13 @@
             </span>
          
             <span  class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" [(ngModel)]="filterTags" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                <select name="" id="" class="form-select" (change)="filterStatusCountChange()" [(ngModel)]="filterTags" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
                     <option value="">Tags</option>
                     <option *ngFor="let tag of tagsData" [value]="tag.Tag_id" >{{tag.Tag_Name}}</option>
                 </select>
             </span>
             <span class="ms-1" style="width: 12%;">
-                <select name="" id="" class="form-select" [(ngModel)]="filterPriority" 
+                <select name="" id="" class="form-select" (change)="filterStatusCountChange()" [(ngModel)]="filterPriority" 
                 [style.color]="filterPriority == 1 ? 'red' : filterPriority == 2 ? 'blue' : filterPriority == 3 ? 'green' : 'black' " style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
                     <option value="" style="color : black">Priority</option>
                     <option *ngFor="let priority of priorties" [value]="priority.id" [style.color]="priority.color">{{priority.priorty}}</option>
@@ -78,33 +78,33 @@
                     <option value="">Sort By</option>
                 </select>
                 <div>
-                    <i class="fa-solid fa-sort-up" [style.color]="sortValue == 'A' ? 'black' : 'white'" (click)="SortByAscDesc('A')"></i>
-                    <i class="fa-solid fa-sort-down" [style.color]="sortValue == 'D' ? 'black' : 'white'" (click)="SortByAscDesc('D')"></i>
+                    <i class="fa-solid fa-sort-up" [style.color]="sortValue == 'A' ? '#10ed37' : 'white'" (click)="SortByAscDesc('A')"></i>
+                    <i class="fa-solid fa-sort-down" [style.color]="sortValue == 'D' ? '#10ed37' : 'white'" (click)="SortByAscDesc('D')"></i>
                 </div>
             </span>
 
             <span  class="ms-1 position-relative" style="width: 12%;">
                 <input class="form-control" name="date"  autocomplete="off"
-                        placeholder="Due Date" [(ngModel)]="filterDueDate" (bsValueChange)="onDateChange()" #d="bsDatepicker" bsDatepicker
+                        placeholder="Due Date" bsDatepicker [(ngModel)]="filterDueDate" (bsValueChange)="onDateChange()" 
                         [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false }" style="padding: .175rem .25rem .175rem .25rem;"/>
                     <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear"
-                        (click)="OnClear();">
+                        (click)="clearDueDate();">
 
             </span>
            
             <span  class="ms-1 position-relative" style="width: 15%;">
                 <input type="text" class="form-control" placeholder="Assigned To" [(ngModel)]="filterAssignedUser" style="padding: .175rem 0 .175rem .0;" (click)="openUserInfoComponent()">
-            <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear">
+            <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear" (click)="clearAssignedby()">
 
             </span>
        
             <span  class="ms-1 position-relative" style="width: 15%;">
                 <input type="text" class="form-control" placeholder="Created By" [(ngModel)]="filterCreatedBy" style="padding: .175rem 0 .175rem .0;" (click)="openCreatedByModal(createdByModel)">
-            <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear">
+            <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear" (click)="clearCreatedBy()">
 
             </span>
 
-            <span class="ms-1 d-flex">
+            <span class="ms-1 d-flex filterBtns">
                 <div class="filterSubmitBtn" (click)="filterGrid()">Submit</div>
                 <div class="filterCancelBtn">Cancel</div>
             </span>
@@ -425,7 +425,7 @@
           
     </div>
     <div class="modal-footer d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary" style="background-color:#f37121;border: #f37121;">Submit</button>
+        <button type="submit" class="btn btn-primary" style="background-color:#f37121;border: #f37121;" (click)="createdUserListFunction()">Submit</button>
         <button type="submit" class="btn btn-secondary">Cancel</button>
     </div>
 </ng-template>
