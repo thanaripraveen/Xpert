@@ -286,9 +286,12 @@
     /* background: #f0f4ff; */
     padding: 10px 25px 0 5px;
 
-    button {
-        padding: 3px 10px;
+    img {
         cursor: pointer;
+    }
+    .imageDisable{
+        pointer-events: none;
+        opacity: 0.2;
     }
 }
 

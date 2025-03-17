@@ -38,7 +38,8 @@ export class AlltasksComponent implements OnInit {
   statusData: any = []
 
   allTasksData: any[] = [];
-  alltasks: any = []
+  alltasks: any = [];
+  dataCount : any =0;
   xpertProfileImg: any = environment.xpertProfileImg;
   priorties: any = [
     { id: 3, priorty: 'Low', color: 'green' },
@@ -104,7 +105,7 @@ export class AlltasksComponent implements OnInit {
     this.bindStatusCounts()
   }
 
-
+totalPages : any;
   getAllTickets() {
 
     this.spinner = true;
@@ -114,7 +115,7 @@ export class AlltasksComponent implements OnInit {
       "duedate": this.filterDueDate == "" || this.filterDueDate == null || this.filterDueDate == undefined || this.filterDueDate == 'Invalid date' ? "" : moment(this.filterDueDate).format('MM/DD/YYYY'),
       "exp": this.filterSearch == "" ? "" : this.filterSearch,
       "exp2": this.filterDealer == "" ? '' : "T_DealerId=" + this.filterDealer,
-      "maxId": 0,
+      "maxId": this.rowCount,
       "priority": this.filterPriority == 0 ? 0 : this.filterPriority,
       "stat": this.filterStatus == "" ? "" : this.filterStatus,
       "tagid": this.filterTags == 0 ? 0 : this.filterTags,
@@ -124,30 +125,123 @@ export class AlltasksComponent implements OnInit {
       "orderby": this.sortValue,
       "createdby": this.filterCreatedBy == "" ? "" : this.selectedUser.T_UserEmail
     }
-    console.log(obj);
+    
 
     this.api.postMethod1('xpert/GetAllTasks', obj).subscribe((res: any) => {
-      console.log(res);
+      
       if (res.status == 200) {
-         const allTasksData = res.response;
-        this.alltasks = Array.isArray(allTasksData) ? allTasksData : (allTasksData ? [allTasksData] : []);
-        this.alltasks.forEach(item => {
-          const taskTags = item?.TaskTagsLists?.TaskTagsLists?.TaskTagsList;
-          item.TaskTagsLists.TaskTagsLists.TaskTagsList = Array.isArray(taskTags) ? taskTags : (taskTags ? [taskTags] : []);
-
-          if (item?.Folowers?.Folowers) {
-            const followers = item?.Folowers?.Folowers?.Folower;
-            item.Folowers.Folowers.Folower = Array.isArray(followers) ? followers : (followers ? [followers] : []);
-          }
-        this.spinner = false;
-
-        });
+        this.dataCount = res.response.count;
+        this.totalPages = Math.ceil(this.dataCount/20);
+        this.allTasksData = Array.isArray( res.response.data) ?  res.response.data : ( res.response.data ? [ res.response.data] : []);
+        if(this.alltasks.length){
+          this.alltasks = [...this.alltasks , ...this.allTasksData]
+          this.alltasks.forEach(item => {
+            const taskTags = item?.TaskTagsLists?.TaskTagsLists?.TaskTagsList;
+            item.TaskTagsLists.TaskTagsLists.TaskTagsList = Array.isArray(taskTags) ? taskTags : (taskTags ? [taskTags] : []);
+  
+            if (item?.Folowers?.Folowers) {
+              const followers = item?.Folowers?.Folowers?.Folower;
+              item.Folowers.Folowers.Folower = Array.isArray(followers) ? followers : (followers ? [followers] : []);
+            }
+  
+          
+          this.spinner = false;
+  
+          });
+        }
+        else{
+          this.alltasks = this.allTasksData;
+          this.alltasks.forEach(item => {
+            if(item?.TaskTagsLists?.TaskTagsLists){
+              const taskTags = item?.TaskTagsLists?.TaskTagsLists?.TaskTagsList;
+            item.TaskTagsLists.TaskTagsLists.TaskTagsList = Array.isArray(taskTags) ? taskTags : (taskTags ? [taskTags] : []);
+  
+            }
+            
+            if (item?.Folowers?.Folowers) {
+              const followers = item?.Folowers?.Folowers?.Folower;
+              item.Folowers.Folowers.Folower = Array.isArray(followers) ? followers : (followers ? [followers] : []);
+            }
+  
+          
+          this.spinner = false;
+  
+          });
+        }
+        
+        this.updateTaskList();
+       
       }
       else {
         this.alltasks = [];
+        this.updateTaskList()
         this.spinner = false;
       }
     })
+  }
+  currentPage : any =1;
+  allTicketsData : any =[]
+  updateTaskList() {
+    let startIndex = (this.currentPage - 1) * 20;
+    let endIndex = this.currentPage * 20;
+    if (startIndex >= this.alltasks.length) {
+      startIndex = Math.max(0, this.alltasks.length - 20);
+    }
+   
+    this.allTicketsData = this.alltasks.slice(startIndex, endIndex);
+
+    console.log(this.allTicketsData);
+    
+
+  }
+
+  goToFirstPage() {
+    if (this.currentPage !== 1) {
+      this.currentPage = 1;
+      this.rowCount = 0;
+      this.alltasks = []
+      this.getAllTickets();
+    }
+  }
+  rowCount : any =0;
+  goToLastPage() {
+    if (this.currentPage !== this.totalPages) {
+      this.currentPage = this.totalPages;
+      this.rowCount = this.dataCount - 20;
+      this.alltasks = [];  
+      this.getAllTickets();
+
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.rowCount = (this.currentPage - 1) * 20;
+      console.log(this.alltasks);
+      
+      if (this.rowCount < this.alltasks.length) {
+     
+        this.updateTaskList();
+      } else {
+     
+      this.getAllTickets()
+      }
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.rowCount = (this.currentPage - 1) * 20;
+     
+      if (this.rowCount >= this.alltasks.length) {
+        this.getAllTickets()
+      } else {
+       
+        this.updateTaskList();
+      }
+    }
   }
 
   bindStatusCounts() {
@@ -169,6 +263,8 @@ export class AlltasksComponent implements OnInit {
     })
   }
   countStatusClick(data : any){
+    this.alltasks = []
+    this.rowCount = 0;
     this.filterStatus = data.ID;
     this.getAllTickets();
   }

@@ -37,6 +37,9 @@ export class DashboardComponent implements OnInit {
   dashboardOrderBy : any = "T_iD desc";
 
   overdueToggleValue : boolean = false;
+
+  filterDealer : any ="";
+  filterPriority : any = 0
   constructor(private api: ApiService, private toastr: ToastrService,
     private common: common, private modalService: NgbModal,private router : Router) {
     this.userID = this.common.userid;
@@ -57,39 +60,105 @@ export class DashboardComponent implements OnInit {
         }
       }
     })
+
+    this.bindDealerData()
   }
+
+  showhide : boolean = false;
   BindDashboard() {
     this.spinner = true;
-    const obj = {
-      "id": 0,
-      "UserId": this.userID,
-      "MaxId": 0,
-      "SearchString": this.txtSearch == "" ? "" : this.txtSearch,
-      "TaskStatus": this.dashboardType,
-      "orderby": this.dashboardOrderBy,
-      "srchflag": "",
-      "DlrTagids": "",
-      "DptTagids": "",
-      "dt1": "",
-      "dt2": "",
-      "tkttype": ""
+    const obj ={
+        "taskId": 0,
+        "userId": this.common.userid,
+        "maxId": this.rowCount,
+        "exp": this.txtSearch == "" ? "" : this.txtSearch,
+        "exp2": this.filterDealer == "" ? '' : "T_DealerId=" + this.filterDealer,
+        "stat": "",
+        "duedate": "",
+        "tagid": 0,
+        "assignid": 0,
+        "priority": this.filterPriority == 0 ? 0 : this.filterPriority,
+        "sortby": "",
+        "orderby": "A",
+        "createdby": "",
+        "flag": ""
     }
 
-    this.api.postmethod1('xpert/GetTaskFeed', obj).subscribe(res => {
+    this.api.postMethod1('users/GetMyTickets', obj).subscribe(res => {
       console.log(res);
-      if (res.status === 200) {
-        this.taskDetailsList = res.response;
-        this.spinner = false;
+      // if (res.status === 200) {
+        // this.taskDetailsList = res.response;
+
+        if (res.status == 200 && res.response.data.length > 0) {
+          const dashboardData = res.response.data;
+         const newTasks = Array.isArray(dashboardData) ? dashboardData : (dashboardData ? [dashboardData] : []);
+         this.taskDetailsList = this.taskDetailsList.length ? this.taskDetailsList.concat(newTasks) : newTasks;
+         this.taskDetailsList.forEach(item => {
+           const taskTags = item?.TaskTagsLists?.TaskTagsLists?.TaskTagsList;
+           item.TaskTagsLists.TaskTagsLists.TaskTagsList = Array.isArray(taskTags) ? taskTags : (taskTags ? [taskTags] : []);
+ 
+           if (item?.Folowers?.Folowers) {
+             const followers = item?.Folowers?.Folowers?.Folower;
+             item.Folowers.Folowers.Folower = Array.isArray(followers) ? followers : (followers ? [followers] : []);
+           }
+        this.showhide = newTasks.length > 19;
+
+         this.spinner = false;
+ 
+         });
+       }
+       else {
+         this.taskDetailsList = [];
+        this.showhide = false;
+         this.spinner = false;
+       }
+        this.spinner = false;    
+    });
+  }
+rowCount : any = 0;
+  viewMore(){
+    this.rowCount = this.taskDetailsList.length;
+    this.BindDashboard();
+  }
+  dealersData : any =[]
+  bindDealerData() {
+    const obj = {
+      "searchstring": this.filterDealer,
+      "userId": this.common.userid
+    }
+    this.api.postMethod1('users/GetAutoCompleteDealersData', obj).subscribe((res: any) => {
+      console.log(res);
+
+      if (res.status == 200) {
+        this.dealersData = res.response;
       }
       else {
-        this.taskDetailsList = [];
-        this.spinner = false;
+        this.dealersData = [];
       }
-    });
+    })
+  }
+
+  filterGrid() {
+    this.taskDetailsList = []
+    this.BindDashboard();
+  }
+
+  filterCancel(){
+    this.filterDealer = "";
+    this.filterPriority = 0;
+    this.rowCount = 0;
+    this.BindDashboard()
+  }
+
+  onSrchTxtboxkeyupFunction(){
+    this.taskDetailsList =[];
+    this.BindDashboard()
+
   }
 
   onSrchTxtboxEmptyFunction(){
     if(this.txtSearch == ""){
+      this.taskDetailsList=[]
       this.BindDashboard()
     }
   }

@@ -14,7 +14,8 @@
             <div class="col-7 d-flex justify-content-end">
                 <span class="links" (click)="tickets('mytickets')">My Tickets<span class="ms-1">|</span></span>
                 <span class="links ms-2" (click)="tickets('Alltasks')">All Tickets<span class="ms-1">|</span></span>
-                <span class=" links ms-2" (click)="getsearchdata('9','ovrduediv')">OverDue<span class="ms-1">|</span></span>
+                <span class=" links ms-2" (click)="getsearchdata('9','ovrduediv')">OverDue<span
+                        class="ms-1">|</span></span>
                 <span class="ps-2 links" (click)="getsearchdata('7','divnewtask')">New<span class="ms-1">|</span></span>
                 <span class="px-2 links" (click)="getsearchdata('9','divactive');">Active</span>
             </div>
@@ -22,7 +23,8 @@
             <div class="col-4 ">
                 <div class="input-group">
 
-                    <input type="text" class="form-control py-0" placeholder="Search..." aria-label="Search" [(ngModel)]="txtSearch" (input)="onSrchTxtboxEmptyFunction()" (keyup.enter)="BindDashboard()" >
+                    <input type="text" class="form-control py-0" placeholder="Search..." aria-label="Search"
+                        [(ngModel)]="txtSearch" (input)="onSrchTxtboxEmptyFunction()" (keyup.enter)="onSrchTxtboxkeyupFunction()">
                     <span class="input-group-text bg-light">
                         <i class="fa-solid fa-magnifying-glass" (click)="BindDashboard()"></i>
                     </span>
@@ -35,6 +37,37 @@
         </div>
 
     </div>
+
+    <div class="col-12 d-flex align-items-center filterRow">
+        <!-- <div class="row"> -->
+            <div class="col-3"></div>
+        <div class="col-6 d-flex align-items-center justify-content-center">
+            <!-- <div class="row"> -->
+            <span class="ms-1" style="width: 25%;">
+                <select name="" id="" class="form-select"
+                    [(ngModel)]="filterDealer" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                    <option value="">Dealer</option>
+                    <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
+                </select>
+            </span>
+
+            <span class="ms-1" style="width: 25%;">
+                <select name="" id="" class="form-select"  [(ngModel)]="filterPriority" 
+                [style.color]="filterPriority == 1 ? 'red' : filterPriority == 2 ? 'blue' : filterPriority == 3 ? 'green' : 'black' " style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                    <option value="0" style="color : black">Priority</option>
+                    <option *ngFor="let priority of priorties" [value]="priority.id" [style.color]="priority.color">{{priority.priorty}}</option>
+                </select>
+            </span>
+
+            <span class="ms-1 d-flex filterBtns">
+                <div class="filterSubmitBtn" (click)="filterGrid()">Submit</div>
+                <div class="filterCancelBtn" (click)="filterCancel()">Cancel</div>
+            </span>
+        </div>
+        <div class="col-3"></div>
+
+    </div>
+
     <div class="taskGridTable">
         <ng-container *ngFor="let task of taskDetailsList">
             <div class="taskGrid">
@@ -45,7 +78,8 @@
                         <div class="col-6">
                             <div>
                                 <span class="tagname">Tags :</span>
-                                <span class="tag-box" [ngClass]="tag.TagType" *ngFor="let tag of task.TaskTagsListInfo">{{tag.TagName}}</span>
+                                <span class="tag-box" [ngClass]="tag.TagType"
+                                    *ngFor="let tag of task.TaskTagsLists.TaskTagsLists.TaskTagsList">{{tag.TagName}}</span>
                             </div>
                         </div>
 
@@ -72,32 +106,40 @@
                                 <span class="ps-2" (click)="openComponent(task,'doc')" style="cursor: pointer;">
                                     Doc's
                                 </span>
-                                <span class="badge" *ngIf="task.DocumentsInfo?.Documents && task.DocumentsInfo?.Documents?.Document">
-                                    {{ task.DocumentsInfo.Documents.Document.length>0 ? task.DocumentsInfo.Documents.Document.length : task.DocumentsInfo.Documents.Document? 1:0}}
+                                <span class="badge"
+                                    *ngIf="task.DocumentsInfo?.Documents && task.DocumentsInfo?.Documents?.Document">
+                                    {{ task.DocumentsInfo.Documents.Document.length>0 ?
+                                    task.DocumentsInfo.Documents.Document.length :
+                                    task.DocumentsInfo.Documents.Document? 1:0}}
                                 </span>
                             </a>
 
                             <a class="notification">
                                 <span class="ps-2">
-                                    <img src="../../../assets/images/comment.png" (click)="openComponent(task,'comments')" alt="" style="cursor: pointer;">
+                                    <img src="../../../assets/images/comment.png"
+                                        (click)="openComponent(task,'comments')" alt="" style="cursor: pointer;">
                                 </span>
                                 <span class="badge" *ngIf="task.cmtcnt > 0">
                                     {{task.cmtcnt}}</span>
                             </a>
-                            <span class=" ps-2"><img src="../../../assets/images/viewIconImg.png" (click)="openComponent(task,'view')" alt="" style="cursor: pointer;"></span>
-                            <span class=" ps-2"><img src="../../../assets/images/edit.png" (click)="openComponent(task,'edit')" alt="" style="cursor: pointer;"></span>
+                            <span class=" ps-2"><img src="../../../assets/images/viewIconImg.png"
+                                    (click)="openComponent(task,'view')" alt="" style="cursor: pointer;"></span>
+                            <span class=" ps-2"><img src="../../../assets/images/edit.png"
+                                    (click)="openComponent(task,'edit')" alt="" style="cursor: pointer;"></span>
                         </div>
 
                     </div>
                 </div>
                 <div class="secondRow">
-                
+
 
                     <div class="col-12">
                         <div class="d-flex">
-                            <span style="font-family: 'FaktPro-Medium';font-size: 1.1rem;padding-right:1rem;text-wrap-mode:nowrap;"> {{task.Title
+                            <span
+                                style="font-family: 'FaktPro-Medium';font-size: 1.1rem;padding-right:1rem;text-wrap-mode:nowrap;">
+                                {{task.TaskTitle
                                 !=
-                                ''? task.Title :'-'}} -- </span>
+                                ''? task.TaskTitle :'-'}} -- </span>
                             <!-- <span  > -- </span> -->
                             <div class="cesd" [innerHTML]="task.Details"></div>
                         </div>
@@ -113,7 +155,7 @@
                                     </span>
                                 </div>
 
-                                <div *ngIf="task.AckUID !=0 && task.AckUID !='' && task.AckUID != null">
+                                <div *ngIf="task.AckID !=0 && task.AckID !='' && task.AckID != null">
                                     <div class="col">
                                         <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Acknowledged By :
                                         </span>
@@ -122,10 +164,10 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="row" *ngIf="task.Reslovedby != '' && task.Reslovedby != null">
+                                <div class="row" *ngIf="task.reslovedby != '' && task.reslovedby != null">
                                     <div class="col">
                                         <span style="color: #1470c1;font-family: 'FaktPro-Bold';">Resolved By : </span>
-                                        <span style="font-size: 14px;">{{task.Reslovedby + ' @ '+
+                                        <span style="font-size: 14px;">{{task.reslovedby + ' @ '+
                                             LocalTimeConvertioninHours(task.Resolvedts)}}
                                         </span>
                                     </div>
@@ -282,16 +324,18 @@
 
 
                         <div class="col-4">
-                            <img src="assets/images/followers_blk.png" alt="" class="me-2">
-                            <span class="followers" *ngFor="let Followers of task.FollowersInfo">
-                                <img title="{{Followers.FirstName + ' ' + Followers.LastName}}"
-                                    [src]="xpertProfileImg + Followers.ProfileImage_thumb" style="cursor: pointer;"
-                                    alt="">
-                            </span>
+                            <img src="assets/images/followers_blk.png" alt="" class="me-2 ">
+                            <ng-container *ngIf="task.Folowers != '<Folowers/>' && task.Folowers.Folowers != ''">
+                                <span class="followers" *ngFor="let Followers of task.Folowers.Folowers.Folower">
+                                    <img title="{{Followers.FirstName + ' ' + Followers.LastName}}"
+                                        [src]="xpertProfileImg + Followers.profileimage_thumb" style="cursor: pointer;"
+                                        alt="">
+                                </span>
+                            </ng-container>
                         </div>
 
                         <div class="col-3 text-end text-black">
-                            <span style="font-size: 13px;font-family: FaktPro-Bold;">Due Date :</span>
+                            <span style="font-size: 13px;font-family: FaktPro-Bold;" class="keyName">Due Date :</span>
                             <span style="font-size: 13px;font-family: FaktPro-Medium;">{{task.Dueterms}}</span><span
                                 style="font-size: 13px;font-family: FaktPro-Medium;"
                                 class="px-2">{{LocalTimeConvertioninHours1(task.DueOn)}}</span>
@@ -301,14 +345,22 @@
                 </div>
             </div>
         </ng-container>
-        <div class="text-black text-center mt-5" *ngIf="spinner == false && taskDetailsList.length == 0">No Data Found</div>
-    </div>
-    <div class="pagination ">
 
+        <div class="text-black text-center mt-5" *ngIf="spinner == false && taskDetailsList.length == 0">No Data Found
+        </div>
+
+        <div class="text-center mt-2" *ngIf="showhide && taskDetailsList.length!=0">
+            <a (click)="viewMore()"
+                style="    color: #1471c4;font-size: 1rem;font-family: 'FaktPro-Bold';cursor: pointer;">View more</a>
+            <div (click)="viewMore();" class="arrow-container"><img src="assets/images/arrowdown.png" alt="Arrow Down">
+            </div>
+        </div>
+    </div>
+    <!-- <div class="pagination ">
         <img src="../../../assets/images/first.png" alt="">
         <img src="../../../assets/images/previous.png" alt="">
         <span class="text-black">Page 10 of 10</span>
         <img src="../../../assets/images/next.png" alt="">
         <img src="../../../assets/images/last.png" alt="">
-    </div>
+    </div> -->
 </div>

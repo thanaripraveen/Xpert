@@ -120,7 +120,7 @@
   </div>
 
   <div class="taskGridTable">
-    <ng-container *ngFor="let task of alltasks">
+    <ng-container *ngFor="let task of allTicketsData">
         <div class="taskGrid">
             <div class="col-12 d-flex align-items-center firstRow">
                 <div class="col-9 d-flex align-items-center">
@@ -158,9 +158,9 @@
                             <span class="ps-2" (click)="openComponent(task,'doc')" style="cursor: pointer;">
                                 Doc's
                             </span>
-                            <!-- <span class="badge" *ngIf="task.Documents.Documents && task.Documents.Documents.Document">
+                            <span class="badge" *ngIf="task.Documents.Documents && task.Documents.Documents.Document">
                                 {{ task.Documents.Documents.Document.length>0 ? task.Documents.Documents.Document.length : task.Documents.Documents.Document? 1:0}}
-                            </span> -->
+                            </span>
                         </a>
 
                         <a class="notification">
@@ -181,9 +181,8 @@
 
                 <div class="col-12">
                     <div class="d-flex">
-                        <span style="font-family: 'FaktPro-Medium';font-size: 1.1rem;padding-right:1rem;text-wrap-mode:nowrap;"> {{task.TaskTitle
-                            !=
-                            ''? task.TaskTitle :'-'}} -- </span>
+                        <span style="font-family: 'FaktPro-Medium';font-size: 1.1rem;padding-right:1rem;text-wrap-mode:nowrap;text-overflow: ellipsis;max-width: 800px;overflow: hidden;"> 
+                        {{task.TaskTitle !=''? task.TaskTitle :'-'}} -- </span>
                         <!-- <span  > -- </span> -->
                         <div class="cesd" [innerHTML]="task.Details"></div>
                     </div>
@@ -393,11 +392,11 @@
 </div>
 <div class="pagination ">
 
-    <img src="../../../assets/images/first.png" alt="">
-    <img src="../../../assets/images/previous.png" alt="">
-    <span class="text-black">Page 10 of 10</span>
-    <img src="../../../assets/images/next.png" alt="">
-    <img src="../../../assets/images/last.png" alt="">
+    <img src="../../../assets/images/first.png" alt="First" title="First" [ngClass]="{'imageDisable': currentPage == 1}" (click)="goToFirstPage()">
+    <img src="../../../assets/images/previous.png" alt="Previous" title="Previous" [ngClass]="{'imageDisable': currentPage == 1}" (click)="prevPage()">
+    <span class="text-black">Page {{currentPage}} of {{totalPages}}</span>
+    <img src="../../../assets/images/next.png" alt="Next" title="Next" [ngClass]="{'imageDisable': currentPage == totalPages}" (click)="nextPage()">
+    <img src="../../../assets/images/last.png" alt="Last" title="Last" [ngClass]="{'imageDisable': currentPage == totalPages}" (click)="goToLastPage()">
 </div>
 
 

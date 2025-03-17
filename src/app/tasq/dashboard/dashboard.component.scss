@@ -1,56 +1,62 @@
-.dashBoardPage{
- 
-    .headerDesign{
+.dashBoardPage {
+
+    .headerDesign {
         background-color: #bfcfd9;
         padding: 3px;
 
-        .title{
+        .title {
             font-family: 'FaktPro-Bold';
             font-size: .8rem;
-            color: #000; 
+            color: #000;
         }
 
-        .links{
+        .links {
             font-family: 'FaktPro-Medium';
             font-size: .8rem;
             color: #000;
             text-decoration: underline;
             cursor: pointer;
-            
+
         }
     }
 
-.taskGridTable{
-    height: calc(100vh - 150px);
-    overflow: auto;
-    border-bottom: 5px solid black
-}
-    .taskGrid{
+    .taskGridTable {
+        height: calc(100vh - 150px);
+        overflow: auto;
+        // border-bottom: 5px solid black
+    }
+
+    .taskGrid {
         font-family: 'FaktPro-Normal';
         font-size: .8rem;
         color: #000;
         border-top: 5px solid;
         overflow-x: hidden;
-       
-        .firstRow{
+        position: relative;
+        /* Needed for z-index to work */
+        transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+
+        .firstRow {
             background-color: #e6eff5;
             padding: 5px;
 
-            .ticketStyle{
+            .ticketStyle {
                 font-family: 'FaktPro-Bold';
                 font-size: 1rem;
             }
-            .dealerSTyle{
+
+            .dealerSTyle {
                 font-family: 'FaktPro-Bold';
-                font-size: 1rem;  
+                font-size: 1rem;
                 color: #d1681b;
             }
-         
-            .tagname{
+
+            .tagname {
                 font-family: 'FaktPro-Bold';
                 font-size: 1rem;
                 margin-left: 1rem;
             }
+
             // .tagsStyle{
             //     background: #1472c1;
             //     color: #fff;
@@ -66,15 +72,38 @@
                 border-radius: 5px;
                 display: inline-block;
                 font-size: .7rem;
-              }
-              
-              .S { background-color: #1471c2; color: #fff; }  // Blue
-              .I { background-color: #ff0000; color: #fff; }  // Green
-              .R { background-color: #14c243; color: #fff; }  // Yellow
-              .V { background-color: #ffc107; color: #fff; }  // Red
-              .C { background-color: #a914c2; color: #fff; }
+            }
 
-            .doc{
+            .S {
+                background-color: #1471c2;
+                color: #fff;
+            }
+
+            // Blue
+            .I {
+                background-color: #ff0000;
+                color: #fff;
+            }
+
+            // Green
+            .R {
+                background-color: #14c243;
+                color: #fff;
+            }
+
+            // Yellow
+            .V {
+                background-color: #ffc107;
+                color: #fff;
+            }
+
+            // Red
+            .C {
+                background-color: #a914c2;
+                color: #fff;
+            }
+
+            .doc {
                 color: #1472c1;
                 text-decoration: underline;
                 font-size: 1rem;
@@ -82,10 +111,10 @@
                 .notification {
                     position: relative;
                     display: inline-block;
-                  }
-                  
-                  
-                  .notification .badge {
+                }
+
+
+                .notification .badge {
                     position: absolute;
                     top: -5px;
                     right: -10px;
@@ -93,16 +122,17 @@
                     border-radius: 50%;
                     background-color: red;
                     color: white;
-                  }
+                }
             }
-            .icon{
+
+            .icon {
                 .notification {
                     position: relative;
                     display: inline-block;
-                  }
-                  
-                  
-                  .notification .badge {
+                }
+
+
+                .notification .badge {
                     position: absolute;
                     top: -5px;
                     right: -10px;
@@ -110,61 +140,70 @@
                     border-radius: 50%;
                     background-color: red;
                     color: white;
-                  }
+                }
             }
         }
-        .secondRow{
+
+        .secondRow {
             background-color: #fff;
             padding: 5px;
-            .title{
+
+            .title {
                 font-family: 'FaktPro-Medium';
                 font-size: 1rem;
                 display: flex;
                 gap: 20px;
-                
+
             }
-            .keyName{
+
+            .keyName {
                 font-family: 'FaktPro-Medium';
                 font-size: .9rem;
                 color: #1472c1;
             }
-            .acknowledgeBtn{
+
+            .acknowledgeBtn {
                 background: #1472c1;
                 color: #fff;
                 padding: 5px;
                 margin-left: 5px;
             }
-            .assignToMe{
+
+            .assignToMe {
                 font-family: 'FaktPro-Medium';
-                .form-check-input{
+
+                .form-check-input {
                     width: 1rem;
                     height: 1rem;
                 }
-                .assignToBtn{
+
+                .assignToBtn {
                     background: #1472c1;
                     color: #fff;
                     padding: 4px;
                     margin-left: 5px;
                 }
             }
-            
-            .assignProfileImg{
+
+            .assignProfileImg {
                 height: 45px;
                 border-radius: 50%;
                 border: 1px solid lightgray;
             }
         }
-        .thirdRow{
+
+        .thirdRow {
             background-color: #e6eff5;
             padding: 3px;
-            
+
             .followers img {
                 height: 25px;
                 border-radius: 50px;
                 border: 1.5px solid white;
                 margin: 0 8px 0 0;
             }
-            .keyName{
+
+            .keyName {
                 font-family: 'FaktPro-Medium';
                 font-size: .9rem;
                 color: #1472c1;
@@ -172,22 +211,66 @@
         }
     }
 
-    .pagination {
-        display: flex;
-            gap: 20px;
-            justify-content: end;
-            align-items: center;
-            /* background: #f0f4ff; */
-            padding: 10px 25px 0 5px;
-        button {
-          padding: 3px 10px;
-          cursor: pointer;
+    .taskGrid:hover {
+        background-color: #f5f5f5 !important;
+        transform: translateY(-5px);
+        /* Moves up */
+        z-index: 10;
+        /* Ensures it appears above other elements */
+    }
+
+    .filterRow {
+        background-color: #8da9ba;
+        // padding: 5px 0;
+
+        .form-select{
+            font-family: 'FaktPro-Normal';
+            font-size: .8rem;
         }
-      }
-      button:disabled {
+
+        .filterBtns{
+            height: 27px;
+
+            .filterSubmitBtn {
+                background: #fd6305;
+                padding: 4px 5px;
+                border-radius: 5px;
+                font-family: 'FaktPro-Medium';
+                cursor: pointer;
+            }
+    
+            .filterCancelBtn {
+                background: #696969;
+                padding: 4px 5px;
+                border-radius: 5px;
+                font-family: 'FaktPro-Medium';
+                margin-left: 2px;
+                margin-right: 2px;
+                cursor: pointer;
+    
+            }
+            
+        }
+    }
+
+    // .pagination {
+    //     display: flex;
+    //     gap: 20px;
+    //     justify-content: center;
+    //     align-items: center;
+    //     /* background: #f0f4ff; */
+    //     padding: 10px 25px 0 5px;
+
+    //     button {
+    //         padding: 3px 10px;
+    //         cursor: pointer;
+    //     }
+    // }
+
+    button:disabled {
         cursor: not-allowed !important;
         opacity: 0.4 !important;
-      }
+    }
 }
 
 .custom-modal-class .modal-dialog {
@@ -195,8 +278,9 @@
     /* Adjust as needed */
     width: 100% !important;
     /* For full control */
-  
-  }
+
+}
+
 //   .custom-modal-class .modal-content {
 //     // padding: 20px; /* Optional: Customize padding */
 //     margin: auto;
@@ -206,12 +290,3 @@
 //   :host ::ng-deep .custom-modal-class .modal-content {
 //     background-color: lightblue !important;
 //   }
-
-
-
-
-
-
-
-
-
