@@ -34,6 +34,7 @@ export class AlltasksComponent implements OnInit {
   //   { 'name': 'Un Resolved', count: 179 },
   // ]
 
+
   statusData: any = []
 
   allTasksData: any[] = [];
@@ -47,6 +48,7 @@ export class AlltasksComponent implements OnInit {
   userID: any;
   roleId: any;
   selectedDate: Date = new Date();
+
   private modalRef!: NgbModalRef;
 
 
@@ -62,7 +64,23 @@ export class AlltasksComponent implements OnInit {
   filterCreatedBy: any = "";
   filterSearch: any = "";
   filterAssignUserId: any = 0;
-  sortValue: any = 'A'
+  sortValue: any = 'A';
+
+  keyNamesList : any =[
+    {keyname : 'Ticket' , value : 'Ticket'},
+    {keyname : 'Dealer Name' , value : 'ReqDealerName'},
+    {keyname : 'Title' , value : 'Title'},
+    {keyname : 'Priority' , value : 'T_Priority'},
+    // {keyname : 'Acknowledged By' , value : 'AckUSERNAME'},
+    {keyname : 'Assign By' , value : 'AssignByUserName'},
+    {keyname : 'Assign To' , value : 'AssignUSERNAME'},
+    {keyname : 'Resloved By' , value : 'Reslovedby'},
+    {keyname : 'Created By' , value : 'ReqUserName'},
+    {keyname : 'Status' , value : 'ReqStatus'},
+    {keyname : 'Due Date' , value : 'DueDate'},
+    {keyname : 'Description' , value : 'Details'},
+
+  ]
   constructor(private api: ApiService, private fb: FormBuilder, private common: common,
     private router: Router, private toastr: ToastrService, private modalService: NgbModal) {
     this.userID = this.common.userid;
@@ -369,6 +387,15 @@ export class AlltasksComponent implements OnInit {
   clearCreatedBy(){
     this.filterCreatedBy = "";
     this.bindStatusCounts();
+  }
+
+  openExcelModal(excelModal : any){
+    this.modalRef = this.modalService.open(excelModal, {
+      windowClass: 'createdBYModal',
+      size: 'lg',
+      backdrop: 'static',
+      centered: true
+    })
   }
 
 }

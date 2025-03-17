@@ -15,7 +15,7 @@
       <div class="row">
         <div class="col title text-black">All Tickets
           <span class="ms-1">
-            <img src="../../../assets/images/gridFilterImg.png" alt="" style="cursor: pointer;">
+            <img src="../../../assets/images/gridFilterImg.png" (click)="openExcelModal(excelModel)" alt="" style="cursor: pointer;">
           </span>
         </div>
         <div class="col-10 d-flex align-items-center">
@@ -420,6 +420,32 @@
               </div>
             </div>
           </div>
+
+          <div *ngIf="createdUsersList.length == 0 && spinner == false">No users found</div>
+          
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary" style="background-color:#f37121;border: #f37121;" (click)="createdUserListFunction()">Submit</button>
+        <button type="submit" class="btn btn-secondary">Cancel</button>
+    </div>
+</ng-template>
+
+<ng-template #excelModel let-modal>
+    <div class="modal-header px-3 py-2">
+        <!-- <h5 class="modal-title text-black">Created BY</h5> -->
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body text-black text-center">
+        <div style="height: 310px;overflow: auto;overflow-x: hidden;">
+            <table>
+                <tr *ngFor="let key of keyNamesList">
+                    <td>
+                        <label style="cursor: pointer;font-family:'FaktPro-Normal';">
+                        <input type="checkbox" class="form-check-input" id="keyname" style="border:1px solid darkgrey;margin-right: 6px;" name="" >{{key.keyname}}</label>
+                    </td>                    
+                </tr>
+            </table>
+        </div>
 
           <div *ngIf="createdUsersList.length == 0 && spinner == false">No users found</div>
           
