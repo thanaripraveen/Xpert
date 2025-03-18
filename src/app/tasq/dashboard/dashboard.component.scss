@@ -290,6 +290,16 @@
 //   :host ::ng-deep .custom-modal-class .modal-content {
 //     background-color: lightblue !important;
 //   }
+.analyticsScroll{
+    height: calc(100vh - 110px);
+    overflow: auto;
+}
+.allClientsContainer{
+    width: 100%;
+    margin: auto;
+    padding: 1px;
+    margin-top: 2px;
+}
 
 .table-container {
     width: 100%;
@@ -311,9 +321,18 @@
     border-collapse: collapse;
   }
    
-  .data-table th,
+  .data-table th{
+        padding: 6px;
+        text-align: left;
+        border: 1px solid #ddd;
+        background-color: #fff;
+        text-align: center;
+       // text-decoration: underline;
+        cursor: pointer;
+      
+  }
   .data-table td {
-    padding: 8px;
+    padding: 7px;
     text-align: left;
     border: 1px solid #ddd;
     background-color: #fff;
@@ -323,15 +342,16 @@
   }
   
   .data-table th {
-    background-color: #1a73e8;
+    background-color: #5c798b;
     position: sticky;
     top: 0;
     color: #fff;
     border: none;
+    padding: 5px;
   }
   
   td.fixed-column.ng-tns-c3775152443-13 {
-    background: #00113b;
+    background: #90a7b5;
     color: white;
     border: none;
   }
@@ -342,4 +362,23 @@
     background-color: #f4f4f4;
     z-index: 3;
     text-align: left !important;
+  }
+
+  .box {
+    // width: 300px;
+    // padding: 20px;
+    // border-radius: 10px;
+    // text-align: center;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    visibility: hidden;
+    position: absolute;
+  }
+  
+  .show {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+    position: relative;
   }

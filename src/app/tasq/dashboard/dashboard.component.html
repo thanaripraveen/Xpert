@@ -17,14 +17,17 @@
                 <span class=" links ms-2" (click)="getsearchdata('9','ovrduediv')">OverDue<span
                         class="ms-1">|</span></span>
                 <span class="ps-2 links" (click)="getsearchdata('7','divnewtask')">New<span class="ms-1">|</span></span>
-                <span class="px-2 links" (click)="getsearchdata('9','divactive');">Active</span>
+                <span class="px-2 links" (click)="getsearchdata('9','divactive');">Active <span class="ms-1">|</span> </span>
+                <span class="px-2 links" style="color: #1472c1;" *ngIf="analyticsGrid == false" (click)="analyticsShowHide()">Analytics </span>
+                <span class="px-2 links" style="color: #1472c1;" *ngIf="analyticsGrid == true" (click)="analyticsShowHide()">Close </span>
             </div>
 
             <div class="col-4 ">
                 <div class="input-group">
 
                     <input type="text" class="form-control py-0" placeholder="Search..." aria-label="Search"
-                        [(ngModel)]="txtSearch" (input)="onSrchTxtboxEmptyFunction()" (keyup.enter)="onSrchTxtboxkeyupFunction()">
+                        [(ngModel)]="txtSearch" (input)="onSrchTxtboxEmptyFunction()"
+                        (keyup.enter)="onSrchTxtboxkeyupFunction()">
                     <span class="input-group-text bg-light">
                         <i class="fa-solid fa-magnifying-glass" (click)="BindDashboard()"></i>
                     </span>
@@ -38,24 +41,26 @@
 
     </div>
 
-    <div class="col-12 d-flex align-items-center filterRow">
+    <div class="col-12 d-flex align-items-center box filterRow" [ngClass]="{'show': analyticsGrid == false}">
         <!-- <div class="row"> -->
-            <div class="col-3"></div>
+        <div class="col-3"></div>
         <div class="col-6 d-flex align-items-center justify-content-center">
             <!-- <div class="row"> -->
             <span class="ms-1" style="width: 25%;">
-                <select name="" id="" class="form-select"
-                    [(ngModel)]="filterDealer" style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                <select name="" id="" class="form-select" [(ngModel)]="filterDealer"
+                    style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
                     <option value="">Dealer</option>
                     <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
                 </select>
             </span>
 
             <span class="ms-1" style="width: 25%;">
-                <select name="" id="" class="form-select"  [(ngModel)]="filterPriority" 
-                [style.color]="filterPriority == 1 ? 'red' : filterPriority == 2 ? 'blue' : filterPriority == 3 ? 'green' : 'black' " style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                <select name="" id="" class="form-select" [(ngModel)]="filterPriority"
+                    [style.color]="filterPriority == 1 ? 'red' : filterPriority == 2 ? 'blue' : filterPriority == 3 ? 'green' : 'black' "
+                    style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
                     <option value="0" style="color : black">Priority</option>
-                    <option *ngFor="let priority of priorties" [value]="priority.id" [style.color]="priority.color">{{priority.priorty}}</option>
+                    <option *ngFor="let priority of priorties" [value]="priority.id" [style.color]="priority.color">
+                        {{priority.priorty}}</option>
                 </select>
             </span>
 
@@ -68,7 +73,7 @@
 
     </div>
 
-    <div class="taskGridTable" *ngIf="false">
+    <div class="taskGridTable box"  [ngClass]="{'show': analyticsGrid == false}">
         <ng-container *ngFor="let task of taskDetailsList">
             <div class="taskGrid">
                 <div class="col-12 d-flex align-items-center firstRow">
@@ -364,23 +369,73 @@
         <img src="../../../assets/images/last.png" alt="">
     </div> -->
 
-
-    <div class="table-container"  >
+<div class="analyticsScroll box" [ngClass]="{'show': analyticsGrid == true}">
+    <div class="table-container">
         <table class="data-table">
-          <thead>
-            <tr>
-              <th class="fixed-column" style="text-decoration : none !important;font-family: 'FaktPro-Bold';">Dealer Name</th>
-              <th style="font-family: 'FaktPro-Bold';" *ngFor="let key of totalsArray" (click)="filterDataBasedOnStatus(key.key)">{{ key.key }}<span class="ms-1">({{key.value}})</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let row of analyticsData">
-              <td class="leftstores fixed-column"  style="cursor: pointer;background-color: #00113b;border: none;" (click)="dealerClick(row['DealerId'])">{{ row.DealerName }} <span class="ms-1">({{row.Total}})</span></td>
-              <td *ngFor="let key of totalsArray"><span style="cursor: pointer;text-decoration : underline;color: #000;" (click)="statusClick(row[key.key].split('_')[1], row['DealerId'])">
-                {{ row[key.key].split('_')[0] }}
-              </span></td>
-            </tr>
-          </tbody>
+            <thead>
+                <tr>
+                    <th class="fixed-column" style="text-decoration : none !important;font-family: 'FaktPro-Bold';">
+                        Dealer Name</th>
+                    <th style="font-family: 'FaktPro-Bold';" *ngFor="let key of totalsArray"
+                        (click)="filterDataBasedOnStatus(key.key)">{{ key.key }}<span
+                            class="ms-1">({{key.value}})</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of analyticsData">
+                    <td class="leftstores fixed-column" style="cursor: pointer;background-color: #244d65;border: none;"
+                        (click)="dealerClick(row['DealerId'])">{{ row.DealerName }} <span
+                            class="ms-1">({{row.Total}})</span></td>
+                    <td *ngFor="let key of totalsArray"><span
+                            style="cursor: pointer;text-decoration : underline;color: #000;"
+                            (click)="statusClick(row[key.key].split('_')[1], row['DealerId'])">
+                            {{ row[key.key].split('_')[0] }}
+                        </span></td>
+                </tr>
+            </tbody>
         </table>
-      </div>
+    </div>
+
+ 
+
+    <div class="allClientsContainer">
+        <div class="col-12">
+            <div class="col-6" style="border: 1px solid lightgrey;">
+                <div style="background-color: #bfcfd9;">
+                    <div class="col-6" style="padding: .1rem;">
+                        <select name="" id="" class="form-select" [(ngModel)]="DrlNameCount" (change)="bindAssignedUsersBasedOnSelectDlr()"
+                            style="padding: .175rem 2.25rem .175rem .75rem;margin: 3px 0;">
+                            <option value="">All Clients</option>
+                            <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div style="height:auto;overflow: auto;max-height: 375px;">
+                    <div class="col-12 d-flex align-items-center"
+                        style="padding: 10px;font-family: 'FaktPro-Bold';font-size: .9rem;background-color: #5c798b;position: sticky;top: 0;">
+                        <div class="col-8">Assign Name</div>
+                        <div class="col-4 d-flex justify-content-center">Number Of Tickets</div>
+                    </div>
+                    <div>
+                        <div *ngIf="allClientsSpinner" class="loader-container">
+                            <div class="loader"></div>
+                          </div>
+                    <ng-container *ngFor="let client of allClients">
+                        <div class="col-12 text-black d-flex align-items-center " style="background-color: #fff;">
+                            <div class="col-8" style="background-color: #244d65;padding: 7px;color: #fff;font-size: .9rem;">{{client.name}}</div>
+                            <div class="col-4" style="padding: 6px; text-align: center; font-size: .9rem; text-decoration: underline;border-bottom: 1px solid lightgrey;">{{client.count}}</div>
+                        </div>
+                    </ng-container>
+
+                    <div *ngIf="allClients.length == 0 && this.allClientsSpinner == false" class="text-center text-black p-5">
+                        No data found
+                    </div>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 </div>

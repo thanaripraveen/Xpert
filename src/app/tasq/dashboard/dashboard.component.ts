@@ -39,7 +39,10 @@ export class DashboardComponent implements OnInit {
   overdueToggleValue : boolean = false;
 
   filterDealer : any ="";
-  filterPriority : any = 0
+  filterPriority : any = 0;
+
+  analyticsGrid : boolean =true;
+  allClientsSpinner : boolean = false;
   constructor(private api: ApiService, private toastr: ToastrService,
     private common: common, private modalService: NgbModal,private router : Router) {
     this.userID = this.common.userid;
@@ -132,6 +135,7 @@ rowCount : any = 0;
 
       if (res.status == 200) {
         this.dealersData = res.response;
+        this.bindAssignedUsersBasedOnSelectDlr();
       }
       else {
         this.dealersData = [];
@@ -153,6 +157,7 @@ rowCount : any = 0;
 
   onSrchTxtboxkeyupFunction(){
     this.taskDetailsList =[];
+    this.analyticsGrid = !this.analyticsGrid;
     this.BindDashboard()
 
   }
@@ -160,9 +165,11 @@ rowCount : any = 0;
   onSrchTxtboxEmptyFunction(){
     if(this.txtSearch == ""){
       this.taskDetailsList=[]
+      this.analyticsGrid = !this.analyticsGrid;
       this.BindDashboard()
     }
   }
+
 
   onSelectChange(event: any, Ticket: any): void {
     const obj = {
@@ -313,5 +320,29 @@ rowCount : any = 0;
           this.router.navigateByUrl('Alltasks')
     }
     
+  }
+  DrlNameCount : any ="";
+  allClients : any =[]
+  bindAssignedUsersBasedOnSelectDlr(){
+    this.allClientsSpinner = true;
+    const obj={
+      "exp1":this.DrlNameCount,
+      "exp2":""
+      }
+    this.api.postMethod1('users/GetAssigncountByuser',obj).subscribe((res)=>{
+      if(res.status == 200 && res.response.length > 0){
+        this.allClients = res.response;
+        this.allClientsSpinner = false;
+      }
+      else{
+        this.allClients= [];
+        this.allClientsSpinner = false;
+
+      }
+    })
+  }
+
+  analyticsShowHide(){
+    this.analyticsGrid = !this.analyticsGrid;
   }
 }

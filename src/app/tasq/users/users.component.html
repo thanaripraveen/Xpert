@@ -1,1 +1,12 @@
-<p>users works!</p>
+<div class="container text-center mt-5">
+    <button class="btn btn-primary" (click)="toggleDivs()">Toggle Div</button>
+  
+    <div class="box mt-3 bg-success text-white" [ngClass]="{'show': showFirstDiv}">
+      First Div (Visible)
+    </div>
+  
+    <div class="box mt-3 bg-danger text-white" [ngClass]="{'show': !showFirstDiv}">
+      Second Div (Visible)
+    </div>
+  </div>
+  
