@@ -375,8 +375,8 @@
           </thead>
           <tbody>
             <tr *ngFor="let row of analyticsData">
-              <td class="leftstores fixed-column"  style="cursor: pointer;" (click)="dealerClick(row['DealerId'])">{{ row.DealerName }} <span class="ms-1">({{row.Total}})</span></td>
-              <td *ngFor="let key of totalsArray"><span style="cursor: pointer;text-decoration : underline" (click)="statusClick(row[key.key].split('_')[1], row['DealerId'])">
+              <td class="leftstores fixed-column"  style="cursor: pointer;background-color: #00113b;border: none;" (click)="dealerClick(row['DealerId'])">{{ row.DealerName }} <span class="ms-1">({{row.Total}})</span></td>
+              <td *ngFor="let key of totalsArray"><span style="cursor: pointer;text-decoration : underline;color: #000;" (click)="statusClick(row[key.key].split('_')[1], row['DealerId'])">
                 {{ row[key.key].split('_')[0] }}
               </span></td>
             </tr>
