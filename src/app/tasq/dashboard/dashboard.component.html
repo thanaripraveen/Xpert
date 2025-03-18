@@ -423,8 +423,10 @@
                           </div>
                     <ng-container *ngFor="let client of allClients">
                         <div class="col-12 text-black d-flex align-items-center " style="background-color: #fff;">
-                            <div class="col-8" style="background-color: #244d65;padding: 7px;color: #fff;font-size: .9rem;">{{client.name}}</div>
-                            <div class="col-4" style="padding: 6px; text-align: center; font-size: .9rem; text-decoration: underline;border-bottom: 1px solid lightgrey;">{{client.count}}</div>
+                            <div class="col-8" style="background-color: #244d65;padding: 7px;color: #fff;font-size: .9rem;"
+                            (click)="GetClientsData(client)">{{client.name}}</div>
+                            <div class="col-4" style="padding: 6px; text-align: center; font-size: .9rem; text-decoration: underline;border-bottom: 1px solid lightgrey;"
+                            (click)="GetClientsData(client)">{{client.count}}</div>
                         </div>
                     </ng-container>
 

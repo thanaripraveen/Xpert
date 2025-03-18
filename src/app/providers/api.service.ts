@@ -34,6 +34,8 @@ export class ApiService implements OnDestroy {
   public changeSidebarLink = new BehaviorSubject<any>('');
   public hitListData = new BehaviorSubject<any>('');
   public filterDataBasedOnStatus = new BehaviorSubject<any>({status : '' , dealerId : '', tktStatus: ''});
+  public ClientsAndDealersOnStatus = new BehaviorSubject<any>({clientId:'',name:'',dealerId:''});
+
 
 
   private firstComponentVisibility = new BehaviorSubject<boolean>(true);
@@ -352,6 +354,14 @@ export class ApiService implements OnDestroy {
  
   getFilterStatusBasedData(){
    return this.filterDataBasedOnStatus.asObservable()
+  }
+
+  setClientsAndDealersData(value : any){
+    this.ClientsAndDealersOnStatus.next(value);
+  }
+
+   getClientsAndDealersData(){
+   return  this.ClientsAndDealersOnStatus.asObservable();
   }
  
 }

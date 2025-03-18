@@ -13,6 +13,7 @@ import { CommentsComponent } from '../comments/comments.component';
 import { DetailsComponent } from '../details/details.component';
 import { EdittaskComponent } from '../edittask/edittask.component';
 import { UsersinfoComponent } from '../usersinfo/usersinfo.component';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class AlltasksComponent implements OnInit {
 
   allTasksData: any[] = [];
   alltasks: any = [];
-  dataCount : any =0;
+  dataCount: any = 0;
   xpertProfileImg: any = environment.xpertProfileImg;
   priorties: any = [
     { id: 3, priorty: 'Low', color: 'green' },
@@ -66,20 +67,23 @@ export class AlltasksComponent implements OnInit {
   filterSearch: any = "";
   filterAssignUserId: any = 0;
   sortValue: any = 'A';
+  fromType: any = "";
+  private subscription: Subscription = new Subscription();
+  private subscription1: Subscription = new Subscription();
 
-  keyNamesList : any =[
-    {keyname : 'Ticket' , value : 'Ticket'},
-    {keyname : 'Dealer Name' , value : 'ReqDealerName'},
-    {keyname : 'Title' , value : 'Title'},
-    {keyname : 'Priority' , value : 'T_Priority'},
+  keyNamesList: any = [
+    { keyname: 'Ticket', value: 'Ticket' },
+    { keyname: 'Dealer Name', value: 'ReqDealerName' },
+    { keyname: 'Title', value: 'Title' },
+    { keyname: 'Priority', value: 'T_Priority' },
     // {keyname : 'Acknowledged By' , value : 'AckUSERNAME'},
-    {keyname : 'Assign By' , value : 'AssignByUserName'},
-    {keyname : 'Assign To' , value : 'AssignUSERNAME'},
-    {keyname : 'Resloved By' , value : 'Reslovedby'},
-    {keyname : 'Created By' , value : 'ReqUserName'},
-    {keyname : 'Status' , value : 'ReqStatus'},
-    {keyname : 'Due Date' , value : 'DueDate'},
-    {keyname : 'Description' , value : 'Details'},
+    { keyname: 'Assign By', value: 'AssignByUserName' },
+    { keyname: 'Assign To', value: 'AssignUSERNAME' },
+    { keyname: 'Resloved By', value: 'Reslovedby' },
+    { keyname: 'Created By', value: 'ReqUserName' },
+    { keyname: 'Status', value: 'ReqStatus' },
+    { keyname: 'Due Date', value: 'DueDate' },
+    { keyname: 'Description', value: 'Details' },
 
   ]
   constructor(private api: ApiService, private fb: FormBuilder, private common: common,
@@ -95,17 +99,80 @@ export class AlltasksComponent implements OnInit {
       if (res) {
         this.filterAssignedUser = res.FirstName + ' ' + res.MiddleName + ' ' + res.LastName;
         this.filterAssignUserId = res.UserId;
-        this.bindStatusCounts()
+        this.bindStatusCounts();
+
 
       }
-    })
+    });
     this.bindDealerData();
-    this.bindTagsData();
-    this.getAllTickets();
-    this.bindStatusCounts()
+  this.subscription =  this.api.getFilterStatusBasedData().subscribe((res: any) => {
+    console.log(res);
+
+      this.allTicketsData = [];
+      if (res.status != '' && res.dealerId != '' && res.tktStatus == '') {
+        this.filterStatus = res.status;
+        this.filterDealer = res.dealerId;
+        this.fromType = "dashboard";
+        this.filterStatusCountChange();
+        this.filterGrid();
+      }
+      else if (res.status == '' && res.dealerId != '' && res.tktStatus == '') {
+        this.filterDealer = res.dealerId;
+        this.filterStatusCountChange();
+        this.filterGrid();
+      }
+      else if (res.status == '' && res.dealerId == '' && res.tktStatus != '') {
+        this.countStatusClick(res.tktStatus)
+      }
+      else{
+       this.subscription1 = this.api.getClientsAndDealersData().subscribe((res: any)=>{
+    console.log(res);
+
+          this.allTicketsData =[];
+          if(res.clientId != '' && res.dealerId == ''){
+            this.filterAssignUserId = res.clientId;
+            this.filterAssignedUser = res.name;
+            this.bindStatusCounts();
+            this.getAllTickets();
+          }
+          else if(res.clientId != '' && res.dealerId != ''){
+            this.filterAssignUserId = res.clientId;
+            this.filterAssignedUser = res.name;
+            this.filterDealer = res.dealerId;
+            this.filterStatusCountChange();
+            this.getAllTickets();
+          }
+          else {
+            this.getAllTickets();
+            this.bindStatusCounts();
+            this.bindTagsData();
+    
+          }
+        })
+        
+      }
+      
+    })
+
+    // this.getAllTickets();
+    // this.bindStatusCounts()
   }
 
-totalPages : any;
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    this.api.setFilterStatusBasedData({'status': '', 'dealerId': '', 'tktStatus' : ''});
+
+      
+    }
+    if (this.subscription1) {
+      this.subscription1.unsubscribe();
+    this.api.setClientsAndDealersData({ 'clientId': '', 'name': '', 'dealerId': '' });
+
+    }
+  }
+  
+  totalPages: any;
   getAllTickets() {
 
     this.spinner = true;
@@ -125,52 +192,52 @@ totalPages : any;
       "orderby": this.sortValue,
       "createdby": this.filterCreatedBy == "" ? "" : this.selectedUser.T_UserEmail
     }
-    
+
 
     this.api.postMethod1('xpert/GetAllTasks', obj).subscribe((res: any) => {
-      
+
       if (res.status == 200) {
         this.dataCount = res.response.count;
-        this.totalPages = Math.ceil(this.dataCount/20);
-        this.allTasksData = Array.isArray( res.response.data) ?  res.response.data : ( res.response.data ? [ res.response.data] : []);
-        if(this.alltasks.length){
-          this.alltasks = [...this.alltasks , ...this.allTasksData]
+        this.totalPages = Math.ceil(this.dataCount / 20);
+        this.allTasksData = Array.isArray(res.response.data) ? res.response.data : (res.response.data ? [res.response.data] : []);
+        if (this.alltasks.length) {
+          this.alltasks = [...this.alltasks, ...this.allTasksData]
           this.alltasks.forEach(item => {
             const taskTags = item?.TaskTagsLists?.TaskTagsLists?.TaskTagsList;
             item.TaskTagsLists.TaskTagsLists.TaskTagsList = Array.isArray(taskTags) ? taskTags : (taskTags ? [taskTags] : []);
-  
+
             if (item?.Folowers?.Folowers) {
               const followers = item?.Folowers?.Folowers?.Folower;
               item.Folowers.Folowers.Folower = Array.isArray(followers) ? followers : (followers ? [followers] : []);
             }
-  
-          
-          this.spinner = false;
-  
+
+
+            this.spinner = false;
+
           });
         }
-        else{
+        else {
           this.alltasks = this.allTasksData;
           this.alltasks.forEach(item => {
-            if(item?.TaskTagsLists?.TaskTagsLists){
+            if (item?.TaskTagsLists?.TaskTagsLists) {
               const taskTags = item?.TaskTagsLists?.TaskTagsLists?.TaskTagsList;
-            item.TaskTagsLists.TaskTagsLists.TaskTagsList = Array.isArray(taskTags) ? taskTags : (taskTags ? [taskTags] : []);
-  
+              item.TaskTagsLists.TaskTagsLists.TaskTagsList = Array.isArray(taskTags) ? taskTags : (taskTags ? [taskTags] : []);
+
             }
-            
+
             if (item?.Folowers?.Folowers) {
               const followers = item?.Folowers?.Folowers?.Folower;
               item.Folowers.Folowers.Folower = Array.isArray(followers) ? followers : (followers ? [followers] : []);
             }
-  
-          
-          this.spinner = false;
-  
+
+
+            this.spinner = false;
+
           });
         }
-        
+
         this.updateTaskList();
-       
+
       }
       else {
         this.alltasks = [];
@@ -179,19 +246,19 @@ totalPages : any;
       }
     })
   }
-  currentPage : any =1;
-  allTicketsData : any =[]
+  currentPage: any = 1;
+  allTicketsData: any = []
   updateTaskList() {
     let startIndex = (this.currentPage - 1) * 20;
     let endIndex = this.currentPage * 20;
     if (startIndex >= this.alltasks.length) {
       startIndex = Math.max(0, this.alltasks.length - 20);
     }
-   
+
     this.allTicketsData = this.alltasks.slice(startIndex, endIndex);
 
     console.log(this.allTicketsData);
-    
+
 
   }
 
@@ -203,12 +270,12 @@ totalPages : any;
       this.getAllTickets();
     }
   }
-  rowCount : any =0;
+  rowCount: any = 0;
   goToLastPage() {
     if (this.currentPage !== this.totalPages) {
       this.currentPage = this.totalPages;
       this.rowCount = this.dataCount - 20;
-      this.alltasks = [];  
+      this.alltasks = [];
       this.getAllTickets();
 
     }
@@ -219,13 +286,13 @@ totalPages : any;
       this.currentPage--;
       this.rowCount = (this.currentPage - 1) * 20;
       console.log(this.alltasks);
-      
+
       if (this.rowCount < this.alltasks.length) {
-     
+
         this.updateTaskList();
       } else {
-     
-      this.getAllTickets()
+
+        this.getAllTickets()
       }
     }
   }
@@ -234,11 +301,11 @@ totalPages : any;
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.rowCount = (this.currentPage - 1) * 20;
-     
+
       if (this.rowCount >= this.alltasks.length) {
         this.getAllTickets()
       } else {
-       
+
         this.updateTaskList();
       }
     }
@@ -262,14 +329,16 @@ totalPages : any;
 
     })
   }
-  countStatusClick(data : any){
-    this.alltasks = []
+  countStatusClick(data: any) {
+    this.allTicketsData = [];
+    this.alltasks = [];
     this.rowCount = 0;
-    this.filterStatus = data.ID;
+    this.filterStatus = data;
     this.getAllTickets();
   }
   filterStatusCountChange() {
-    this.bindStatusCounts()
+    this.bindStatusCounts();
+    this.bindCreatedUsersList(this.fromType);
   }
 
   filterTextChange() {
@@ -389,9 +458,9 @@ totalPages : any;
 
   }
   openCreatedByModalPopup: any = "";
-  openCreatedByModal(modal: any) {
+  openCreatedByModal(modal: any, type: any) {
     this.openCreatedByModalPopup = modal;
-    this.bindCreatedUsersList();
+    this.bindCreatedUsersList(type);
 
 
   }
@@ -415,14 +484,14 @@ totalPages : any;
       this.firstLoadForDate = false; // First trigger ni ignore cheyyadam
       return;
     }
-    else{
-    this.bindStatusCounts()
+    else {
+      this.bindStatusCounts()
 
     }
   }
 
   createdUsersList: any = []
-  bindCreatedUsersList() {
+  bindCreatedUsersList(type: any) {
     this.spinner = true;
 
     const obj = {
@@ -431,23 +500,29 @@ totalPages : any;
     this.api.postMethod1('users/GetCreatedUserlist', obj).subscribe((res: any) => {
       if (res.status == 200) {
         this.createdUsersList = res.response;
-        this.modalRef = this.modalService.open(this.openCreatedByModalPopup, {
-          windowClass: 'createdBYModal',
-          size: 'lg',
-          backdrop: 'static',
-          centered: true
-        })
+        if (type == 'alltasks') {
+          this.modalRef = this.modalService.open(this.openCreatedByModalPopup, {
+            windowClass: 'createdBYModal',
+            size: 'lg',
+            backdrop: 'static',
+            centered: true
+          })
+        }
+
         this.spinner = false;
 
       }
       else {
         this.createdUsersList = [];
-        this.modalRef = this.modalService.open(this.openCreatedByModalPopup, {
-          windowClass: 'createdBYModal',
-          size: 'lg',
-          backdrop: 'static',
-          centered: true
-        })
+        if (type == 'alltasks') {
+
+          this.modalRef = this.modalService.open(this.openCreatedByModalPopup, {
+            windowClass: 'createdBYModal',
+            size: 'lg',
+            backdrop: 'static',
+            centered: true
+          })
+        }
         this.spinner = false;
       }
     })
@@ -463,29 +538,29 @@ totalPages : any;
     this.hoveredUser = user;
   }
 
-  createdUserListFunction(){
+  createdUserListFunction() {
     this.filterCreatedBy = this.selectedUser.T_UserName;
 
     this.bindStatusCounts();
     this.modalRef.dismiss();
-    
+
   }
 
-  clearDueDate(){
+  clearDueDate() {
     this.filterDueDate = "";
     this.bindStatusCounts();
   }
-  clearAssignedby(){
+  clearAssignedby() {
     this.filterAssignedUser = "";
     this.filterAssignUserId = 0;
     this.bindStatusCounts();
   }
-  clearCreatedBy(){
+  clearCreatedBy() {
     this.filterCreatedBy = "";
     this.bindStatusCounts();
   }
 
-  openExcelModal(excelModal : any){
+  openExcelModal(excelModal: any) {
     this.modalRef = this.modalService.open(excelModal, {
       windowClass: 'createdBYModal',
       size: 'lg',

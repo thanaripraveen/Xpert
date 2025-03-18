@@ -19,7 +19,7 @@
           </span>
         </div>
         <div class="col-10 d-flex align-items-center">
-          <span class="statusCounts" (click)="countStatusClick(d)" *ngFor="let d of statusData">{{d.Status == 'New' ? 'Un Assigned' : d.Status}} - {{d.count}}</span>
+          <span class="statusCounts" (click)="countStatusClick(d.ID)" *ngFor="let d of statusData">{{d.Status == 'New' ? 'Un Assigned' : d.Status}} - {{d.count}}</span>
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@
             </span>
        
             <span  class="ms-1 position-relative" style="width: 15%;">
-                <input type="text" class="form-control" placeholder="Created By" [(ngModel)]="filterCreatedBy" style="padding: .175rem 0 .175rem .0;" (click)="openCreatedByModal(createdByModel)">
+                <input type="text" class="form-control" placeholder="Created By" [(ngModel)]="filterCreatedBy" style="padding: .175rem 0 .175rem .0;" (click)="openCreatedByModal(createdByModel,'alltasks')">
             <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear" (click)="clearCreatedBy()">
 
             </span>

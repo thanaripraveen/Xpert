@@ -165,7 +165,6 @@ rowCount : any = 0;
   onSrchTxtboxEmptyFunction(){
     if(this.txtSearch == ""){
       this.taskDetailsList=[]
-      this.analyticsGrid = !this.analyticsGrid;
       this.BindDashboard()
     }
   }
@@ -340,6 +339,11 @@ rowCount : any = 0;
 
       }
     })
+  }
+
+  GetClientsData(clients:any) {
+    this.api.setClientsAndDealersData({ 'clientId': clients.UserID, 'name': clients.name, 'dealerId': this.DrlNameCount });
+    this.router.navigateByUrl('Alltasks')
   }
 
   analyticsShowHide(){

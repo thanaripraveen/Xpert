@@ -365,10 +365,10 @@
   }
 
   .box {
-    // width: 300px;
+    width: 100%;
     // padding: 20px;
     // border-radius: 10px;
-    // text-align: center;
+    text-align: center;
     opacity: 0;
     transform: scale(0.9);
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;

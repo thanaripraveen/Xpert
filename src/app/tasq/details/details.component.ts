@@ -22,6 +22,7 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     this.spinner = true;
    this.subscription =  this.api.getTicketData().subscribe((res: any) => {
+    
       if (res) {
         this.viewTicketInfo = res;
         this.spinner = false;
