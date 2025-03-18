@@ -68,7 +68,7 @@
 
     </div>
 
-    <div class="taskGridTable">
+    <div class="taskGridTable" *ngIf="false">
         <ng-container *ngFor="let task of taskDetailsList">
             <div class="taskGrid">
                 <div class="col-12 d-flex align-items-center firstRow">
@@ -363,4 +363,24 @@
         <img src="../../../assets/images/next.png" alt="">
         <img src="../../../assets/images/last.png" alt="">
     </div> -->
+
+
+    <div class="table-container"  >
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th class="fixed-column" style="text-decoration : none !important;font-family: 'FaktPro-Bold';">Dealer Name</th>
+              <th style="font-family: 'FaktPro-Bold';" *ngFor="let key of totalsArray" (click)="filterDataBasedOnStatus(key.key)">{{ key.key }}<span class="ms-1">({{key.value}})</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of analyticsData">
+              <td class="leftstores fixed-column"  style="cursor: pointer;" (click)="dealerClick(row['DealerId'])">{{ row.DealerName }} <span class="ms-1">({{row.Total}})</span></td>
+              <td *ngFor="let key of totalsArray"><span style="cursor: pointer;text-decoration : underline" (click)="statusClick(row[key.key].split('_')[1], row['DealerId'])">
+                {{ row[key.key].split('_')[0] }}
+              </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 </div>

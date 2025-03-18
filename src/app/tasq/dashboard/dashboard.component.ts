@@ -47,6 +47,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.analytics()
     this.api.getUpdateTaskValue().subscribe((res: any)=>{
       console.log(res);
       
@@ -246,5 +247,71 @@ rowCount : any = 0;
 
   tickets(url : any){
     this.router.navigateByUrl(url)
+  }
+  analyticsData : any =[];
+  totalsArray : any = []
+  analytics(){
+    // this.isLoading =true;
+    // this.analyticsGrid = true;
+    // this.AllcliensGrid = true;
+    // this.ticketsGrid = false;
+    const obj = {
+      "id": 0,
+      "exp": ""
+  }
+  this.api.postMethod1('xpert/XpertAnalytics',obj).subscribe((res: any)=>{
+    if (res.status == 200) {
+      this.analyticsData = res.response;
+      this.analyticsData.forEach(dealer => {
+        let sum = 0;
+    
+        Object.entries(dealer).forEach(([key, value] : any) => {
+            if (key !== "DealerId" && key !== "DealerName" ) { 
+                sum += parseInt(value.split('_')[0]);
+            }
+        });
+        // Add the total as a new key-value pair
+        dealer["Total"] = sum;
+    });
+    const totals: { [key: string]: number } = {};
+
+    // Iterate through each dealer object
+    this.analyticsData.forEach(dealer => {
+        Object.entries(dealer).forEach(([key, value] : any) => {
+            // Skip keys we don't want to sum
+            if (key !== "DealerId" && key !== "DealerName" && key !== "Total") {
+                // Replace underscores and parse the value
+                const numericValue = parseInt(value.split('_')[0]);
+                // Add to the total for this key
+                totals[key] = (totals[key] || 0) + numericValue;
+            }
+        });
+    });
+    this.totalsArray = Object.entries(totals).map(([key, value]) => ({ key, value }));
+      // this.dataKeys = Object.keys(res.response[0]).filter(key => key !== 'DealerName' && key !== 'DealerId' && key !== "Total");
+      // this.isLoading = false
+
+    }
+  })
+  }
+
+  statusClick(typeOfStatus : any,dealerId: any){
+    this.api.setFilterStatusBasedData({'status': typeOfStatus, 'dealerId': dealerId,'tktStatus' : ''});
+    this.router.navigateByUrl('Alltasks')   
+  }
+
+  dealerClick(dealerId : any){
+    this.api.setFilterStatusBasedData({'status': '', 'dealerId': dealerId, 'tktStatus' : ''});
+    this.router.navigateByUrl('Alltasks')
+  }
+
+  filterDataBasedOnStatus(key: any){
+       
+    const matchingValue = this.analyticsData.find((item) => item[key]);
+    if(matchingValue){
+          this.api.setFilterStatusBasedData({'status': '', 'dealerId': '', 'tktStatus' : matchingValue[key].split('_')[1]});
+          this.router.navigateByUrl('Alltasks')
+    }
+    
   }
 }
