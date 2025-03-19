@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'details', loadChildren: () => import('./tasq/details/details.module').then(m => m.DetailsModule) },
   { path: 'edittask', loadChildren: () => import('./tasq/edittask/edittask.module').then(m => m.EdittaskModule) },
   { path: 'tasq/usersinfo', loadChildren: () => import('./tasq/usersinfo/usersinfo.module').then(m => m.UsersinfoModule) },
+  { path: 'mytickets', loadChildren: () => import('./tasq/mytickets/mytickets.module').then(m => m.MyticketsModule) },
 ];
 
 @NgModule({
