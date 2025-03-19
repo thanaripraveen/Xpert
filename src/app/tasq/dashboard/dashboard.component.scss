@@ -1,5 +1,8 @@
 .dashBoardPage {
-
+    position: relative;
+    // width: 300px;
+    max-height: 100vh; /* Prevents full-page extra scrolling */
+    overflow: hidden;
     .headerDesign {
         background-color: #bfcfd9;
         padding: 3px;
@@ -368,7 +371,7 @@
     width: 100%;
     // padding: 20px;
     // border-radius: 10px;
-    text-align: center;
+    // text-align: center;
     opacity: 0;
     transform: scale(0.9);
     transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
