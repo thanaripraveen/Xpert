@@ -323,6 +323,7 @@ rowCount : any = 0;
   DrlNameCount : any ="";
   allClients : any =[]
   bindAssignedUsersBasedOnSelectDlr(){
+    this.allClients = [];
     this.allClientsSpinner = true;
     const obj={
       "exp1":this.DrlNameCount,
