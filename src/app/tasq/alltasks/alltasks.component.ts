@@ -105,8 +105,8 @@ export class AlltasksComponent implements OnInit {
       }
     });
     this.bindDealerData();
-  this.subscription =  this.api.getFilterStatusBasedData().subscribe((res: any) => {
-    console.log(res);
+    this.subscription = this.api.getFilterStatusBasedData().subscribe((res: any) => {
+      console.log(res);
 
       this.allTicketsData = [];
       if (res.status != '' && res.dealerId != '' && res.tktStatus == '') {
@@ -124,18 +124,18 @@ export class AlltasksComponent implements OnInit {
       else if (res.status == '' && res.dealerId == '' && res.tktStatus != '') {
         this.countStatusClick(res.tktStatus)
       }
-      else{
-       this.subscription1 = this.api.getClientsAndDealersData().subscribe((res: any)=>{
-    console.log(res);
+      else {
+        this.subscription1 = this.api.getClientsAndDealersData().subscribe((res: any) => {
+          console.log(res);
 
-          this.allTicketsData =[];
-          if(res.clientId != '' && res.dealerId == ''){
+          this.allTicketsData = [];
+          if (res.clientId != '' && res.dealerId == '') {
             this.filterAssignUserId = res.clientId;
             this.filterAssignedUser = res.name;
             this.bindStatusCounts();
             this.getAllTickets();
           }
-          else if(res.clientId != '' && res.dealerId != ''){
+          else if (res.clientId != '' && res.dealerId != '') {
             this.filterAssignUserId = res.clientId;
             this.filterAssignedUser = res.name;
             this.filterDealer = res.dealerId;
@@ -146,12 +146,21 @@ export class AlltasksComponent implements OnInit {
             this.getAllTickets();
             this.bindStatusCounts();
             this.bindTagsData();
-    
+
           }
         })
-        
+
       }
-      
+
+    });
+
+    this.api.getUpdateTaskValue().subscribe((res: any)=>{
+      if(res.updateValue == 1){
+        const index = this.allTicketsData.findIndex((item : any) => item.ID === res.data.response[0].ID);
+        if (index !== -1) {
+          this.allTicketsData[index] = res.data.response[0];
+        }
+      }
     })
 
     // this.getAllTickets();
@@ -161,17 +170,17 @@ export class AlltasksComponent implements OnInit {
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
-    this.api.setFilterStatusBasedData({'status': '', 'dealerId': '', 'tktStatus' : ''});
+      this.api.setFilterStatusBasedData({ 'status': '', 'dealerId': '', 'tktStatus': '' });
 
-      
+
     }
     if (this.subscription1) {
       this.subscription1.unsubscribe();
-    this.api.setClientsAndDealersData({ 'clientId': '', 'name': '', 'dealerId': '' });
+      this.api.setClientsAndDealersData({ 'clientId': '', 'name': '', 'dealerId': '' });
 
     }
   }
-  
+
   totalPages: any;
   getAllTickets() {
 
@@ -188,9 +197,10 @@ export class AlltasksComponent implements OnInit {
       "tagid": this.filterTags == 0 ? 0 : this.filterTags,
       "taskId": 0,
       "userId": this.common.userid,
-      "sortby": this.filterSortBy == "" ? "" : this.filterSortBy,
+      "sortby": this.filterSortBy == "" ? 0 : this.filterSortBy,
       "orderby": this.sortValue,
-      "createdby": this.filterCreatedBy == "" ? "" : this.selectedUser.T_UserEmail
+      "createdby": this.filterCreatedBy == "" ? "" : this.selectedUser.T_UserEmail,
+      "flag" : "F"
     }
 
 
@@ -342,9 +352,17 @@ export class AlltasksComponent implements OnInit {
   }
 
   filterTextChange() {
+
     if (this.filterSearch == "") {
+      this.alltasks = [];
+      this.allTicketsData = [];
       this.getAllTickets()
     }
+  }
+  filterTextChange1() {
+    this.alltasks = [];
+    this.allTicketsData = [];
+    this.getAllTickets()
   }
 
 
@@ -409,6 +427,51 @@ export class AlltasksComponent implements OnInit {
 
   filterGrid() {
     this.getAllTickets();
+  }
+ticketData : any = "";
+  acknowledgeConfirm(modal : any ,ticketData : any){
+    this.ticketData = ticketData;
+    this.modalRef = this.modalService.open(modal, {
+      windowClass: 'ackConfirmBYModal',
+      size: 'sm',
+      backdrop: 'static',
+    })
+  }
+
+  acknowledge() {
+    this.spinner = true;
+    const obj = {
+      "TicketID": this.ticketData.Ticket,
+      "LoginId": this.common.userid,
+      "Title": this.ticketData.TaskTitle,
+      "Details": this.ticketData.Details,
+      "remail": this.ticketData.ReqUserEmail
+    }
+    console.log(this.ticketData,obj);
+    
+    this.api.postMethod1('xpert/AcknowledgeAppSuppTask',obj).subscribe((res: any)=>{
+      console.log(res);
+      if(res.status == 200){
+        const obj = {
+          "TaskId": this.ticketData.T_ID, "UserID": this.common.userid
+        }
+        console.log(obj)
+        this.api.postMethod1('users/GetTaskViewbyId', obj).subscribe((res: any) => {
+          if (res) {
+         this.api.setUpdateTaskValue({data : res , updateValue : 1})
+          }
+        });
+        this.spinner = false;
+        this.toastr.success('Ticket acknowledged successfully.');
+        this.modalRef.close();
+      }
+      else{
+        this.toastr.error('Ticket was already acknowledged.');
+        this.modalRef.close();
+
+
+      }
+    })
   }
 
   openComponent(task: any, component: any) {

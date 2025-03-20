@@ -26,9 +26,9 @@
     <div class="col-3">
       <div class="input-group">
 
-                    <input type="text" class="form-control py-0" (keyup)="filterTextChange()" (keyup.enter)="getAllTickets()" placeholder="Search..." aria-label="Search" [(ngModel)]="filterSearch">
+                    <input type="text" class="form-control py-0" (keyup)="filterTextChange()" (keyup.enter)="filterTextChange1()" placeholder="Search..." aria-label="Search" [(ngModel)]="filterSearch">
                     <span class="input-group-text bg-light">
-                        <i class="fa-solid fa-magnifying-glass" style="cursor:pointer" (click)="getAllTickets()"></i>
+                        <i class="fa-solid fa-magnifying-glass" style="cursor:pointer" (click)="filterTextChange1()"></i>
                     </span>
                 </div>
     </div>
@@ -229,7 +229,7 @@
                         <div class="col-5 text-center">
                             <div
                                 *ngIf="task.AckUSERNAME == '' && task.AssignUSERNAME == '' && task.ReqStatus != 'Resolved' && task.ReqStatus != 'Closed' ">
-                                <span class="acknowledgeBtn">Acknowledge</span>
+                                <span class="acknowledgeBtn" (click)="acknowledgeConfirm(ackconfirmDialog,task)">Acknowledge</span>
                             </div>
 
                             <div
@@ -428,6 +428,24 @@
         <button type="submit" class="btn btn-secondary">Cancel</button>
     </div>
 </ng-template>
+
+<ng-template #ackconfirmDialog let-modal>
+    <div class="modal-header px-3 py-2">
+        <!-- <h5 class="modal-title text-black">Created BY</h5> -->
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body text-black text-center">
+        <div>
+          Are you sure you want to continue?
+        </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary" style="background-color:#f37121;border: #f37121;" (click)="acknowledge()">Submit</button>
+        <button type="submit" class="btn btn-secondary">Cancel</button>
+    </div>
+</ng-template>
+
+
 
 <ng-template #excelModel let-modal>
     <div class="modal-header px-3 py-2">
