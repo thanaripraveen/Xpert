@@ -1,1 +1,79 @@
-<p>tags works!</p>
+<div class="spinner-container" *ngIf="spinner">
+    <div class="spinner-wrapper">
+        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+        <div class="spinner"></div>
+        <span class="logo-text">
+            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+        </span>
+    </div>
+</div>
+<div class="tagsPage">
+    <div class="col-12 d-flex align-items-center headerDesign ">
+        <div class="col-2 title">Tags</div>
+        <div class="col-8 class=btn-group" *ngIf="gridForm == true"><button  
+            *ngFor="let button of buttons; let i = index"
+            class="btn1"
+            [ngClass]="{'active': selectedButton === i}"
+            (click)="setActive(i,button.type)">
+            {{ button.label }}
+          </button></div>
+          <div class="col-2 text-end tagsHead d-flex justify-content-end pe-1">
+           <div class="addBtnStyle" *ngIf="gridForm == true" (click)="addNewTag()"><img src="../../../assets/images/xpertAddIcon.png" alt=""><span >add</span></div>
+        </div>
+    </div>
+
+    <div class="scrollTagsData" *ngIf="gridForm == true">
+        <table class="table  table-striped gridTable">
+            <thead>
+                <tr>
+                    <th>Tag Name</th>
+                    <!-- <th>Tag Type</th> -->
+                    <th>Status</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody >
+                
+                <tr  *ngFor="let tag of tagsDataList" >
+                    <td>{{tag.Tag_Name}}</td>
+                    <!-- <td  >{{tag.tag_type == 'S' ? 'System Tag' : 'User Defined Tag'}}</td> -->
+                    <!-- <td  >{{tag.tag_type == 'S' ? 'System Tag' : (tag.tag_type == 'V' ?  'Severity' : (tag.tag_type == 'R' ?   'Realese' : (tag.tag_type == 'I' ?   'Issue' : 'User Defined Tag')))}}</td> -->
+                    <td [ngStyle]="{'color': tag.Tag_Status== 'Y' ? 'green' : 'red' }">{{tag.Tag_Status == 'Y'? 'Active' : 'In-Active'}}</td>
+                    <td style="padding-left: 20px;"><img src="assets/images/editIcon.png" alt="" style="cursor: pointer;" (click)="editTag(tag)"></td>
+                    
+                </tr>
+            
+            </tbody>
+        </table>
+        </div>
+    <div class="tagForm" *ngIf="gridForm == false">
+            <div class="d-flex justify-content-center align-items-center mt-5 text-black">
+                <span class="keyName">Tag Name :</span>
+                <span class="col-6"><input type="text" class="form-control" placeholder="Enter tag name" [(ngModel)]="tagName"></span>
+            </div>
+            <div class="d-flex justify-content-center align-items-center mt-3 text-black">
+                <span class="keyName">Tag Type :</span>
+                <div class="col-6">
+                    <span *ngFor="let tagtype of buttons;let i = index" class="ps-2">
+                        <input type="radio" [id]="'tagType' + i" name="tagType" class="form-check-input me-1"
+                        [(ngModel)]="selectedTagType" [value]="tagtype.type">
+                    <label [for]="'tagType' + i" class="form-check-label">{{ tagtype.label }}</label>
+                </span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center mt-5 text-black" *ngIf="action == 'U'">
+                <span class="keyName">Status :</span>
+                <span class="col-6"><label [ngStyle]="{'color': status== true ? 'green' : 'red' }" class="col-2">
+                    <input type="checkbox" [checked]="status" class="ps-2"
+                        (change)="handleStatus($event)" />&nbsp;&nbsp;{{status == true ? 'Active' :
+                    'In-Active'}}</label></span>
+            </div>
+            <div class="d-flex justify-content-center align-items-center mt-4 text-black">
+                <div class="col-4">
+                    <button class="btn btn-primary me-2 submitBtn" (click)="saveAndUpdateTag()">Submit</button>
+                    <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+    </div>
+    </div>

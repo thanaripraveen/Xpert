@@ -1,0 +1,96 @@
+.tagsPage {
+    .headerDesign {
+        background-color: #bfcfd9;
+        padding: 3px;
+
+        .title {
+            font-family: 'FaktPro-Bold';
+            font-size: .8rem;
+            color: #000;
+            padding: 5px;
+        }
+
+        .btn1 {
+            padding: 3px 20px;
+            margin: 2px;
+            border: 1px solid #007bff;
+            background-color: white;
+            color: #007bff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn1.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .addBtnStyle {
+            background: #ff6000;
+            padding: 3px 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            span {
+                padding-left: 1px;
+                font-family: 'FaktPro-Normal';
+                font-size: .9rem;
+            }
+        }
+    }
+
+    .scrollTagsData {
+        height: 70vh;
+        overflow: auto;
+        margin: auto;
+
+
+        .gridTable {
+            width: 100%;
+            margin: auto;
+
+            font-family: 'FaktPro-Bold';
+            font-size: .9rem;
+
+            thead {
+                position: sticky;
+                top: 0;
+                background-color: white;
+                z-index: 1;
+            }
+
+            tbody tr td {
+                font-family: 'FaktPro-Normal';
+                font-size: .9rem;
+            }
+
+
+        }
+    }
+
+    .tagForm {
+        font-family: 'FaktPro-Normal';
+        font-size: .9rem;
+
+        .keyName {
+            padding-right: 5px;
+            font-family: 'FaktPro-Medium';
+
+        }
+
+        .form-control {
+            width: 50%;
+        }
+
+        .form-check-input {
+            border: 1px solid #686666;
+        }
+
+        .submitBtn {
+            background-color: #ff6000;
+            border: #ff6000;
+        }
+    }
+}

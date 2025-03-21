@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { TagsRoutingModule } from './tags-routing.module';
 import { TagsComponent } from './tags.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -10,7 +11,7 @@ import { TagsComponent } from './tags.component';
     TagsComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule,FormsModule,ReactiveFormsModule,
     TagsRoutingModule
   ]
 })

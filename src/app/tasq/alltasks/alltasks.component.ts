@@ -69,7 +69,7 @@ export class AlltasksComponent implements OnInit {
   sortValue: any = 'A';
   fromType: any = "";
   private subscription: Subscription = new Subscription();
-  private subscription1: Subscription = new Subscription();
+  private allClientSubscription: Subscription = new Subscription();
 
   keyNamesList: any = [
     { keyname: 'Ticket', value: 'Ticket' },
@@ -125,7 +125,7 @@ export class AlltasksComponent implements OnInit {
         this.countStatusClick(res.tktStatus)
       }
       else {
-        this.subscription1 = this.api.getClientsAndDealersData().subscribe((res: any) => {
+        this.allClientSubscription = this.api.getClientsAndDealersData().subscribe((res: any) => {
           console.log(res);
 
           this.allTicketsData = [];
@@ -174,8 +174,8 @@ export class AlltasksComponent implements OnInit {
 
 
     }
-    if (this.subscription1) {
-      this.subscription1.unsubscribe();
+    if (this.allClientSubscription) {
+      this.allClientSubscription.unsubscribe();
       this.api.setClientsAndDealersData({ 'clientId': '', 'name': '', 'dealerId': '' });
 
     }
@@ -542,17 +542,8 @@ ticketData : any = "";
   }
   firstLoadForDate = true; // To prevent first automatic trigger
   onDateChange() {
-    if (this.firstLoadForDate) {
-
-      this.firstLoadForDate = false; // First trigger ni ignore cheyyadam
-      return;
-    }
-    else {
       this.bindStatusCounts()
-
-    }
   }
-
   createdUsersList: any = []
   bindCreatedUsersList(type: any) {
     this.spinner = true;
@@ -614,11 +605,13 @@ ticketData : any = "";
     this.bindStatusCounts();
   }
   clearAssignedby() {
+
     this.filterAssignedUser = "";
     this.filterAssignUserId = 0;
     this.bindStatusCounts();
   }
   clearCreatedBy() {
+
     this.filterCreatedBy = "";
     this.bindStatusCounts();
   }

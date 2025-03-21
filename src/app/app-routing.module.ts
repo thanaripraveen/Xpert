@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'edittask', loadChildren: () => import('./tasq/edittask/edittask.module').then(m => m.EdittaskModule) },
   { path: 'tasq/usersinfo', loadChildren: () => import('./tasq/usersinfo/usersinfo.module').then(m => m.UsersinfoModule) },
   { path: 'mytickets', loadChildren: () => import('./tasq/mytickets/mytickets.module').then(m => m.MyticketsModule) },
-  { path: 'tasq/tags', loadChildren: () => import('./tasq/tags/tags.module').then(m => m.TagsModule) },
+  { path: 'tags', loadChildren: () => import('./tasq/tags/tags.module').then(m => m.TagsModule) },
 ];
 
 @NgModule({

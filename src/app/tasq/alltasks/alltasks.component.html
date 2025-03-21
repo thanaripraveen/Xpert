@@ -85,7 +85,7 @@
 
             <span  class="ms-1 position-relative" style="width: 12%;">
                 <input class="form-control" name="date"  autocomplete="off"
-                        placeholder="Due Date" bsDatepicker [(ngModel)]="filterDueDate" (bsValueChange)="onDateChange()" 
+                        placeholder="Due Date" bsDatepicker [(ngModel)]="filterDueDate" (ngModelChange)="onDateChange()" 
                         [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false }" style="padding: .175rem .25rem .175rem .25rem;"/>
                     <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear"
                         (click)="clearDueDate();">
