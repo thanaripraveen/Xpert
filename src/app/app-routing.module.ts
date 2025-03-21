@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'tasq/usersinfo', loadChildren: () => import('./tasq/usersinfo/usersinfo.module').then(m => m.UsersinfoModule) },
   { path: 'mytickets', loadChildren: () => import('./tasq/mytickets/mytickets.module').then(m => m.MyticketsModule) },
   { path: 'tags', loadChildren: () => import('./tasq/tags/tags.module').then(m => m.TagsModule) },
+  { path: 'roles', loadChildren: () => import('./tasq/roles/roles.module').then(m => m.RolesModule) },
 ];
 
 @NgModule({

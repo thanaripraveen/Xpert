@@ -224,6 +224,21 @@ body {
 
 }
 
+.addBtnStyle {
+  background: #ff6000;
+  padding: 3px 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  span {
+      padding-left: 1px;
+      font-family: 'FaktPro-Normal';
+      font-size: .9rem;
+  }
+}
+
 // .deleteCommentModal .modal-dialog {
 //   padding: 5px;
 
