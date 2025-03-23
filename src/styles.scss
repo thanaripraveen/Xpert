@@ -181,7 +181,13 @@ body {
     font-family: 'FaktPro-Bold';
     font-size: 14px;
   }
+
+  .btn-close:focus {
+    outline: none;
+    box-shadow: none;
+  }
 }
+
 
 .documentModal .modal-dialog {
   max-width: 45% !important;

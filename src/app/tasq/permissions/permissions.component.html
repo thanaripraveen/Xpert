@@ -1,0 +1,67 @@
+<div class="spinner-container" *ngIf="spinner">
+    <div class="spinner-wrapper">
+        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+        <div class="spinner"></div>
+        <span class="logo-text">
+            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+        </span>
+    </div>
+</div>
+
+<div class="permissionsPage">
+    <div class="col-12 d-flex align-items-center headerDesign ">
+        <div class="title">Permissions</div>
+    </div>
+
+    <div class="permissionsModuleDiv">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="col-2 mt-2">
+                <select name="" id="" class="form-select" (change)="getModules($event)" [(ngModel)]="selectedRoleId">
+                    <option value="">Select</option>
+                    <option [value]="role.UId" *ngFor="let role of bindRolesList">{{role.UR_DESC}}</option>
+                </select>
+            </div>
+        </div>
+    
+        <div>
+            <fieldset class="custom-fieldset" style="color: white;">
+                <legend class="custom-legend">Modules</legend>
+                <div class="permissionsDivHeight">
+                <ng-container *ngFor="let pm of parentModulesList">
+                    <div class="row" style="padding-bottom: .7rem;">
+                        <div class="col-5"></div>
+                        <div class="col-3 d-flex align-items-center text-black">
+                            <input type="checkbox" style="border: 1px solid black;" [checked]="pm.StatusType == 'Y' ? true : false"
+                                class="form-check-input" (change)="parentCheckValue($event,pm)">
+                            <span class="ps-1">{{pm.ModuleName}}</span>
+                        </div>
+                        <div class="col-4"></div>
+                    </div>
+                    <div style="padding-bottom: 1rem;">
+                       
+                        <div class="row" *ngFor="let cm of childModulesList">
+                            <div class="col-5"></div>
+                            <div class="col-3 text-black" style="padding-left: 2rem;" *ngIf="pm.Identifier == cm.ModParentId">
+                                <input type="checkbox" style="border: 1px solid black;" [checked]="cm.StatusType == 'Y' ? true : false"
+                                    (change)="childCheckValue($event,cm)" class="form-check-input">
+                                <span class="ps-2">{{cm.ModuleName}}</span>
+                            </div>
+                            <div class="col-4"></div>
+                        </div>
+                       
+                    </div>
+                </ng-container>
+            </div>
+                <br>
+                <div class="text-center">
+                    <button class="btn btn-primary" style="background-color:#f37121;border: #f37121;"  (click)="savePermissions()">Submit</button>&nbsp;
+                    <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+                </div>
+            </fieldset>
+        </div>
+    
+    </div>
+</div>
+
+
+

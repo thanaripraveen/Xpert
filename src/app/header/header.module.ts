@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderRoutingModule } from './header-routing.module';
 import { HeaderComponent } from './header.component';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -11,7 +12,7 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent
   ],
   imports: [
-    CommonModule,FormsModule,
+    CommonModule,FormsModule,NgbModule,
     HeaderRoutingModule
   ],
   exports : [HeaderComponent]

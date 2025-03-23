@@ -7,9 +7,10 @@
         </span>
     </div>
 </div>
-<div class="rolesPage">
+
+<div class="userStatusPage">
     <div class="col-12 d-flex align-items-center headerDesign ">
-        <div class="col-10 title">Roles</div>
+        <div class="col-10 title">User Status</div>
        
           <div class="col-2 text-end tagsHead d-flex justify-content-end pe-1">
            <div class="addBtnStyle" *ngIf="gridForm == true" (click)="addNewRole()"><img src="../../../assets/images/xpertAddIcon.png" alt=""><span >add</span></div>
@@ -20,8 +21,8 @@
         <table class="table  table-striped gridTable">
             <thead>
                 <tr>
-                    <th>Role Name</th>
-                    <th class="text-center">Role Unique Id</th>
+                    <th>Name</th>
+                    <th class="text-center">Sequence</th>
                     <th class="text-center">Status</th>
                     <th class="text-center">Edit</th>
                     <th class="text-center">Delete</th>
@@ -29,29 +30,34 @@
             </thead>
             <tbody >
                 
-                <tr  *ngFor="let role of rolesDataList" >
-                    <td>{{role.Role_Name}}</td>
-                    <td class="text-center">{{role.Role_UniqId}}</td>
-                    <td class="text-center" [ngStyle]="{'color': role.Role_Status== 'Y' ? 'green' : 'red' }" >
-                        {{role.Role_Status == 'Y'? 'Active' : 'In-Active'}}</td>
-                    <td class="text-center"><img src="assets/images/editIcon.png" alt="" style="cursor: pointer;" (click)="editRole(role)" ></td>
-                    <td class="text-center"><img src="../../../assets/images/deleteIcon.png" alt="" style="cursor: pointer;" (click)="deleteRole(roleConfirmDialog,role)"></td>
+                <tr  *ngFor="let user of userStatusDataList" >
+                    <td>{{user.TYPE_NAME}}</td>
+                    <td class="text-center">{{user.type_sequence}}</td>
+                    <td class="text-center" [ngStyle]="{'color': user.type_status== 'Y' ? 'green' : 'red' }" >
+                        {{user.type_status == 'Y'? 'Active' : 'In-Active'}}</td>
+                    <td class="text-center"><img src="assets/images/editIcon.png" alt="" style="cursor: pointer;" (click)="editUserStatus(user)" ></td>
+                    <td class="text-center"><img src="../../../assets/images/deleteIcon.png" alt="" style="cursor: pointer;"(click)="deleteUserStatus(userStatusConfirmDialog,user)"></td>
                     
                 </tr>
             
             </tbody>
         </table>
         </div>
-    <div class="roleForm mt-5 d-flex justify-content-center align-items-center" *ngIf="gridForm == false">
+    <div class="userStatusForm mt-5 d-flex justify-content-center align-items-center" *ngIf="gridForm == false">
         <table class=" text-black">
             <tr>
-                <td class="keyName">Role Name :</td>
-                <td><input type="text" class="form-control" placeholder="Enter role name" [(ngModel)]="roleName"></td>
+                <td class="keyName">Name :</td>
+                <td><input type="text" [readonly] = "action == 'U'" class="form-control" placeholder="Enter status name" [(ngModel)]="userStatusName"></td>
             </tr>
             <br>
             <tr>
-                <td class="keyName">Unique Role Id :</td>
-                <td ><input type="text" class="form-control" placeholder="Enter unique id" [(ngModel)]="roleUniqueId" (keypress)="allowOnlyNumbers($event)"></td>
+                <td class="keyName">Sequence :</td>
+                <td ><input type="text" class="form-control" placeholder="Enter sequence" (keypress)="allowOnlyNumbers($event)" [(ngModel)]="sequence"></td>
+            </tr>
+            <br>
+            <tr>
+                <td class="keyName">Color :</td>
+                <td ><input type="color" class="form-control" [(ngModel)]="color"></td>
             </tr>
             <br>
             <tr *ngIf="action == 'U'">
@@ -65,7 +71,7 @@
             </tr>
             <br>
             <tr >
-                <td class="text-end"> <button class="btn btn-primary me-2 submitBtn" (click)="saveAndUpdateRole()">Submit</button></td>
+                <td class="text-end"> <button class="btn btn-primary me-2 submitBtn" (click)="saveAndUpdateUserStatus()">Submit</button></td>
                 <td>
                     <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
                 </td>
@@ -76,8 +82,7 @@
     </div>
     </div>
 
-
-    <ng-template #roleConfirmDialog let-modal>
+    <ng-template #userStatusConfirmDialog let-modal>
         <div class="modal-header px-3 py-2">
             <!-- <h5 class="modal-title text-black">Created BY</h5> -->
             <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
@@ -88,7 +93,7 @@
             </div>
         </div>
         <div class="modal-footer d-flex justify-content-center">
-            <button type="submit" class="btn btn-primary" style="background-color:#f37121;border: #f37121;" (click)="saveAndUpdateRole()">Yes</button>
+            <button type="submit" class="btn btn-primary" style="background-color:#f37121;border: #f37121;" (click)="saveAndUpdateUserStatus()">Yes</button>
             <button type="submit" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
         </div>
     </ng-template>

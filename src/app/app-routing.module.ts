@@ -18,6 +18,9 @@ const routes: Routes = [
   { path: 'mytickets', loadChildren: () => import('./tasq/mytickets/mytickets.module').then(m => m.MyticketsModule) },
   { path: 'tags', loadChildren: () => import('./tasq/tags/tags.module').then(m => m.TagsModule) },
   { path: 'roles', loadChildren: () => import('./tasq/roles/roles.module').then(m => m.RolesModule) },
+  { path: 'usersstatus', loadChildren: () => import('./tasq/userstatus/userstatus.module').then(m => m.UserstatusModule) },
+  { path: 'Permissions', loadChildren: () => import('./tasq/permissions/permissions.module').then(m => m.PermissionsModule) },
+  { path: 'Cmsmodules', loadChildren: () => import('./tasq/cmsmodules/cmsmodules.module').then(m => m.CmsmodulesModule) },
 ];
 
 @NgModule({

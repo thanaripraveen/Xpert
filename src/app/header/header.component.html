@@ -27,9 +27,9 @@
               height="30"></a>
         </li>
       </ul>
-
       <!-- Add ms-auto to push the profile section to the right -->
       <div class="ms-auto d-flex align-items-center profileSec">
+      <button class="btn btn-primary me-5" (click)="openCreateTask()">Create New Ticket</button>
         <div class="row" *ngIf="profileData != undefined">
           <!-- Profile Image -->
           <div class="col-auto p-0">

@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { CreatetaskRoutingModule } from './createtask-routing.module';
 import { CreatetaskComponent } from './createtask.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+
 
 
 @NgModule({
@@ -11,8 +13,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CreatetaskComponent
   ],
   imports: [
-    CommonModule,
-    CreatetaskRoutingModule,NgbModule
+    CommonModule,FormsModule,ReactiveFormsModule,AngularEditorModule,
+    CreatetaskRoutingModule
   ],
   exports: [CreatetaskComponent]
 })

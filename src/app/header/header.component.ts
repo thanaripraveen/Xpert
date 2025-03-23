@@ -5,6 +5,8 @@ import { NavigationEnd, Router } from '@angular/router';
 // import { Config } from '../../app/types/Config'
 import { environment } from '../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { CreatetaskComponent } from '../tasq/createtask/createtask.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -30,7 +32,8 @@ export class HeaderComponent implements OnInit {
   spinner : boolean = false;
   @ViewChild('closeOffcanvas') closeOffcanvas: ElementRef | undefined;
   @ViewChild('menuContainer', { static: true }) menuContainer!: ElementRef;
-  constructor(public common: common, private api: ApiService, private router: Router,private toastr : ToastrService) {
+  constructor(public common: common, private api: ApiService, private router: Router,
+    private toastr : ToastrService,private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -263,6 +266,15 @@ export class HeaderComponent implements OnInit {
   signOutClick(){
     localStorage.clear();
     this.router.navigateByUrl('')
+  }
+
+  openCreateTask(){
+     this.modalService.open(CreatetaskComponent, {
+            windowClass: 'editModal',
+            size: 'xl', 
+            backdrop: 'static',
+            // centered: true, 
+          });
   }
 
 }

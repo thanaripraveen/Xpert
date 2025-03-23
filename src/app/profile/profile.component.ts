@@ -424,13 +424,6 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  openFirstModal() {
-    this.modalService.open(CreatetaskComponent, {
-      size: 'xl', // Large modal
-      backdrop: 'static', // Prevent closing on outside click
-      centered: true, // Centered modal
-    });
-  }
 
 
 }

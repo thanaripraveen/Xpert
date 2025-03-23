@@ -13,6 +13,8 @@ import { SavedocumentsComponent } from '../savedocuments/savedocuments.component
 import { Router } from '@angular/router';
 import { CommentsComponent } from '../comments/comments.component';
 import { DetailsComponent } from '../details/details.component';
+import { EdittaskComponent } from '../edittask/edittask.component';
+import { CreatetaskComponent } from '../createtask/createtask.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -225,7 +227,7 @@ rowCount : any = 0;
       });
     }
     else if(component == 'edit'){
-      this.modalService.open(CommentsComponent, {
+      this.modalService.open(EdittaskComponent, {
         windowClass: 'editModal',
         size: 'xl', 
         backdrop: 'static',

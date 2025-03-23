@@ -28,6 +28,7 @@ export class RolesComponent implements OnInit {
     this.bindRoleData();
   }
   bindRoleData() {
+    this.spinner =true;
     const obj = {
       id: '',
       expression: '',
@@ -43,6 +44,14 @@ export class RolesComponent implements OnInit {
     });
   }
 
+    allowOnlyNumbers(event: KeyboardEvent): void {
+    const charCode = event.which ? event.which : event.keyCode;
+   
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
+  }
+
   handleStatus(event: any): void {
     this.status = event.target.checked;
   }
@@ -52,12 +61,15 @@ export class RolesComponent implements OnInit {
   }
 
   editRole(roleData: any) {
+    this.spinner =true;
     this.gridForm = !this.gridForm;
     this.action = 'U';
     this.roleName = roleData.Role_Name;
     this.roleUniqueId = roleData.Role_UniqId;
     this.roleId = roleData.Role_Id;
     this.status = roleData.Role_Status == 'Y' ? true : false;
+    this.spinner =false;
+
   }
 
   deleteRole(modal: any, roleData: any) {
@@ -74,6 +86,8 @@ export class RolesComponent implements OnInit {
   }
 
   saveAndUpdateRole() {
+    this.spinner =true;
+
     if (this.roleName == '' || this.roleUniqueId == '') {
       this.toastr.warning('please enter role name and unique id')
     }
@@ -94,11 +108,15 @@ export class RolesComponent implements OnInit {
           this.toastr.success('Role added successfully');
           this.cancel();
           this.bindRoleData();
+          this.spinner =false;
+
         }
         else if (res.status == 200 && this.action == 'U') {
           this.toastr.success('Role updated successfully');
           this.cancel();
           this.bindRoleData();
+          this.spinner =false;
+
 
         }
         else if (res.status == 200 && this.action == 'D') {
@@ -110,10 +128,13 @@ export class RolesComponent implements OnInit {
           this.roleUniqueId = "";
           this.modalRef.close();
           this.bindRoleData();
+          this.spinner =false;
+
         }
         else {
           this.toastr.error('Unable process your request. please try again.');
           this.cancel();
+          this.spinner = false;
         }
       })
     }
@@ -126,10 +147,6 @@ export class RolesComponent implements OnInit {
     this.roleId = 0;
     this.roleName = "";
     this.roleUniqueId = "";
-  }
-
-  roleDelete() {
-
   }
 
 }
