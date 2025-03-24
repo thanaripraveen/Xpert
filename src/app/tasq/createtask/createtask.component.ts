@@ -27,15 +27,35 @@ export class CreatetaskComponent implements OnInit {
     sanitize: false
   };
 
+tagsDataList : any =[]
+dealer : any ="";
+
   spinner: boolean = false;
   constructor(private api: ApiService, private toastr: ToastrService, private router: Router, private common: common,
     public activeModal: NgbActiveModal, private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
-    this.bindTagsDataList()
+    this.bindTagsDataList();
+    this.bindDealerData();
   }
-tagsDataList : any =[]
+  dealersData : any =[];
+  bindDealerData() {
+    const obj = {
+      "searchstring": this.dealer,
+      "userId": this.common.userid
+    }
+    this.api.postMethod1('users/GetAutoCompleteDealersData', obj).subscribe((res: any) => {
+      console.log(res);
+
+      if (res.status == 200) {
+        this.dealersData = res.response;
+      }
+      else {
+        this.dealersData = [];
+      }
+    })
+  }
   bindTagsDataList() {
     const obj = {
       "exp": 0,
