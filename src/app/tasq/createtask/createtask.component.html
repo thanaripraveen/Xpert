@@ -1,102 +1,221 @@
 <div class="spinner-container" *ngIf="spinner">
-    <div class="spinner-wrapper">
-        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
-        <div class="spinner"></div>
-        <span class="logo-text">
-            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
-        </span>
-    </div>
+  <div class="spinner-wrapper">
+    <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+    <div class="spinner"></div>
+    <span class="logo-text">
+      <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+    </span>
+  </div>
 </div>
 
 <div class="modal-header px-3 py-2">
-    <h5 class="modal-title text-black">Create Ticket</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()" aria-label="Close"></button>
+  <h5 class="modal-title text-black">Create Ticket</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()" aria-label="Close"></button>
 </div>
 <div class="modal-body text-black">
-    <div >
-        <div class="row mb-2">
-          <div class="col-md-4 d-flex align-items-center">
-            <label for="ticketFrom" class="col-3 col-form-label">Ticket From:</label>
+  <div style="height: calc(90vh - 102px);overflow: auto;overflow-x:hidden;padding-right: 10px;">
+    <div class="row mb-2">
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="ticketFrom" class="col-3 col-form-label">Ticket From:</label>
         <div class="col-9">
-              <select name="" id="" class="form-select">
-                <option value="">Select</option>
-                <option value="F">Client</option>
-                <option value="A">Internal</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex align-items-center">
-            <label for="email" class="col-3 col-form-label">Email:</label>
-            <div class="col-9">
-              <input type="text" id="email" class="form-control" placeholder="Enter name">
-            </div>
-          </div>
-          <div class="col-md-4 d-flex align-items-center">
-            <label for="dealer" class="col-3 col-form-label">Dealer:</label>
-            <div class="col-9">
-              <input type="text" id="dealer" class="form-control" placeholder="Enter name">
-            </div>
-          </div>
+          <select name="" id="" class="form-select">
+            <option value="">Select</option>
+            <option value="F">Client</option>
+            <option value="A">Internal</option>
+          </select>
         </div>
-      
-        <div class="row mb-2">
-          <div class="col-md-4 d-flex align-items-center">
-            <label for="title" class="col-3 col-form-label">Title:</label>
-            <div class="col-9">
-              <input type="text" id="title" class="form-control" placeholder="Enter name">
-            </div>
-          </div>
-          <div class="col-md-4 d-flex align-items-center">
-            <label for="attachFile" class="col-3 col-form-label">Attach File:</label>
-            <div class="col-9">
-              <input type="file" id="attachFile" class="form-control">
-            </div>
-          </div>
-          <div class="col-md-4 d-flex align-items-center">
-            <label for="dueDate" class="col-3 col-form-label">Due Date:</label>
-            <div class="col-9">
-              <input type="date" id="dueDate" class="form-control">
-            </div>
-          </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="email" class="col-3 col-form-label">Email:</label>
+        <div class="col-9">
+          <input type="text" id="email" class="form-control" placeholder="Enter name">
         </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="dealer" class="col-3 col-form-label">Dealer:</label>
+        <div class="col-9">
+          <input type="text" id="dealer" class="form-control" placeholder="Enter name">
+        </div>
+      </div>
+    </div>
 
-        <div class="row mb-2">
-          <angular-editor [config]="config"
-                        ></angular-editor>
+    <div class="row mb-2">
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="title" class="col-3 col-form-label">Title:</label>
+        <div class="col-9">
+          <input type="text" id="title" class="form-control" placeholder="Enter name">
         </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="attachFile" class="col-3 col-form-label">Attach File:</label>
+        <div class="col-9">
+          <input type="file" id="attachFile" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="dueDate" class="col-3 col-form-label">Due Date:</label>
+        <div class="col-9">
+          <input type="date" id="dueDate" class="form-control">
+        </div>
+      </div>
+    </div>
 
-        <div class="row mb-2">
-          <div class="col-md-4 d-flex align-items-center">
-            <label for="assign" class="col-3 col-form-label">Assigned:</label>
-            <div class="col-2">
-              <div class="addBtnStyle text-white" ><img src="../../../assets/images/xpertAddIcon.png" alt=""><span >add</span></div>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex align-items-center">
-            <label for="attachFile" class="col-3 col-form-label">Status:</label>
-            <div class="col-9">
-              <select name="" id="" class="form-select">
-                <option value="">Select</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-4 d-flex align-items-center">
-            <label for="dueDate" class="col-3 col-form-label">Priority:</label>
-            <div class="radio-group">
-              <input type="radio" id="low" name="priority" value="low">
-              <label for="low">Low</label>
-            
-              <input type="radio" id="medium" name="priority" value="medium">
-              <label for="medium">Medium</label>
-            
-              <input type="radio" id="high" name="priority" value="high">
-              <label for="high">High</label>
-            </div>
+    <div class="row mb-2">
+      <angular-editor [config]="config"></angular-editor>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="assign" class="col-3 col-form-label">Assigned:</label>
+        <div class="col-2">
+          <div class="addBtnStyle text-white"><img src="../../../assets/images/xpertAddIcon.png" alt=""><span>add</span>
           </div>
         </div>
       </div>
-      
-      
-      
-      
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="attachFile" class="col-3 col-form-label">Status:</label>
+        <div class="col-9">
+          <select name="" id="" class="form-select">
+            <option value="">Select</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="dueDate" class="col-3 col-form-label">Priority:</label>
+        <div class="radio-group">
+          <input type="radio" id="low" name="priority" value="low">
+          <label for="low">Low</label>
+
+          <input type="radio" id="medium" name="priority" value="medium">
+          <label for="medium">Medium</label>
+
+          <input type="radio" id="high" name="priority" value="high">
+          <label for="high">High</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="title" class="col-3 col-form-label">Followers:</label>
+        <div class="col-9">
+          <input type="text" id="follower" class="form-control" placeholder="Enter Follower">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-md-4 tblFolwersHeight">
+        <table class="table table-striped mb-0">
+          <tbody>
+            <tr>
+
+              <td>mdo</td>
+            </tr>
+            <tr>
+
+              <td>fat</td>
+            </tr>
+            <tr>
+
+              <td>twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-1 mt-4 text-center">
+        <div><span class="followerBtns">></span></div><br>
+        <div><span class="followerBtns"><</span>
+        </div>
+
+      </div>
+
+      <div class="col-md-4 tblFolwersHeight" style="padding-left: 5px;">
+        <table class="table table-striped mb-0">
+          <tbody>
+            <tr>
+
+              <td>mdo</td>
+            </tr>
+            <tr>
+
+              <td>fat</td>
+            </tr>
+            <tr>
+
+              <td>twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row mb-2">
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="email" class="col-3 col-form-label">Add Tag:</label>
+        <div class="col-9">
+          <input type="text" id="email" class="form-control" placeholder="Enter name">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-2 m-0">
+     <div style="border:1px solid #dee2e6;border-radius: 5px;"><div style="padding : 10px 0 15px 0">Suggested Department Tags</div>
+     <div class="col-12 d-flex align-items-center mb-1">
+      <div class="col-2">Issue Tags :</div>
+      <span class="d-flex flex-wrap col-10">
+        <ng-container *ngFor="let tag of tagsDataList">
+          <div *ngIf="tag.Type == 'I'" style="margin-bottom: 5px;">
+            <span [ngClass]="tag.Type">{{tag.Tag_Name | titlecase}} <img src="../../../assets/images/xpertPlusIcon.png" alt=""></span>
+          </div>
+        </ng-container>
+
+      </span>
+
+     </div>
+     <div class="col-12 d-flex align-items-center mb-1">
+      <div class="col-2">Severity Tags :</div>
+      <ng-container *ngFor="let tag of tagsDataList">
+        <div *ngIf="tag.Type == 'V'" style="margin-bottom: 5px;">
+          <span [ngClass]="tag.Type">{{tag.Tag_Name | titlecase}} <img src="../../../assets/images/xpertPlusIcon.png" alt=""></span>
+        </div>
+      </ng-container>
+     </div>
+     <div class="col-12 d-flex align-items-center mb-1">
+      <div class="col-2">Release Tags :</div>
+      <ng-container *ngFor="let tag of tagsDataList">
+        <div *ngIf="tag.Type == 'R'" style="margin-bottom: 5px;">
+          <span [ngClass]="tag.Type">{{tag.Tag_Name | titlecase}} <img src="../../../assets/images/xpertPlusIcon.png" alt=""></span>
+        </div>
+      </ng-container>
+     </div>
+     <div class="col-12 d-flex align-items-center mb-1">
+      <div class="col-2">Other Tags :</div>
+      <ng-container *ngFor="let tag of tagsDataList">
+        <div *ngIf="tag.Type == 'S'" style="margin-bottom: 5px;">
+          <span [ngClass]="tag.Type">{{tag.Tag_Name | titlecase}} <img src="../../../assets/images/xpertPlusIcon.png" alt=""></span>
+        </div>
+      </ng-container>
+     </div>
+     <div class="col-12 d-flex align-items-center mb-1">
+      <div class="col-2">Customer Tags :</div>
+      <ng-container *ngFor="let tag of tagsDataList">
+        <div *ngIf="tag.Type == 'C'" style="margin-bottom: 5px;">
+          <span [ngClass]="tag.Type">{{tag.Tag_Name | titlecase}} <img src="../../../assets/images/xpertPlusIcon.png" alt=""></span>
+        </div>
+      </ng-container>
+     </div>
+    </div>
+    </div>
+    <div class="text-center mt-4">
+      <button class="btn btn-primary me-2" style="background-color: #f37121;border: 1px solid #f37121">Submit</button>
+      <button class="btn btn-secondary">Cancel</button>
+    </div>
+  </div>
+
+ 
+
+
+
+
 </div>

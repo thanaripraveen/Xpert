@@ -1,40 +1,132 @@
-.modal-body{
-    font-family: 'FaktPro-Normal';
-    font-size: .9rem;
+.modal-body {
+  font-family: 'FaktPro-Normal';
+  font-size: .9rem;
 
-    .radio-group {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      
-      .radio-group input[type="radio"] {
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        border: 2px solid #ccc;
-        border-radius: 4px;
-        display: inline-block;
-        position: relative;
-        cursor: pointer;
-      }
-      
-      .radio-group input[type="radio"]:checked {
-        background-color: #007bff; /* Blue color */
-        border-color: #007bff;
-      }
-      
-      .radio-group input[type="radio"]:checked::before {
-        content: "";
-        width: 100%;
-        height: 100%;
-        display: block;
-        background-color: #007bff;
-        border-radius: 4px;
-      }
-      
-      .radio-group label {
-        font-size: 16px;
-        cursor: pointer;
-      }
+  .radio-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .radio-group input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .radio-group input[type="radio"]:checked {
+    background-color: #007bff;
+    /* Blue color */
+    border-color: #007bff;
+  }
+
+  .radio-group input[type="radio"]:checked::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    display: block;
+    background-color: #007bff;
+    border-radius: 4px;
+  }
+
+  .radio-group label {
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .table-striped tbody tr:nth-of-type(odd) {
+    --bs-table-accent-bg: #f2f2f2 !important;
+    /* Light Gray */
+  }
+
+  .table-striped tbody tr:nth-of-type(even) {
+    --bs-table-accent-bg: #e6e6e6 !important;
+    /* Slightly Darker Gray */
+  }
+
+  // .table-striped tbody tr:nth-of-type(odd) {
+  //   --bs-table-accent-bg: #f8f9fa !important; /* Light Grayish White */
+  // }
+
+  // .table-striped tbody tr:nth-of-type(even) {
+  //   --bs-table-accent-bg: #dfe6e9 !important; /* Soft Gray */
+  // }
+
+  .followerBtns {
+    background: #ff6000;
+    padding: 8px 12px;
+    color: #fff;
+    border-radius: 5px;
+  }
+
+  .tblFolwersHeight {
+    height: 150px;
+    overflow: auto;
+    padding-right: 0;
+  }
+
+  .table-striped {
+    background-color: #e6e7e9 !important;
+    /* Light Gray Background */
+    height: 150px;
+
+    tbody tr td {
+     
+    }
+  }
+
+  .S {
+    background-color: #1471c2;
+    color: #fff;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+
+  }
+
+  // Blue
+  .I {
+    background-color: #696969;
+    color: #fff;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+
+  }
+
+  // Green
+  .R {
+    background-color: #14c243;
+    color: #fff;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+
+  }
+
+  // Yellow
+  .V {
+    background-color: #ffc107;
+    color: #fff;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+
+  }
+
+  // Red
+  .C {
+    background-color: #a914c2;
+    color: #fff;
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+
+  }
+
 }

@@ -14,29 +14,44 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
   styleUrl: './createtask.component.scss'
 })
 export class CreatetaskComponent implements OnInit {
-    config: AngularEditorConfig = {
-      editable: true,
-      spellcheck: true,
-      height: '15rem',
-      placeholder: 'Enter text here...',
-      translate: 'no',
-      defaultFontName: 'Arial',
-      defaultFontSize: '3px',
-      toolbarPosition: 'top', // Options: 'top' or 'bottom'
-      defaultParagraphSeparator: 'p',
-      sanitize:false 
-    };
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultFontName: 'Arial',
+    defaultFontSize: '3px',
+    toolbarPosition: 'top', // Options: 'top' or 'bottom'
+    defaultParagraphSeparator: 'p',
+    sanitize: false
+  };
 
-  spinner : boolean = false;
-  constructor(private api : ApiService,private toastr : ToastrService,private router : Router,private common : common,
-    public activeModal: NgbActiveModal,private modalService: NgbModal
-  ) {}
+  spinner: boolean = false;
+  constructor(private api: ApiService, private toastr: ToastrService, private router: Router, private common: common,
+    public activeModal: NgbActiveModal, private modalService: NgbModal
+  ) { }
 
   ngOnInit(): void {
-    
+    this.bindTagsDataList()
+  }
+tagsDataList : any =[]
+  bindTagsDataList() {
+    const obj = {
+      "exp": 0,
+      "userid": this.common.userid
+    }
+    this.api.postMethod1('xpert/GetSuggestedTagsList',obj).subscribe((res: any)=>{
+      if(res.status == 200){
+        this.tagsDataList = res.response;
+      }
+      else{
+        this.tagsDataList = [];
+      }
+    })
   }
 
-  closeModal(){
+  closeModal() {
     this.activeModal.close();
   }
 
