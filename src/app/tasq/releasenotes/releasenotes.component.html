@@ -1,0 +1,67 @@
+<div class="spinner-container" *ngIf="spinner">
+    <div class="spinner-wrapper">
+        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+        <div class="spinner"></div>
+        <span class="logo-text">
+            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+        </span>
+    </div>
+</div>
+<div class="realeaseNotesPage text-black">
+    <div class="col-12 d-flex align-items-center headerDesign ">
+        <div class="col-9 title">Release Notes</div>
+        <div class="col-3">
+            <select name="" id="" class="form-select" [(ngModel)]="filterDealer" (change)="selectDealer()"
+                style="padding: .125rem 2.25rem .125rem .75rem;margin: 3px 0;">
+                <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row gridheight mt-2">
+        <div class="grid" *ngFor="let notes of notesData">
+            <div class="row">
+                <div class="col-6 d-flex align-items-center"
+                    style="color: #1471c2;font-family: FaktPro-bold;font-size: .9rem;">
+                    <span>{{notes.Email}}</span>
+                    <span class="ps-2">{{'@ '+LocalTimeConvertioninHours(notes.Ts)}}</span>
+                </div>
+                <div class="col-6 d-flex align-items-center justify-content-end">
+                    <img src="../../assets/images/editIcon.png" (click)="editNotes(notes)" alt=""
+                        height="18px" class="pe-2" style="cursor: pointer;">
+                    <img src="../../assets/images/deleteIcon.png" alt="" height="15px" style="cursor: pointer;"
+                        (click)="deleteNotes(notes,notesConfirmDialog)">
+                </div>
+            </div>
+            <div class="row " [innerHTML]="notes.Notes"></div>
+        </div>
+
+        <div class="row text-black d-flex justify-content-center align-items-center p-3" *ngIf="notesData.length == 0">
+            No Notes Found
+        </div>
+    </div>
+
+    <div class="p-1" style="border-radius: 5px;">
+        <angular-editor class="text-black" [(ngModel)]="txtNotes" [config]="config" (paste)="handlePaste($event)"></angular-editor>
+    </div>
+    <div class="text-center mt-2">
+        <button class="btn btn-primary me-2" style="background-color: #ff6f00;border: 1px solid #ff6f00;" (click)="saveNotes()">Submit</button>
+        <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
+    </div>
+</div>
+
+<ng-template #notesConfirmDialog let-modal>
+    <div class="modal-header px-3 py-2">
+        <h5 class="modal-title text-black">Delete notes</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body text-black text-center">
+        <div>
+          Are you sure you want to continue?
+        </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary" style="background-color:#f37121;border: #f37121;" (click)="saveNotes()">Yes</button>
+        <button type="submit" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
+    </div>
+</ng-template>

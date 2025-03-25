@@ -262,6 +262,10 @@ export class HeaderComponent implements OnInit {
     item.isOpen = !item.isOpen;
   }
 
+  subMenuClick(item: any){
+    item.isOpen = !item.isOpen;
+
+  }
 
   signOutClick(){
     localStorage.clear();

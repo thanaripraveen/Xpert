@@ -109,6 +109,7 @@ export class ApiService implements OnDestroy {
       }))
   }
 
+
   getLoginUserData(userId: number): Observable<any> {
     // alert(typeof userId)
     return this.http.post<any>(`${environment.xpertdataurl}Login/GetLoginUserData?userId=` + userId.toString(), httpOptions);

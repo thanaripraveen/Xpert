@@ -78,7 +78,7 @@
       <!-- Child Links -->
       <ul *ngIf="item.isOpen" class="dropdown">
         <li *ngFor="let child of item.submenu" [class.active]="child.active">
-          <a [routerLink]="child.path">{{ child.mod_name }}</a>
+          <a [routerLink]="child.path" (click)="subMenuClick(item)">{{ child.mod_name }}</a>
         </li>
       </ul>
     </li>

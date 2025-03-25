@@ -273,7 +273,6 @@
                     </div>
                     <div class="col-4">
                         <div class="row">
-                            <!-- <div class="col-12"> -->
                             <div class="col-3 ">
                                 <div class="row">
                                     <div style="font-size: .6rem;color: #000;"
@@ -350,11 +349,12 @@
                                     <img class="statusImage" src="assets/images/statusImages/Complete-White.png"
                                         alt="" *ngIf="task.ReqStatus=='Closed'">
                                 </div>
-                                <!-- </div> -->
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-4 text-center" style="font-family: 'FaktPro-Medium';font-size: 1rem;color:#ff6f00">
+                        {{task.ReqStatus}}
+                    </div>              
                 </div>
             </div>
             <div class="thirdRow">

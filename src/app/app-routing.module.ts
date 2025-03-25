@@ -21,6 +21,12 @@ const routes: Routes = [
   { path: 'usersstatus', loadChildren: () => import('./tasq/userstatus/userstatus.module').then(m => m.UserstatusModule) },
   { path: 'Permissions', loadChildren: () => import('./tasq/permissions/permissions.module').then(m => m.PermissionsModule) },
   { path: 'Cmsmodules', loadChildren: () => import('./tasq/cmsmodules/cmsmodules.module').then(m => m.CmsmodulesModule) },
+  { path: 'releasenotes', loadChildren: () => import('./tasq/releasenotes/releasenotes.module').then(m => m.ReleasenotesModule) },
+  { path: 'groupmessages', loadChildren: () => import('./tasq/groupmessages/groupmessages.module').then(m => m.GroupmessagesModule) },
+  { path: 'userguide', loadChildren: () => import('./tasq/userguide/userguide.module').then(m => m.UserguideModule) },
+  { path: 'howdoie', loadChildren: () => import('./tasq/howdoi/howdoi.module').then(m => m.HowdoiModule) },
+  { path: 'newuserrequest', loadChildren: () => import('./tasq/newuserrequest/newuserrequest.module').then(m => m.NewuserrequestModule) },
+  { path: 'storesetup', loadChildren: () => import('./tasq/storesetup/storesetup.module').then(m => m.StoresetupModule) },
 ];
 
 @NgModule({
