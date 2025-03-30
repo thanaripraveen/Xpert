@@ -1,13 +1,10 @@
-<div class="container text-center mt-5">
-  <button class="btn btn-primary" (click)="toggleDivs()">Toggle Div</button>
-
-  <div class="box bg-success text-white" [ngClass]="{'show': showFirstDiv}">
-    <p>First Div (Scrollable Content)</p>
-    <p *ngFor="let i of [].constructor(10); let idx = index">Item {{ idx + 1 }}</p>
+<div class="status-container">
+    <div *ngFor="let status of statuses" 
+         class="status-box" 
+         [ngClass]="{'active': status === activeStatus, 'inactive': status !== activeStatus}"
+         (click)="setActiveStatus(status)">
+      <i [ngClass]="getStatusIcon(status)"></i>
+      <span>{{ status }}</span>
+    </div>
   </div>
-
-  <div class="box bg-danger text-white" [ngClass]="{'show': !showFirstDiv}">
-    <p>Second Div (Scrollable Content)</p>
-    <p *ngFor="let i of [].constructor(10); let idx = index">Item {{ idx + 1 }}</p>
-  </div>
-</div>
+  
