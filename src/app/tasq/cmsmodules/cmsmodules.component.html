@@ -1,0 +1,184 @@
+<div class="spinner-container" *ngIf="spinner">
+    <div class="spinner-wrapper">
+        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+        <div class="spinner"></div>
+        <span class="logo-text">
+            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+        </span>
+    </div>
+</div>
+
+<div class="cmsModulesPage">
+    <div class="col-12 d-flex align-items-center headerDesign ">
+        <div class="col-10 title">Modules</div>
+
+        <div class="col-2 text-end tagsHead d-flex justify-content-end pe-1">
+            <div class="addBtnStyle" *ngIf="gridForm == true" (click)="addNewRole()"><img
+                    src="../../../assets/images/xpertAddIcon.png" alt=""><span>add</span></div>
+        </div>
+    </div>
+
+    <div class="scrollTagsData" *ngIf="gridForm == true">
+        <table class="table  table-striped gridTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="text-center">Sequence</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Edit</th>
+                    <th class="text-center">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let parent of parentModulesList">
+                    <td>{{parent.mod_name}}</td>
+                    <td class="text-center">{{parent.mod_seq}}</td>
+                    <td class="text-center" [ngStyle]="{'color': parent.mod_Status== 'Y' ? 'green' : 'red' }">
+                        {{parent.mod_Status == 'Y'? 'Active' : 'In-Active'}}</td>
+                    <td class="text-center"><img src="assets/images/editIcon.png" alt="" style="cursor: pointer;"
+                            (click)="editParentModule(parent)"></td>
+                    <td class="text-center"><img src="../../../assets/images/deleteIcon.png" alt=""
+                            style="cursor: pointer;" (click)="deleteParentModule(parent)"></td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="parentModForm mt-2 d-flex justify-content-center align-items-center" *ngIf="gridForm == false && (parentModAction == 'A' || parentModAction == 'U') ">
+        <table class=" text-black">
+            <tr>
+                <td class="keyName">Module Name :</td>
+                <td><input type="text" class="form-control" placeholder="Enter module name" [(ngModel)]="parentModName">
+                </td>
+            </tr>
+            <br>
+            <tr>
+                <td class="keyName">Sequence :</td>
+                <td><input type="text" class="form-control" placeholder="Enter sequence" [(ngModel)]="parentModSequence"
+                        (keypress)="allowOnlyNumbers($event)"></td>
+            </tr>
+            <br>
+            <tr *ngIf="parentModAction == 'U'">
+                <td class="keyName">Status</td>
+                <td class="col-6">
+                    <span [ngStyle]="{'color': parentModStatus== true ? 'green' : 'red' }" class="col-2">
+                        <input type="checkbox" [checked]="parentModStatus" class="ps-2"
+                            (change)="handleParentModStatus($event)" />&nbsp;&nbsp;{{parentModStatus == true ? 'Active'
+                        :
+                        'In-Active'}}</span>
+                </td>
+            </tr>
+            <!-- <br> -->
+            <tr>
+                <td class="text-end"> <button class="btn btn-primary me-2 submitBtn"
+                        (click)="saveAndUpdateModule()">Submit</button></td>
+                <td>
+                    <button class="btn btn-secondary" (click)="cancelParentModule()">Cancel</button>
+                </td>
+            </tr>
+
+        </table>
+
+
+    </div>
+    <div class="col-12 d-flex align-items-center mt-4 subModulestable" *ngIf="parentModAction == 'U'">
+        <div class="col-10 text-black heading">
+            Sub Modules
+        </div>
+        <!-- <div class="col-2"> -->
+        <div class="addBtnStyle" *ngIf="parentModAction == 'U'" (click)="addNewSubModule()"><img
+                src="../../../assets/images/xpertAddIcon.png" alt=""><span>add sub module</span></div>
+        <!-- </div> -->
+    </div>
+
+    <div class="scrollSubModulesData" *ngIf="parentModAction == 'U'">
+
+        <table class="table  table-striped gridTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="text-center">File Name</th>
+                    <th class="text-center">Sequence</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Edit</th>
+                    <th class="text-center">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr *ngFor="let subMod of subModulesList">
+                    <td>{{subMod.mod_name}}</td>
+                    <td class="text-center">{{subMod.mod_filename}}</td>
+                    <td class="text-center">{{subMod.mod_seq}}</td>
+                    <td class="text-center" [ngStyle]="{'color': subMod.mod_Status== 'Y' ? 'green' : 'red' }">
+                        {{subMod.mod_Status == 'Y'? 'Active' : 'In-Active'}}</td>
+                    <td class="text-center"><img src="assets/images/editIcon.png" alt="" style="cursor: pointer;"
+                            (click)="editParentModule(subMod)"></td>
+                    <td class="text-center"><img src="../../../assets/images/deleteIcon.png" alt=""
+                            style="cursor: pointer;" (click)="deleteParentModule(subMod)"></td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="subModForm mt-2 d-flex justify-content-center align-items-center" *ngIf="subModuleForm == true">
+        <table class=" text-black">
+            <tr>
+                <td class="keyName">Module Name :</td>
+                <td><select name="" id="" class="form-select" [(ngModel)]="parentInSubModName">
+                    <option value="">Tickets</option>
+                    </select>
+                </td>
+            </tr>
+            <br>
+            <tr>
+                <td class="keyName">Sub Module Name :</td>
+                <td><input type="text" class="form-control" placeholder="Enter sequence" [(ngModel)]="subModName"></td>
+            </tr>
+            <br>
+            <tr>
+                <td class="keyName">File Name :</td>
+                <td><input type="text" class="form-control" placeholder="Enter sequence" [(ngModel)]="subModFileName"></td>
+            </tr>
+            <br>
+            <tr>
+                <td class="keyName"><span><input type="checkbox" name="" id="" class="form-check-input"></span> Show Component Name : </td>
+                <td><input type="text" class="form-control" placeholder="Enter sequence" [(ngModel)]="subModCompName"></td>
+            </tr>
+            <br>
+            <tr>
+                <td class="keyName">Sequence :</td>
+                <td><input type="text" class="form-control" placeholder="Enter sequence" [(ngModel)]="subModSequence"
+                        (keypress)="allowOnlyNumbers($event)"></td>
+            </tr>
+            <br>
+            <tr *ngIf="subModAction == 'U'">
+                <td class="keyName">Status</td>
+                <td class="col-6">
+                    <span [ngStyle]="{'color': subModStatus== true ? 'green' : 'red' }" class="col-2">
+                        <input type="checkbox" [checked]="subModStatus" class="ps-2"
+                            (change)="handleParentModStatus($event)" />&nbsp;&nbsp;{{subModStatus == true ? 'Active'
+                        :
+                        'In-Active'}}</span>
+                </td>
+            </tr>
+            <!-- <br> -->
+            <tr>
+                <td class="text-end"> <button class="btn btn-primary me-2 submitBtn"
+                        (click)="saveAndUpdateModule()">Submit</button></td>
+                <td>
+                    <button class="btn btn-secondary" (click)="cancelSubModule()">Cancel</button>
+                </td>
+            </tr>
+
+        </table>
+
+
+    </div>
+</div>
