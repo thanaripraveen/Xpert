@@ -33,7 +33,7 @@ export class RolesComponent implements OnInit {
       id: '',
       expression: '',
     };
-    this.api.postMethod1('users/GetCMSUserRoles', obj).subscribe((res: any) => {
+    this.api.postMethod1('cmsmodules/GetCMSUserRoles', obj).subscribe((res: any) => {
       if (res.status == 200) {
         this.rolesDataList = res.response;
         this.spinner = false;

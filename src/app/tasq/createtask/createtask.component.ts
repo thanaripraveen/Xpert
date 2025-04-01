@@ -30,6 +30,10 @@ export class CreatetaskComponent implements OnInit {
 tagsDataList : any =[]
 dealer : any ="";
 
+followerList : any =[
+  'a','b','c','d','e'
+]
+
   spinner: boolean = false;
   constructor(private api: ApiService, private toastr: ToastrService, private router: Router, private common: common,
     public activeModal: NgbActiveModal, private modalService: NgbModal

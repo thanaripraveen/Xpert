@@ -39,7 +39,7 @@
                     <td class="text-center"><img src="assets/images/editIcon.png" alt="" style="cursor: pointer;"
                             (click)="editParentModule(parent)"></td>
                     <td class="text-center"><img src="../../../assets/images/deleteIcon.png" alt=""
-                            style="cursor: pointer;" (click)="deleteParentModule(parent)"></td>
+                            style="cursor: pointer;" (click)="deleteParentModule(parentModConfirmDialog,parent)"></td>
 
                 </tr>
 
@@ -117,9 +117,9 @@
                     <td class="text-center" [ngStyle]="{'color': subMod.mod_Status== 'Y' ? 'green' : 'red' }">
                         {{subMod.mod_Status == 'Y'? 'Active' : 'In-Active'}}</td>
                     <td class="text-center"><img src="assets/images/editIcon.png" alt="" style="cursor: pointer;"
-                            (click)="editParentModule(subMod)"></td>
+                            (click)="editSubModule(subMod)"></td>
                     <td class="text-center"><img src="../../../assets/images/deleteIcon.png" alt=""
-                            style="cursor: pointer;" (click)="deleteParentModule(subMod)"></td>
+                            style="cursor: pointer;" (click)="deleteSubModule(subModConfirmDialog,subMod)"></td>
 
                 </tr>
 
@@ -130,30 +130,30 @@
     <div class="subModForm mt-2 d-flex justify-content-center align-items-center" *ngIf="subModuleForm == true">
         <table class=" text-black">
             <tr>
-                <td class="keyName">Module Name :</td>
+                <td class="keyName">Module Name </td>
                 <td><select name="" id="" class="form-select" [(ngModel)]="parentInSubModName">
-                    <option value="">Tickets</option>
+                    <option [value]="subModuleName.Mod_ID" *ngFor="let subModuleName of parentModulesList">{{subModuleName.mod_name}}</option>
                     </select>
                 </td>
             </tr>
             <br>
             <tr>
-                <td class="keyName">Sub Module Name :</td>
-                <td><input type="text" class="form-control" placeholder="Enter sequence" [(ngModel)]="subModName"></td>
+                <td class="keyName">Sub Module Name </td>
+                <td><input type="text" class="form-control" placeholder="Enter sub module name" [(ngModel)]="subModName"></td>
             </tr>
             <br>
             <tr>
-                <td class="keyName">File Name :</td>
-                <td><input type="text" class="form-control" placeholder="Enter sequence" [(ngModel)]="subModFileName"></td>
+                <td class="keyName">File Name </td>
+                <td><input type="text" class="form-control" placeholder="Enter file name" [(ngModel)]="subModFileName"></td>
             </tr>
             <br>
             <tr>
-                <td class="keyName"><span><input type="checkbox" name="" id="" class="form-check-input"></span> Show Component Name : </td>
-                <td><input type="text" class="form-control" placeholder="Enter sequence" [(ngModel)]="subModCompName"></td>
+                <td class="keyName"><span><input type="checkbox" name="" id="" class="form-check-input" [(ngModel)]="showCompStatus"></span> Show Component Name </td>
+                <td><input type="text" class="form-control" placeholder="Enter component name" [(ngModel)]="subModCompName"></td>
             </tr>
             <br>
             <tr>
-                <td class="keyName">Sequence :</td>
+                <td class="keyName">Sequence</td>
                 <td><input type="text" class="form-control" placeholder="Enter sequence" [(ngModel)]="subModSequence"
                         (keypress)="allowOnlyNumbers($event)"></td>
             </tr>
@@ -163,7 +163,7 @@
                 <td class="col-6">
                     <span [ngStyle]="{'color': subModStatus== true ? 'green' : 'red' }" class="col-2">
                         <input type="checkbox" [checked]="subModStatus" class="ps-2"
-                            (change)="handleParentModStatus($event)" />&nbsp;&nbsp;{{subModStatus == true ? 'Active'
+                            (change)="handleSubModStatus($event)" />&nbsp;&nbsp;{{subModStatus == true ? 'Active'
                         :
                         'In-Active'}}</span>
                 </td>
@@ -171,7 +171,7 @@
             <!-- <br> -->
             <tr>
                 <td class="text-end"> <button class="btn btn-primary me-2 submitBtn"
-                        (click)="saveAndUpdateModule()">Submit</button></td>
+                        (click)="saveAndUpdateSubmodule()">Submit</button></td>
                 <td>
                     <button class="btn btn-secondary" (click)="cancelSubModule()">Cancel</button>
                 </td>
@@ -182,3 +182,34 @@
 
     </div>
 </div>
+
+<ng-template #parentModConfirmDialog let-modal>
+    <div class="modal-header px-3 py-2">
+        <h5 class="modal-title text-black">Delete module</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body text-black text-center">
+        <div>
+          Are you sure you want to continue?
+        </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary" style="background-color:#f37121;border: #f37121;" (click)="saveAndUpdateModule()">Yes</button>
+        <button type="submit" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
+    </div>
+</ng-template>
+<ng-template #subModConfirmDialog let-modal>
+    <div class="modal-header px-3 py-2">
+        <h5 class="modal-title text-black">Delete sub module</h5>
+        <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body text-black text-center">
+        <div>
+          Are you sure you want to continue?
+        </div>
+    </div>
+    <div class="modal-footer d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary" style="background-color:#f37121;border: #f37121;" (click)="saveAndUpdateSubmodule()">Yes</button>
+        <button type="submit" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
+    </div>
+</ng-template>

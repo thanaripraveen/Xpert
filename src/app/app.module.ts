@@ -29,7 +29,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ToastrModule.forRoot({
       // Optionally configure the global default options here
       timeOut: 3000,
-      positionClass: 'toast-top-right',
+      positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
     AngularEditorModule
