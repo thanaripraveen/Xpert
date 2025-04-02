@@ -56,7 +56,7 @@ export class UsersinfoComponent implements OnInit {
       "type": "F",
       "DeptTag": taglist
     }
-    this.api.postMethod1('users/GetUserData', obj).subscribe((res: any) => {
+    this.api.postMethod1('users/GetfollowersData', obj).subscribe((res: any) => {
       if (res.status == 200) {
         this.usersInfoList = res.response;
         this.spinner = false;
@@ -84,14 +84,14 @@ export class UsersinfoComponent implements OnInit {
     this.selectUser(userData);
     radioButton.checked = true;
   }
-
+  userInformation : any ="";
   selectUser(data: any){
-    this.api.setUserInfoData(data);
+    this.userInformation = data;
   }
-
-  
-
-
+  userSubmitClick(){
+    this.api.setUserInfoData(this.userInformation);
+    this.activeModal.close();
+  }
   closeModal() {
     this.activeModal.close();
   }

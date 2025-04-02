@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,FormsModule,ReactiveFormsModule,
     UsersinfoRoutingModule
-  ]
+  ],
+  exports : [UsersinfoComponent]
 })
 export class UsersinfoModule { }

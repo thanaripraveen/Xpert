@@ -39,45 +39,47 @@
     cursor: pointer;
   }
 
-  .table-striped tbody tr:nth-of-type(odd) {
-    --bs-table-accent-bg: #f2f2f2 !important;
-    /* Light Gray */
-  }
-
-  .table-striped tbody tr:nth-of-type(even) {
-    --bs-table-accent-bg: #e6e6e6 !important;
-    /* Slightly Darker Gray */
-  }
-
-  // .table-striped tbody tr:nth-of-type(odd) {
-  //   --bs-table-accent-bg: #f8f9fa !important; /* Light Grayish White */
-  // }
-
-  // .table-striped tbody tr:nth-of-type(even) {
-  //   --bs-table-accent-bg: #dfe6e9 !important; /* Soft Gray */
-  // }
-
   .followerBtns {
     background: #ff6000;
     padding: 8px 12px;
     color: #fff;
     border-radius: 5px;
+    cursor: pointer;
   }
 
   .tblFolwersHeight {
     height: 150px;
     overflow: auto;
     padding-right: 0;
+    background-color: #d3d7dc !important;
+    padding-left: 0;
   }
-
-  .table-striped {
-    background-color: #e6e7e9 !important;
-    /* Light Gray Background */
-    height: 150px;
-
-    tbody tr td {
-     
-    }
+  
+  .table-striped tr {
+    cursor: pointer;
+    height: 40px !important; /* Fixed height for all rows */
+  }
+  
+  .table-striped tr td {
+    padding: 8px;
+    font-size: 0.8rem;
+    vertical-align: middle; /* Keeps text aligned in the center */
+    height: 40px; /* Ensures the td matches row height */
+  }
+  
+  /* Selected row style */
+  .table-striped tr.selected {
+    background-color: #ff6000 !important;
+    color: white !important;
+  }
+  
+  /* Striped effect for alternating rows */
+  .table-striped tr:nth-of-type(odd):not(.selected) {
+    background-color: #f2f2f2 !important;
+  }
+  
+  .table-striped tr:nth-of-type(even):not(.selected) {
+    background-color: #e6e6e6 !important;
   }
 
   .S {
@@ -86,6 +88,8 @@
     padding: 5px;
     margin-right: 5px;
     border-radius: 5px;
+    font-size: .8rem;
+    cursor: pointer;
 
   }
 
@@ -96,6 +100,9 @@
     padding: 5px;
     margin-right: 5px;
     border-radius: 5px;
+    font-size: .8rem;
+    cursor: pointer;
+
 
   }
 
@@ -106,6 +113,9 @@
     padding: 5px;
     margin-right: 5px;
     border-radius: 5px;
+    font-size: .8rem;
+    cursor: pointer;
+
 
   }
 
@@ -116,6 +126,9 @@
     padding: 5px;
     margin-right: 5px;
     border-radius: 5px;
+    font-size: .8rem;
+    cursor: pointer;
+
 
   }
 
@@ -126,7 +139,18 @@
     padding: 5px;
     margin-right: 5px;
     border-radius: 5px;
+    font-size: .8rem;
+    cursor: pointer;
 
+
+  }
+
+  .assignUserName{
+    background: #1470c1;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 5px;
   }
 
 }

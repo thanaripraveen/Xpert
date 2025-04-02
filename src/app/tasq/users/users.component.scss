@@ -1,35 +1,4 @@
-.status-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-    font-family: 'FaktPro-Normal';
-  }
-  
-  .status-box {
-    display: flex;
-    // align-items: center;
-    justify-content: center;
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-size: 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .status-box i {
-    font-size: 12px;
-    margin-right: 4px;
-  }
-  
-  .active {
-    background: linear-gradient(to bottom, #b17a4e, #ff6f00);
-    color: white;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .inactive {
-    background: #f2f2f2;
-    color: gray;
-  }
-  
+.selected {
+  background-color: #007bff;
+  color: white;
+}
