@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { EdittaskRoutingModule } from './edittask-routing.module';
 import { EdittaskComponent } from './edittask.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 @NgModule({
@@ -10,7 +11,7 @@ import { EdittaskComponent } from './edittask.component';
     EdittaskComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule,AngularEditorModule,
     EdittaskRoutingModule
   ],
   exports : [EdittaskComponent]

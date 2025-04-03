@@ -16,12 +16,126 @@
     <div style="height: calc(96vh - 102px);overflow: auto;overflow-x:hidden;padding-right: 10px;">
         <div class="row mb-2">
             <div class="col-4">
-                <div class="row">
-                    
+                <div class="d-flex align-items-center">
+                    <label for="ticketFrom" class="col-3 col-form-label">Ticket Id:</label>
+                    <div class="col-9">
+                        #202504031707
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center  mb-2">
+                    <label for="ticketFrom" class="col-3 col-form-label">Email:</label>
+                    <div class="col-9">
+                        lkovalykfredbeans.com
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <label for="ticketFrom" class="col-3 col-form-label">Mobile:</label>
+                    <div class="col-9">
+                        9638527410
+                    </div>
                 </div>
             </div>
-            <div class="col-4"></div>
-            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="d-flex align-items-center">
+                    <label for="ticketFrom" class="col-3 col-form-label">Ticket From:</label>
+                    <div class="col-9">
+                        Client
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="ticketFrom" class="col-3 col-form-label">Due Date:</label>
+                    <div class="col-9">
+                        04/04/2025
+                    </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <!-- <label for="ticketFrom" class="col-3 col-form-label">Requested By:</label> -->
+                    <div class="col-12">
+                        <a>View (or) Add Documents</a> <span class="ps-2">Count 0</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-4">
+                <div class="d-flex align-items-center">
+                    <label for="ticketFrom" class="col-3 col-form-label">Dealer:</label>
+                    <div class="col-9">
+                        Axel Automotive
+                    </div>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="ticketFrom" class="col-3 col-form-label ">Requested By:</label>
+                    <div class="col-9">
+                        Axel Automotive 04.03.25 07:38 PM
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                    <label for="priority" class="col-3 col-form-label p-0">Priority:</label>
+                    <div class="radio-group">
+                        <span *ngFor="let priority of priorties" class="d-flex align-items-center">
+                            <input type="radio" id="low" name="priority" [value]="priority.value"
+                                formControlName="priority">
+                            <label class="ps-1">{{priority.label}}</label>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="row mb-2">
+            <div class="col-12">
+                <div class="d-flex align-items-center">
+                    <label for="ticketFrom" class="col-2 col-form-label" style="width: 8%;">Title:</label>
+                    <div class="col-10" style="width: 12%;">
+                        #202504031707
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row mb-2">
+            <div class="col-6">
+                <div class="mb-2">
+                    <label for="">Description :</label>
+                    <angular-editor [config]="config"></angular-editor>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-8">
+                        <div class="d-flex align-items-center">
+                            <label for="ticketFrom" class="col-3 col-form-label">Assigned:</label>
+                           
+                                <div class="addBtnStyle text-white"><img src="../../../assets/images/xpertAddIcon.png"
+                                        alt=""><span>add</span>
+                                </div>
+                                <span class="assignedName"> sdfsdfgdfgdfgsdfgsdfgsdfg</span>
+                            
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <select name="" id="" class="form-select">
+                            <option value="">Select Status</option>
+                        </select>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="col-6">
+                <label for="">Comments :</label>
+                <div style="border: 1px solid #dddddd;height: 40rem;border-radius: 5px;">
+                    <div style="height: 250px;overflow: auto;">
+                        <div class="p-2">sfsdfgsdf</div>
+                    </div>
+                    <div class="p-2">
+                        <angular-editor [config]="config"></angular-editor>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
