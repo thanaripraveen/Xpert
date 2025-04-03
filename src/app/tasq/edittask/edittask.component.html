@@ -1,1 +1,27 @@
-<p>edittask works!</p>
+<div class="spinner-container" *ngIf="spinner">
+    <div class="spinner-wrapper">
+        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+        <div class="spinner"></div>
+        <span class="logo-text">
+            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+        </span>
+    </div>
+</div>
+
+<div class="modal-header px-3 py-2">
+    <h5 class="modal-title text-black">Update Ticket</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()" aria-label="Close"></button>
+</div>
+<div class="modal-body text-black">
+    <div style="height: calc(96vh - 102px);overflow: auto;overflow-x:hidden;padding-right: 10px;">
+        <div class="row mb-2">
+            <div class="col-4">
+                <div class="row">
+                    
+                </div>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+</div>

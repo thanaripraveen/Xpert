@@ -122,7 +122,7 @@ export class CommentsComponent implements OnInit {
       "type": "F",
       "DeptTag": 0
     }
-    this.api.postMethod1('users/GetUserData', obj).subscribe((res: any) => {
+    this.api.postMethod1('users/GetfollowersData', obj).subscribe((res: any) => {
       if (res.status == 200) {
         this.usersInfoList = res.response
       }

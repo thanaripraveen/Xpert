@@ -506,7 +506,7 @@ ticketData : any = "";
         windowClass: 'editModal',
         size: 'xl',
         backdrop: 'static',
-        centered: true,
+        // centered: true,
       });
     }
   }

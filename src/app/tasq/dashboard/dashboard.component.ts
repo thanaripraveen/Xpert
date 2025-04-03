@@ -33,44 +33,27 @@ export class DashboardComponent implements OnInit {
   userID: any;
   roleId: any;
   taskDetailsList: any = []
-
   txtSearch : any ="";
   dashboardType : any = 9;
   dashboardOrderBy : any = "T_iD desc";
-
   overdueToggleValue : boolean = false;
-
   filterDealer : any ="";
   filterPriority : any = 0;
-
   analyticsGrid : boolean =true;
   allClientsSpinner : boolean = false;
+  DrlNameCount : any ="";
+  allClients : any =[];
+  showhide : boolean = false;
+
   constructor(private api: ApiService, private toastr: ToastrService,
     private common: common, private modalService: NgbModal,private router : Router) {
     this.userID = this.common.userid;
     this.roleId = this.common.roleid;
   }
-
   ngOnInit(): void {
-    this.analytics()
-    this.api.getUpdateTaskValue().subscribe((res: any)=>{
-      console.log(res);
-      
-      if(res.updateValue == ""){
-        this.BindDashboard();
-      }
-      else{
-        const index = this.taskDetailsList.findIndex((item : any) => item.ID === res.data.response[0].ID);
-        if (index !== -1) {
-          this.taskDetailsList[index] = res.data.response[0];
-        }
-      }
-    })
-
+    this.analytics();
     this.bindDealerData()
   }
-
-  showhide : boolean = false;
   BindDashboard() {
     this.spinner = true;
     const obj ={
@@ -89,12 +72,7 @@ export class DashboardComponent implements OnInit {
         "createdby": "",
         "flag": ""
     }
-
     this.api.postMethod1('users/GetMyTickets', obj).subscribe(res => {
-      console.log(res);
-      // if (res.status === 200) {
-        // this.taskDetailsList = res.response;
-
         if (res.status == 200 && res.response.data.length > 0) {
           const dashboardData = res.response.data;
          const newTasks = Array.isArray(dashboardData) ? dashboardData : (dashboardData ? [dashboardData] : []);
@@ -102,15 +80,12 @@ export class DashboardComponent implements OnInit {
          this.taskDetailsList.forEach(item => {
            const taskTags = item?.TaskTagsLists?.TaskTagsLists?.TaskTagsList;
            item.TaskTagsLists.TaskTagsLists.TaskTagsList = Array.isArray(taskTags) ? taskTags : (taskTags ? [taskTags] : []);
- 
            if (item?.Folowers?.Folowers) {
              const followers = item?.Folowers?.Folowers?.Folower;
              item.Folowers.Folowers.Folower = Array.isArray(followers) ? followers : (followers ? [followers] : []);
            }
         this.showhide = newTasks.length > 19;
-
          this.spinner = false;
- 
          });
        }
        else {
@@ -161,7 +136,6 @@ rowCount : any = 0;
     this.taskDetailsList =[];
     this.analyticsGrid = !this.analyticsGrid;
     this.BindDashboard()
-
   }
 
   onSrchTxtboxEmptyFunction(){
@@ -170,7 +144,6 @@ rowCount : any = 0;
       this.BindDashboard()
     }
   }
-
 
   onSelectChange(event: any, Ticket: any): void {
     const obj = {
@@ -182,7 +155,6 @@ rowCount : any = 0;
         this.toastr.success("Priority updated successfully");
         //  this.socketService.sendTask();
       }
-
     })
   }
 
@@ -190,15 +162,12 @@ rowCount : any = 0;
     var utcDate = moment.utc(DateTime);
     var dateWithTimezone = utcDate.local().format('MM.DD.YY hh:mm A');
     return dateWithTimezone;
-
   }
   LocalTimeConvertioninHours1(DateTime: any) {
     var utcDate = moment.utc(DateTime);
     var dateWithTimezone = utcDate.local().format('MM/DD/YY');
     return dateWithTimezone;
-
   }
-
   openComponent(task: any,component : any) {
 
     this.api.setTicketData(task)
@@ -234,8 +203,6 @@ rowCount : any = 0;
         centered: true, 
       });
     }
-
-
   }
 
   getsearchdata(type : any,srchflag : any){
@@ -248,9 +215,7 @@ rowCount : any = 0;
     else{
       this.dashboardOrderBy = "T_id desc";
     }
-
     this.BindDashboard();
-
   }
 
   tickets(url : any){
@@ -259,10 +224,7 @@ rowCount : any = 0;
   analyticsData : any =[];
   totalsArray : any = []
   analytics(){
-    // this.isLoading =true;
-    // this.analyticsGrid = true;
-    // this.AllcliensGrid = true;
-    // this.ticketsGrid = false;
+    this.spinner =true;
     const obj = {
       "id": 0,
       "exp": ""
@@ -272,35 +234,26 @@ rowCount : any = 0;
       this.analyticsData = res.response;
       this.analyticsData.forEach(dealer => {
         let sum = 0;
-    
         Object.entries(dealer).forEach(([key, value] : any) => {
             if (key !== "DealerId" && key !== "DealerName" ) { 
                 sum += parseInt(value.split('_')[0]);
             }
         });
-        // Add the total as a new key-value pair
         dealer["Total"] = sum;
     });
     const totals: { [key: string]: number } = {};
-
-    // Iterate through each dealer object
     this.analyticsData.forEach(dealer => {
         Object.entries(dealer).forEach(([key, value] : any) => {
-            // Skip keys we don't want to sum
             if (key !== "DealerId" && key !== "DealerName" && key !== "Total") {
-                // Replace underscores and parse the value
                 const numericValue = parseInt(value.split('_')[0]);
-                // Add to the total for this key
                 totals[key] = (totals[key] || 0) + numericValue;
             }
         });
     });
     this.totalsArray = Object.entries(totals).map(([key, value]) => ({ key, value }));
-      // this.dataKeys = Object.keys(res.response[0]).filter(key => key !== 'DealerName' && key !== 'DealerId' && key !== "Total");
-      // this.isLoading = false
-
     }
   })
+  this.spinner = false;
   }
 
   statusClick(typeOfStatus : any,dealerId: any){
@@ -320,11 +273,10 @@ rowCount : any = 0;
           this.api.setFilterStatusBasedData({'status': '', 'dealerId': '', 'tktStatus' : matchingValue[key].split('_')[1]});
           this.router.navigateByUrl('Alltasks')
     }
-    
   }
-  DrlNameCount : any ="";
-  allClients : any =[]
+
   bindAssignedUsersBasedOnSelectDlr(){
+    this.allClientsSpinner = true;
     this.allClients = [];
     this.allClientsSpinner = true;
     const obj={
@@ -351,5 +303,21 @@ rowCount : any = 0;
 
   analyticsShowHide(){
     this.analyticsGrid = !this.analyticsGrid;
+  if(this.taskDetailsList.length == 0){
+    this.api.getUpdateTaskValue().subscribe((res: any)=>{
+      console.log(res);
+      
+      if(res.updateValue == ""){
+        this.BindDashboard();
+      }
+      else{
+        const index = this.taskDetailsList.findIndex((item : any) => item.ID === res.data.response[0].ID);
+        if (index !== -1) {
+          this.taskDetailsList[index] = res.data.response[0];
+        }
+      }
+    })
+  }
+
   }
 }

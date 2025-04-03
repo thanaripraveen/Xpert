@@ -13,31 +13,37 @@
   <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="closeModal()" aria-label="Close"></button>
 </div>
 <div class="modal-body text-black">
+  <form [formGroup]="createTaskForm">
   <div style="height: calc(96vh - 102px);overflow: auto;overflow-x:hidden;padding-right: 10px;">
     <div class="row mb-2">
       <div class="col-md-4 d-flex align-items-center">
         <label for="ticketFrom" class="col-3 col-form-label">Ticket From:</label>
         <div class="col-9">
-          <select name="" id="" class="form-select">
+          <select name="" id="" class="form-select" formControlName="ticketFrom"
+          [attr.disabled]="this.action == 'U'?true:false"
+          [ngClass]="{ 'is-invalid': submitted && createTaskForm.controls.ticketFrom.errors }">
             <option value="">Select</option>
             <option value="F">Client</option>
             <option value="A">Internal</option>
           </select>
         </div>
       </div>
-      <div class="col-md-4 d-flex align-items-center">
-        <label for="email" class="col-3 col-form-label">Email:</label>
-        <div class="col-9">
-          <input type="text" id="email" class="form-control" placeholder="Enter email">
-        </div>
-      </div>
+   
       <div class="col-md-4 d-flex align-items-center">
         <label for="dealer" class="col-3 col-form-label">Dealer:</label>
         <div class="col-9">
-         <select name="" id="" class="form-select">
+         <select name="" id="" class="form-select" formControlName="dealer" [ngClass]="{ 'is-invalid': submitted && createTaskForm.controls.dealer.errors }">
           <option value="">Select Dealer</option>
           <option [value]="dealer.dealer_id" *ngFor="let dealer of dealersData">{{dealer.DealerName}}</option>
          </select>
+        </div>
+      </div>
+
+      <div class="col-md-4 d-flex align-items-center" *ngIf="createTaskForm.controls.ticketFrom.value == 'F'">
+        <label for="email" class="col-3 col-form-label" >Email:</label>
+        <div class="col-9">
+          <input type="text" id="email" class="form-control" placeholder="Enter email" formControlName="email" [readonly]="action == 'U' ? true : false"
+          [ngClass]="{ 'is-invalid': submitted && createTaskForm.controls.email.errors }">
         </div>
       </div>
     </div>
@@ -46,29 +52,36 @@
       <div class="col-md-4 d-flex align-items-center">
         <label for="title" class="col-3 col-form-label">Title:</label>
         <div class="col-9">
-          <input type="text" id="title" class="form-control" placeholder="Enter Title">
+          <input type="text" id="title" class="form-control" placeholder="Enter Title" formControlName="title"
+          [ngClass]="{ 'is-invalid': submitted && createTaskForm.controls.title.errors }">
         </div>
       </div>
       <div class="col-md-4 d-flex align-items-center">
         <label for="attachFile" class="col-3 col-form-label">Attach File:</label>
         <div class="col-9">
-          <input type="file" id="attachFile" class="form-control">
+          <input type="file" id="attachFile" class="form-control"  (change)="onFileSelected($event)" multiple>
         </div>
       </div>
       <div class="col-md-4 d-flex align-items-center">
         <label for="dueDate" class="col-3 col-form-label">Due Date:</label>
         <div class="col-9">
-          <input class="form-control" name="date"  autocomplete="off"
-                        placeholder="Due Date" bsDatepicker 
-                        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false }" style="padding: .175rem .25rem .175rem .25rem;"/>
-                    <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear"
-                        >
+          <div class="datepicker-container">
+            <input class="form-control" name="date" autocomplete="off" formControlName="dueDate"
+                placeholder="Due Date" bsDatepicker #datepicker="bsDatepicker"
+                [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false, containerClass: 'theme-dark-blue' }"/>
+        
+            <!-- Close Icon -->
+            <img src="assets/images/close_newbtn.png" class="datepicker-close-img"
+                alt="Close" (click)="clearDate(datepicker)" />
+        </div>
         </div>
       </div>
     </div>
 
     <div class="row mb-2">
-      <angular-editor [config]="config"></angular-editor>
+      <div [ngClass]="{'invalid-border': submitted && createTaskForm.controls.description.errors }">
+      <angular-editor [config]="config" formControlName="description"></angular-editor>
+    </div>
     </div>
 
     <div class="row mb-2">
@@ -79,14 +92,14 @@
           </div>
         </div>
         <div class="col-7 ps-3">
-          <span class="assignUserName" *ngIf="AssignUserData">{{AssignUserData.FirstName}} {{AssignUserData.MiddleName}} {{AssignUserData.LastName}} 
+          <span class="assignUserName"  *ngIf="AssignUserData">{{AssignUserData.FirstName}} {{AssignUserData.MiddleName}} {{AssignUserData.LastName}} 
             <img src="../../../assets/images/xpertCloseIcon.png" alt="" class="ps-2"></span>
         </div>
       </div>
       <div class="col-md-4 d-flex align-items-center">
         <label for="attachFile" class="col-3 col-form-label">Status:</label>
         <div class="col-9">
-          <select name="" id="" class="form-select">
+          <select name="" id="" class="form-select" formControlName="ticketStatus">
             <option value="0">--Select--</option>
             <option value="7">New</option>
             <option value="1">Open</option>
@@ -99,16 +112,14 @@
         </div>
       </div>
       <div class="col-md-4 d-flex align-items-center">
-        <label for="dueDate" class="col-3 col-form-label">Priority:</label>
-        <div class="radio-group">
-          <input type="radio" id="low" name="priority" value="low">
-          <label for="low">Low</label>
+        <label for="priority" class="col-3 col-form-label">Priority:</label>
+        <div class="radio-group" >
+          <span *ngFor="let priority of priorties" class="d-flex align-items-center">
+             <input type="radio" id="low" name="priority"[value]="priority.value"
+             formControlName="priority">
+          <label class="ps-1">{{priority.label}}</label>
+        </span>
 
-          <input type="radio" id="medium" name="priority" value="medium">
-          <label for="medium">Medium</label>
-
-          <input type="radio" id="high" name="priority" value="high">
-          <label for="high">High</label>
         </div>
       </div>
     </div>
@@ -239,14 +250,15 @@
     </div>
     </div>
     <div class="text-center mt-4">
-      <button class="btn btn-primary me-2" style="background-color: #f37121;border: 1px solid #f37121">Submit</button>
+      <button class="btn btn-primary me-2" style="background-color: #f37121;border: 1px solid #f37121" (click)="saveAndUpdateTicket()">Submit</button>
       <button class="btn btn-secondary">Cancel</button>
     </div>
   </div>
-
+</form>
  
 
 
 
 
 </div>
+
