@@ -106,11 +106,9 @@ export class CreatetaskComponent implements OnInit {
       else {
         this.bindfollowersData = [];
         this.followerLoader = false;
-
       }
     })
   }
-
   searchFollowerName(e: any) {
     this.bindfollowersData = this.taskFollwersFilterList.filter(element =>
       element.FirstName.toLowerCase().includes(e.target.value.toLowerCase()) || element.MiddleName.toLowerCase().includes(e.target.value.toLowerCase()) ||
@@ -195,8 +193,6 @@ export class CreatetaskComponent implements OnInit {
       centered: true,
     });
   }
-
-
   closeModal() {
     this.activeModal.close();
   }

@@ -39,6 +39,15 @@
     cursor: pointer;
   }
 
+  .close-icon {
+    position: absolute;
+    right: 40px;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    top: 72px;
+}
+
   .followerBtns {
     background: #ff6000;
     padding: 8px 12px;

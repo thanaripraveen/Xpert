@@ -58,7 +58,11 @@
       <div class="col-md-4 d-flex align-items-center">
         <label for="dueDate" class="col-3 col-form-label">Due Date:</label>
         <div class="col-9">
-          <input type="date" id="dueDate" class="form-control">
+          <input class="form-control" name="date"  autocomplete="off"
+                        placeholder="Due Date" bsDatepicker 
+                        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false }" style="padding: .175rem .25rem .175rem .25rem;"/>
+                    <img src="assets/images/close_newbtn.png" tabindex="1" title="Clear" class="close-icon" alt="Clear"
+                        >
         </div>
       </div>
     </div>
