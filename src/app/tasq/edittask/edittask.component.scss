@@ -1,6 +1,12 @@
 .modal-body{
     font-family: 'FaktPro-Normal';
+    font-size: .8rem;
+
+    label{
+    font-family: 'FaktPro-Medium';
     font-size: .9rem;
+
+    }
 
     .radio-group {
         display: flex;
@@ -45,5 +51,122 @@
         padding: 2px;
         border-radius: 5px;
         color: white;
+        cursor : pointer;
       }
+
+      .tblFolwersHeight {
+        min-height: 220px;
+        max-height: 200px;
+        overflow: auto;
+        padding-right: 0;
+        background-color: #d3d7dc !important;
+        padding-left: 0;
+      }
+      
+      .table-striped tr {
+        cursor: pointer;
+        height: 40px !important; /* Fixed height for all rows */
+      }
+      
+      .table-striped tr td {
+        padding: 8px;
+        font-size: 0.8rem;
+        vertical-align: middle; /* Keeps text aligned in the center */
+        height: 40px; /* Ensures the td matches row height */
+      }
+      
+      /* Selected row style */
+      .table-striped tr.selected {
+        background-color: #ff6000 !important;
+        color: white !important;
+      }
+      
+      /* Striped effect for alternating rows */
+      .table-striped tr:nth-of-type(odd):not(.selected) {
+        background-color: #f2f2f2 !important;
+      }
+      
+      .table-striped tr:nth-of-type(even):not(.selected) {
+        background-color: #e6e6e6 !important;
+      }
+
+      .S {
+        background-color: #1471c2;
+        color: #fff;
+        padding: 5px;
+        margin-right: 5px;
+        border-radius: 5px;
+        font-size: .8rem;
+        cursor: pointer;
+    
+      }
+    
+      // Blue
+      .I {
+        background-color: #696969;
+        color: #fff;
+        padding: 5px;
+        margin-right: 5px;
+        border-radius: 5px;
+        font-size: .8rem;
+        cursor: pointer;
+    
+    
+      }
+    
+      // Green
+      .R {
+        background-color: #14c243;
+        color: #fff;
+        padding: 5px;
+        margin-right: 5px;
+        border-radius: 5px;
+        font-size: .8rem;
+        cursor: pointer;
+    
+    
+      }
+    
+      // Yellow
+      .V {
+        background-color: #ffc107;
+        color: #fff;
+        padding: 5px;
+        margin-right: 5px;
+        border-radius: 5px;
+        font-size: .8rem;
+        cursor: pointer;
+    
+    
+      }
+    
+      // Red
+      .C {
+        background-color: #a914c2;
+        color: #fff;
+        padding: 5px;
+        margin-right: 5px;
+        border-radius: 5px;
+        font-size: .8rem;
+        cursor: pointer;
+    
+    
+      }
+
+      .datepicker-container {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+    }
+    
+    .datepicker-close-img {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        z-index: 10; /* Ensure it's above datepicker */
+    }
+    
 }
