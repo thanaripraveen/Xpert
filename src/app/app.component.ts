@@ -18,7 +18,7 @@ export class AppComponent {
       console.log(event.urlAfterRedirects);
       this.currentURL = event.urlAfterRedirects;
       // Hide header for login and page not found routes
-      this.show = !(event.urlAfterRedirects === '/' || event.urlAfterRedirects === '/login' || event.urlAfterRedirects === '/404');
+      this.show = !(event.urlAfterRedirects === '/' || event.urlAfterRedirects === '/login' || event.urlAfterRedirects === '/404' );
     });
   }
 }

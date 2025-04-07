@@ -1,0 +1,88 @@
+<div class="spinner-container" *ngIf="spinner">
+    <div class="spinner-wrapper">
+        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+        <div class="spinner"></div>
+        <span class="logo-text">
+            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+        </span>
+    </div>
+</div>
+
+<div class="loadstatusPage">
+    <div class="col-12 d-flex align-items-center headerDesign ">
+        <div class="col-3 title">Data Loads</div>
+        <div class="col-3">
+            <select name="" id="" class="form-select" [(ngModel)]="dealer"
+                style="padding: .125rem 2.25rem .125rem .75rem;margin: 3px 0;">
+                <option value="">Select Dealer</option>
+                <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
+            </select>
+        </div>
+        <div class="col-3">
+            <div class="datepicker-container">
+                <input class="form-control" name="date" autocomplete="off" [(ngModel)]="selectDate"
+                    placeholder="Due Date" bsDatepicker #datepicker="bsDatepicker"
+                    [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false, containerClass: 'theme-dark-blue' }"
+                    style="padding: .175rem .75rem;" />
+
+                <!-- Close Icon -->
+                <img src="assets/images/close_newbtn.png" class="datepicker-close-img" alt="Close"
+                    (click)="clearDate(datepicker)" />
+            </div>
+        </div>
+        <div class="col-3 text-end tagsHead d-flex justify-content-end pe-1">
+            <div class="addBtnStyle" *ngIf="gridForm == true" (click)="addNewLoadstatus()"><img
+                    src="../../../assets/images/xpertAddIcon.png" alt=""><span>add</span></div>
+        </div>
+    </div>
+
+
+
+    <div class="scrollTagsData" *ngIf="gridForm == true">
+        <table class="table  table-striped gridTable text-black">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th class="text-center">Time</th>
+                    <th class="text-center">CDK Status</th>
+                    <th class="text-center">Reynolds Status</th>
+                    <th class="text-center">Drive Centric Status</th>
+                    <th class="text-center">vAuto Status</th>
+                    <th class="text-center">DealerFX Status</th>
+                    <th class="text-center">Checked By</th>
+                    <th class="text-center">Edit</th>
+                    <th class="text-center">Delete</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="loadStatusData.length != 0">
+
+                <tr *ngFor="let dataLoad of loadStatusData">
+                    <td>{{dataLoad.ls_client}}</td>
+                    <td class="text-center">{{convertToIST(dataLoad.time)}}</td>
+                    <td class="text-center"
+                        [ngStyle]="{'color': dataLoad.cdk_status === 'Not Updated' ? 'red' : 'black'}">
+                        {{ dataLoad.cdk_status }}</td>
+                    <td class="text-center"
+                        [ngStyle]="{'color': dataLoad.reynolds_status === 'Not Updated' ? 'red' : 'black'}">
+                        {{ dataLoad.reynolds_status }}</td>
+                    <td class="text-center"
+                        [ngStyle]="{'color': dataLoad.drivecentric_status === 'Not Updated' ? 'red' : 'black'}">
+                        {{ dataLoad.drivecentric_status }}</td>
+                    <td class="text-center"
+                        [ngStyle]="{'color': dataLoad.vauto_status === 'Not Updated' ? 'red' : 'black'}">
+                        {{dataLoad.vauto_status}}</td>
+                    <td class="text-center"
+                        [ngStyle]="{'color': dataLoad.dealerfx_status === 'Not Updated' ? 'red' : 'black'}">
+                        {{dataLoad.dealerfx_status}}</td>
+                    <td class="text-center">{{dataLoad.checked_by}}</td>
+                    <td class="text-center"><img src="../../../assets/images/editIcon.png" alt=""></td>
+                    <td class="text-center"><img src="../../../assets/images/deleteIcon.png" alt=""></td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

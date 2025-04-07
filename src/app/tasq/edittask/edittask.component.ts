@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { common } from '../../common';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup , Validators } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { UsersinfoComponent } from '../usersinfo/usersinfo.component';
 import * as moment from 'moment';
@@ -55,9 +55,9 @@ export class EdittaskComponent implements OnInit {
   ) {
     this.updateTicketForm = this.fb.group({
       ticketStatus: [''],
-      title: [''],
+      title: ['',[Validators.required]],
       priority: [''],
-      description: [''],
+      description: ['',[Validators.required]],
       dueDate: ['']
     })
 
@@ -246,6 +246,80 @@ export class EdittaskComponent implements OnInit {
     var dateWithTimezone = utcDate.local().format('MM.DD.YY hh:mm A');
     return dateWithTimezone;
 
+  }
+  submitted : boolean = false;
+  selectedFollowerIds : any =[];
+  selectedTagsIds : any =[];
+  sendMailStatus : boolean = false;
+
+  updateTicket() {
+    this.spinner =true;
+    if (this.updateTicketForm.invalid) {
+      this.submitted = true;
+      this.spinner = false;
+    }
+    else {
+      for (let i = 0; i < this.selectedTagsList.length; i++) {
+        this.selectedTagsIds.push(this.selectedTagsList[i].tag_id)
+      }
+      for (let i = 0; i < this.selectedRows.length; i++) {
+        this.selectedFollowerIds.push(this.selectedRows[i].UserId)
+      }
+      const obj = {
+        'Action': 'U',
+        'Id': this.editTicketData.ID,
+        'CreatedAdmId': this.common.userid,
+        'Title': this.updateTicketForm.controls.title.value,
+        'Description': this.updateTicketForm.controls.description.value,
+        'Tags': this.selectedTagsIds.join(","),
+        'ASTU_Id': this.AssignUserId == "" ? 0 : this.AssignUserId,
+        'AckStatusTypeId': this.updateTicketForm.controls.ticketStatus.value,
+        'DealerId': this.editTicketData.ReqDealerId,
+        'DueDate': this.updateTicketForm.controls.dueDate.value.toISOString(),
+        'FollowersIds': this.selectedFollowerIds.join(","),
+        'priority': this.updateTicketForm.controls.priority.value,
+        'status': 'Y',
+        'Loginfrom': 'D',
+        'ParentId': '0',
+        'TitleIds': '',
+        'tasktype': 0,
+        'taskfrom': this.editTicketData.ReqSource,
+        'mailid': this.editTicketData.ReqUserEmail.trim(),
+        'sendMailStatus': this.sendMailStatus == true ? 'Y' : 'N'
+      }
+      this.api.postMethod1('xpert/CreateAppSupportTask', obj).subscribe((res: any) => {
+        if (res.status == 200) {
+         
+            this.submitted = false;
+            this.updateTicketForm.reset();
+            this.spinner = false;
+            this.activeModal.close();
+            this.toastr.success('Ticket details updated successfully');
+            
+            // this.socketService.sendTask();
+            //  this.router.navigate(['dashboard']);
+            // this.router.navigate([this.redirectRouteUrl]);
+        }
+        else {
+          this.submitted = false;
+          this.updateTicketForm.reset();
+          this.spinner = false;
+          this.activeModal.close();
+          this.toastr.error('Unable to process your request, please try again..');
+          // this.router.navigate([this.redirectRouteUrl]);
+        }
+      })
+    }
+  }
+commentId : any =0;
+sendcmtMailStatus : any ="";
+commentDescription : any =""
+  editComment(commentData : any){
+    this.commentId = commentData.Id;
+    this.publicStatus = commentData.publicStatus == 'Y' ? true : false;
+    this.sendcmtMailStatus = false;
+     this.commentDescription = commentData.commentEditDesc;
+    
   }
 
   clearDate(datepicker: any) {

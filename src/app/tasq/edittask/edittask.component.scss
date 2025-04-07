@@ -189,4 +189,11 @@
       font-size: .9rem;
   }
     
+  .is-invalid {
+    border: 1px solid red;
+  }
+
+  .invalid-border ::ng-deep .angular-editor-wrapper {
+    border: 1px solid red !important;
+  }
 }

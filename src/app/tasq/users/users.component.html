@@ -1,11 +1,21 @@
-
-<div class="abc">
-<table class="table table-bordered">
-  <tr *ngFor="let item of data; let i = index" 
-      (click)="selectRow(i)" 
-      [ngClass]="{'selected': selectedRow === i}">
-    <td>{{ item.name }}</td>
-    <td>{{ item.age }}</td>
-  </tr>
-</table>
+<div class="spinner-container" *ngIf="spinner">
+  <div class="spinner-wrapper">
+      <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+      <div class="spinner"></div>
+      <span class="logo-text">
+          <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+      </span>
+  </div>
 </div>
+
+<div class="usersPage">
+  <div class="col-12 d-flex align-items-center headerDesign ">
+      <div class="col-10 title">Users</div>
+     
+        <div class="col-2 text-end tagsHead d-flex justify-content-end pe-1">
+         <div class="addBtnStyle" *ngIf="gridForm == true" (click)="addNewUser()"><img src="../../../assets/images/xpertAddIcon.png" alt=""><span >add</span></div>
+      </div>
+  </div>
+</div>
+
+
