@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { UsersinfoComponent } from '../usersinfo/usersinfo.component';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -17,94 +18,102 @@ import * as moment from 'moment';
 })
 
 export class EdittaskComponent implements OnInit {
-    config: AngularEditorConfig = {
-      editable: true,
-      spellcheck: true,
-      height: '15rem',
-      placeholder: 'Enter text here...',
-      translate: 'no',
-      defaultFontName: 'Arial',
-      defaultFontSize: '3px',
-      toolbarPosition: 'top', // Options: 'top' or 'bottom'
-      defaultParagraphSeparator: 'p',
-      sanitize: false
-    };
-  spinner : boolean = false;
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultFontName: 'Arial',
+    defaultFontSize: '3px',
+    toolbarPosition: 'top', // Options: 'top' or 'bottom'
+    defaultParagraphSeparator: 'p',
+    sanitize: false
+  };
+  spinner: boolean = false;
   priorties = [
     { label: 'Low', value: 3 },
     { label: 'Medium', value: 2 },
     { label: 'High', value: 1 }
   ];
-  bindfollowersData : any =[];
-  followerLoader : boolean = false;
-  taskFollwersFilterList : any =[];
-  tagsDataList : any =[];
-  tagsLoader : boolean = false;
-  AssignUserId: any ="";
-  AssignUserName: any ="";
-  updateTicketForm : FormGroup | any;
-  editTicketData : any = "";
+  bindfollowersData: any = [];
+  followerLoader: boolean = false;
+  taskFollwersFilterList: any = [];
+  tagsDataList: any = [];
+  tagsLoader: boolean = false;
+  AssignUserId: any = "";
+  AssignUserName: any = "";
+  updateTicketForm: FormGroup | any;
+  editTicketData: any = "";
+  commentsArray: any = [];
+  userID: any = "";
+  publicStatus: boolean = true;
+    private subscription: Subscription = new Subscription();
+  
   constructor(private api: ApiService, private toastr: ToastrService, private router: Router, private common: common,
     public activeModal: NgbActiveModal, private modalService: NgbModal, private fb: FormBuilder
   ) {
     this.updateTicketForm = this.fb.group({
-      ticketStatus : [''],
-      title : [''],
-      priority : [''],
-      description : [''],
-      dueDate : ['']
+      ticketStatus: [''],
+      title: [''],
+      priority: [''],
+      description: [''],
+      dueDate: ['']
     })
+
+    this.userID = this.common.userid;
   }
 
   ngOnInit(): void {
     this.bindFollowers();
     this.bindTagsDataList();
-    this.api.getTicketData().subscribe((res: any)=>{
+  this.subscription =  this.api.getTicketData().subscribe((res: any) => {
       this.spinner = true;
-      if(res){
+      if (res) {
         const obj = {
           "TaskId": res.T_ID,
           "UserID": this.common.userid
-      }
-      this.api.postMethod1('users/GetTaskViewbyId',obj).subscribe((res: any)=>{
-        if(res.status == 200){
+        }
+        this.api.postMethod1('users/GetTaskViewbyId', obj).subscribe((res: any) => {
+          if (res.status == 200) {
             this.editTicketData = res.response[0];
+            this.getComments();
             this.updateTicketForm.controls.title.setValue(this.editTicketData.Title);
             this.updateTicketForm.controls.ticketStatus.setValue(this.editTicketData.TaskStatusID)
             this.updateTicketForm.controls.priority.setValue(this.editTicketData.Priority);
             this.updateTicketForm.controls.dueDate.setValue(new Date(this.editTicketData.DueOn));
             this.AssignUserId = this.editTicketData.AssignIdentifier;
             this.AssignUserName = this.editTicketData.AssignUSERNAME;
-            let index = this.bindfollowersData.findIndex((element : any)=> element.UserId == this.AssignUserId);
-            index != -1 ? this.bindfollowersData.splice(index,1) : '';
+            let index = this.bindfollowersData.findIndex((element: any) => element.UserId == this.AssignUserId);
+            index != -1 ? this.bindfollowersData.splice(index, 1) : '';
             this.setInnerHTML(this.editTicketData.Details);
-            
+
             this.editTicketData.FollowersInfo.forEach((item: any) => {
               let index = this.bindfollowersData.findIndex((element: any) => element.UserId === item.UserId);
-            
+
               if (index !== -1) {
                 this.selectedRows.push(this.bindfollowersData[index]);
                 this.bindfollowersData.splice(index, 1);
               }
             });
 
-            this.editTicketData.TaskTagsListInfo.forEach((item : any)=>{
-              this.tagsDataList.forEach((element : any)=>{
-                if(element.tag_id == item.TagIdentifier){
-                  let index = this.tagsDataList.findIndex((tagData : any)=> tagData.tag_id == item.TagIdentifier);
-                  if(index != -1){
+            this.editTicketData.TaskTagsListInfo.forEach((item: any) => {
+              this.tagsDataList.forEach((element: any) => {
+                if (element.tag_id == item.TagIdentifier) {
+                  let index = this.tagsDataList.findIndex((tagData: any) => tagData.tag_id == item.TagIdentifier);
+                  if (index != -1) {
                     this.selectedTagsList.push(this.tagsDataList[index]);
-                    this.tagsDataList.splice(index,1)
+                    this.tagsDataList.splice(index, 1)
                   }
                 }
               })
             })
             this.spinner = false;
-        }
-        else{
-          this.spinner = false;
-        }
-      })
+          }
+          else {
+            this.spinner = false;
+          }
+        })
       }
     })
     this.api.getUserInfoData().subscribe((res: any) => {
@@ -113,6 +122,13 @@ export class EdittaskComponent implements OnInit {
         this.AssignUserName = res.FirstName + ' ' + res.MiddleName + ' ' + res.LastName;
       }
     })
+  }
+  
+  ngOnDestroy(){
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.api.setTicketData('');
+    }
   }
 
   setInnerHTML(newHTML: string) {
@@ -180,18 +196,35 @@ export class EdittaskComponent implements OnInit {
   }
 
   selectedRows: any = []; // Array to store selected row indexes
-  selectFollower(followerData : any) {
+  selectFollower(followerData: any) {
     this.selectedRows.push(followerData);
     this.bindfollowersData = this.bindfollowersData.filter((item: any) => item.UserId != followerData.UserId);
     this.bindfollowersData.sort((a: any, b: any) => a.FirstName.localeCompare(b.FirstName));
     this.selectedRows.sort((a: any, b: any) => a.FirstName.localeCompare(b.FirstName));
   }
 
-  unSelectFollower(followerData : any){
+  unSelectFollower(followerData: any) {
     this.bindfollowersData.push(followerData);
     this.selectedRows = this.selectedRows.filter((item: any) => item.UserId != followerData.UserId);
     this.bindfollowersData.sort((a: any, b: any) => a.FirstName.localeCompare(b.FirstName));
     this.selectedRows.sort((a: any, b: any) => a.FirstName.localeCompare(b.FirstName));
+  }
+
+  getComments() {
+    const obj = {
+      "ticket": this.editTicketData.Ticket,
+      "userid": this.common.userid,
+      "id": 1
+    }
+    this.api.postMethod1('xpert/GetTaskComments', obj).subscribe((res: any) => {
+      if (res.status == 200 && res.response.length > 0) {
+        this.commentsArray = res.response.filter((item: any) => item.commentStatus != 'D');
+        this.spinner = false;
+      } else {
+        this.commentsArray = [];
+        this.spinner = false;
+      }
+    });
   }
 
 
@@ -220,7 +253,7 @@ export class EdittaskComponent implements OnInit {
     datepicker.hide(); // Hide datepicker
   }
 
-  clearAssignedData(){
+  clearAssignedData() {
     this.AssignUserId = "";
     this.AssignUserName = "";
   }

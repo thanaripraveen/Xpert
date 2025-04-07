@@ -155,8 +155,14 @@ export class AlltasksComponent implements OnInit {
     });
 
     this.api.getUpdateTaskValue().subscribe((res: any)=>{
+      console.log(res);
+      
       if(res.updateValue == 1){
-        const index = this.allTicketsData.findIndex((item : any) => item.ID === res.data.response[0].ID);
+        console.log(this.allTicketsData);
+        
+        const index = this.allTicketsData.findIndex((item : any) => item.ID == res.data.response[0].ID);
+        console.log(index);
+        
         if (index !== -1) {
           this.allTicketsData[index] = res.data.response[0];
         }

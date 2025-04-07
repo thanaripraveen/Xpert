@@ -168,5 +168,25 @@
         cursor: pointer;
         z-index: 10; /* Ensure it's above datepicker */
     }
+
+  //   label {
+  //     padding-left: 5px;
+  //     cursor: pointer;
+  //     font-size: 13px;
+  //     font-family: 'FaktPro-Normal';
+  //     color: #000;
+  //     text-decoration: underline;
+  // }
+
+  .commentsdata {
+      font-family: 'FaktPro-Bold';
+      font-size: .9rem;
+      color: #1470c1;
+  }
+
+  .commentMessage {
+      font-family: 'FaktPro-Normal';
+      font-size: .9rem;
+  }
     
 }

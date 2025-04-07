@@ -14,7 +14,8 @@
 </div>
 <div class="modal-body text-black">
     <form [formGroup]="updateTicketForm">
-        <div style="height: calc(96vh - 102px);overflow: auto;overflow-x:hidden;padding-right: 10px;" *ngIf="editTicketData">
+        <div style="height: calc(96vh - 102px);overflow: auto;overflow-x:hidden;padding-right: 10px;"
+            *ngIf="editTicketData">
             <div class="row mb-2">
                 <div class="col-4">
                     <div class="d-flex align-items-center mb-1">
@@ -99,8 +100,8 @@
                     </div>
 
                     <div class="d-flex align-items-center mb-1">
-                        <label for="ticketFrom" class="col-3 col-form-label"  style="width : 30%">Due Date:</label>
-                        <div class="col-9"  style="width : 70%">
+                        <label for="ticketFrom" class="col-3 col-form-label" style="width : 30%">Due Date:</label>
+                        <div class="col-9" style="width : 70%">
                             <div class="datepicker-container">
                                 <input class="form-control" name="date" autocomplete="off" formControlName="dueDate"
                                     placeholder="Due Date" bsDatepicker #datepicker="bsDatepicker"
@@ -136,7 +137,8 @@
                     <div class="row d-flex align-items-center mb-2 ">
 
                         <div class="col-5" style="width:38%;color:#1470c1">
-                            <a style="text-decoration:underline">View (or) Add Documents</a> <span class="ps-2">Count 0</span>
+                            <a style="text-decoration:underline">View (or) Add Documents</a> <span class="ps-2">Count
+                                0</span>
                         </div>
 
 
@@ -196,7 +198,26 @@
                     <label for="">Comments :</label>
                     <div style="border: 1px solid #dddddd;height: 40rem;border-radius: 5px;">
                         <div style="height: 250px;overflow: auto;">
-                            <div class="p-2">sfsdfgsdf</div>
+                            <div class="p-2">
+                                <ng-container *ngFor="let comment of commentsArray">
+                                    <div class="row mb-2">
+                                        <div class="col-10">
+                                            <div class="commentsdata">{{comment.createdUserName}} -
+                                                {{LocalTimeConvertioninHours(comment.createdDate) }} -
+                                                {{comment.postedOn}}
+                                                <img *ngIf="comment.publicStatus == 'Y'"
+                                                    src="assets/images/mul-pers.png" width="19" />
+                                            </div>
+                                            <div for="" class="commentMessage" [innerHTML]="comment.commentEditDesc"
+                                                ></div>
+                                        </div>
+                                        <div class="col-2 text-end" *ngIf="comment.createdUserId == userID">
+                                            <img src="../../../assets/images/editIcon.png" alt="">
+                                            <img src="../../../assets/images/deleteIcon.png" alt="" class="ms-2">
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
                         </div>
                         <div class="p-2">
                             <angular-editor [config]="config"></angular-editor>

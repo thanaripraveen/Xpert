@@ -252,7 +252,7 @@ export class CommentsComponent implements OnInit {
 
       }
       this.api.postMethod1('Comments/CommentsAction', obj).subscribe((res: any) => {
-        if(res.responsecode == 200 && this.action == 'A'){
+        if(res.status == 200 && this.action == 'A'){
 
             this.toastr.success('Comment added successfully')
           const obj = {
@@ -268,7 +268,7 @@ export class CommentsComponent implements OnInit {
           this.spinner = false;
           this.getComments()
         }
-        else if(res.responsecode == 200 && this.action == 'U'){
+        else if(res.status == 200 && this.action == 'U'){
 
           this.toastr.success('Comment updated successfully')
         const obj = {
@@ -284,7 +284,7 @@ export class CommentsComponent implements OnInit {
         this.spinner = false;
         this.getComments()
       }
-        else if(res.responsecode == 200 && this.action == 'D'){
+        else if(res.status == 200 && this.action == 'D'){
           if (this.modalRef) {
             this.modalRef.close(); // Close modal
           }
