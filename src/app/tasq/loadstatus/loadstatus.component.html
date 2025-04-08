@@ -12,16 +12,16 @@
     <div class="col-12 d-flex align-items-center headerDesign ">
         <div class="col-3 title">Data Loads</div>
         <div class="col-3">
-            <select name="" id="" class="form-select" [(ngModel)]="dealer"
+            <select name="" id="" class="form-select" [(ngModel)]="dealer" (change)="changeDealer($event)"
                 style="padding: .125rem 2.25rem .125rem .75rem;margin: 3px 0;">
                 <option value="">Select Dealer</option>
-                <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
+                <option *ngFor="let dealer of dealersData" [value]="dealer.DealerName">{{dealer.DealerName}}</option>
             </select>
         </div>
         <div class="col-3">
             <div class="datepicker-container">
                 <input class="form-control" name="date" autocomplete="off" [(ngModel)]="selectDate"
-                    placeholder="Due Date" bsDatepicker #datepicker="bsDatepicker"
+                    placeholder="Date" bsDatepicker #datepicker="bsDatepicker" (bsValueChange)="onDateChange($event)"
                     [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false, containerClass: 'theme-dark-blue' }"
                     style="padding: .175rem .75rem;" />
 
@@ -54,133 +54,176 @@
                     <th class="text-center">Delete</th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody>
                 <ng-container *ngIf="loadStatusData.length != 0">
-                <tr *ngFor="let dataLoad of loadStatusData">
-                    <td>{{dataLoad.ls_client}}</td>
-                    <td class="text-center">{{convertToIST(dataLoad.time)}}</td>
-                    <td class="text-center"
-                        [ngStyle]="{'color': dataLoad.cdk_status === 'Not Updated' ? 'red' : 'black'}">
-                        {{ dataLoad.cdk_status }}</td>
-                    <td class="text-center"
-                        [ngStyle]="{'color': dataLoad.reynolds_status === 'Not Updated' ? 'red' : 'black'}">
-                        {{ dataLoad.reynolds_status }}</td>
-                    <td class="text-center"
-                        [ngStyle]="{'color': dataLoad.drivecentric_status === 'Not Updated' ? 'red' : 'black'}">
-                        {{ dataLoad.drivecentric_status }}</td>
-                    <td class="text-center"
-                        [ngStyle]="{'color': dataLoad.vauto_status === 'Not Updated' ? 'red' : 'black'}">
-                        {{dataLoad.vauto_status}}</td>
-                    <td class="text-center"
-                        [ngStyle]="{'color': dataLoad.dealerfx_status === 'Not Updated' ? 'red' : 'black'}">
-                        {{dataLoad.dealerfx_status}}</td>
-                    <td class="text-center">{{dataLoad.checked_by}}</td>
-                    <td class="text-center"><img src="../../../assets/images/editIcon.png" alt=""></td>
-                    <td class="text-center"><img src="../../../assets/images/deleteIcon.png" alt=""></td>
+                    <tr *ngFor="let dataLoad of loadStatusData">
+                        <td>{{dataLoad.ls_client}}</td>
+                        <td class="text-center">{{convertToIST(dataLoad.time)}}</td>
+                        <td class="text-center"
+                            [ngStyle]="{'color': dataLoad.cdk_status === 'Not Updated' ? 'red' : 'black'}">
+                            {{ dataLoad.cdk_status }}</td>
+                        <td class="text-center"
+                            [ngStyle]="{'color': dataLoad.reynolds_status === 'Not Updated' ? 'red' : 'black'}">
+                            {{ dataLoad.reynolds_status }}</td>
+                        <td class="text-center"
+                            [ngStyle]="{'color': dataLoad.drivecentric_status === 'Not Updated' ? 'red' : 'black'}">
+                            {{ dataLoad.drivecentric_status }}</td>
+                        <td class="text-center"
+                            [ngStyle]="{'color': dataLoad.vauto_status === 'Not Updated' ? 'red' : 'black'}">
+                            {{dataLoad.vauto_status}}</td>
+                        <td class="text-center"
+                            [ngStyle]="{'color': dataLoad.dealerfx_status === 'Not Updated' ? 'red' : 'black'}">
+                            {{dataLoad.dealerfx_status}}</td>
+                        <td class="text-center">{{dataLoad.checked_by}}</td>
+                        <td class="text-center"><img src="../../../assets/images/editIcon.png" alt=""></td>
+                        <td class="text-center"><img src="../../../assets/images/deleteIcon.png" alt=""></td>
 
-                </tr>
-            </ng-container>
-           
+                    </tr>
+                </ng-container>
+
 
             </tbody>
         </table>
         <div *ngIf="loadStatusData.length == 0" class="text-center text-black mt-3">No data found</div>
     </div>
 
-    <div class="loadstatusForm mt-5 d-flex justify-content-center align-items-center" *ngIf="gridForm == false">
-        <table class=" text-black">
-            <tr>
-                <td class="keyName">Client :</td>
-                <td>
-                    <select name="" id="" class="form-select"
-                    style="padding: .125rem 2.25rem .125rem .75rem;margin: 3px 0;">
+    <div class="loadstatusForm mt-2 text-black container" *ngIf="gridForm == false">
+        <div style="height: calc(96vh - 102px);overflow: auto;overflow-x:hidden;padding-right: 10px;">
+            <div class="row mb-2">
+              <div class="col-md-1 d-flex align-items-center"></div>
+
+              <div class="col-md-5 d-flex align-items-center">
+                <label for="ticketFrom" class="col-5 col-form-label">Client:</label>
+                <div class="col-7">
+                  <select name="" id="" class="form-select">
                     <option value="">Select</option>
-                    <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
-                </select>
-                </td>
-            </tr>
+                    <option value="F">Client</option>
+                    <option value="A">Internal</option>
+                  </select>
+                </div>
+              </div>
+           
+              <div class="col-md-5 d-flex align-items-center">
+                <label for="ticketFrom" class="col-5 col-form-label">CDK load Status:</label>
+                <div class="col-7">
+                  <select name="" id="" class="form-select">
+                    <option value="">Select</option>
+                    <option value="F">Client</option>
+                    <option value="A">Internal</option>
+                  </select>
+                </div>
+                </div>
+                <div class="col-md-1 d-flex align-items-center"></div>
             
-            <tr>
-                <td class="keyName">CDK load status :</td>
-                <td >
-                    <select name="" id="" class="form-select">
-                        <option value="">Select</option>
-                    </select>
-                </td>
-            </tr>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-1 d-flex align-items-center"></div>
+
+              <div class="col-md-5 d-flex align-items-center">
+                <label for="ticketFrom" class="col-5 col-form-label">Reynolds load Status :</label>
+                <div class="col-7">
+                  <select name="" id="" class="form-select">
+                    <option value="">Select</option>
+                    <option value="F">Client</option>
+                    <option value="A">Internal</option>
+                  </select>
+                </div>
+              </div>
            
-            <tr>
-                <td class="keyName">Reynolds load Status :</td>
-                <td >
-                    <select name="" id="" class="form-select">
-                        <option value="">Select</option>
-                    </select>
-                </td>
-            </tr>
-           
-            <tr>
-                <td class="keyName">Drive Centric load Satus :</td>
-                <td >
-                    <select name="" id="" class="form-select">
-                        <option value="">Select</option>
-                    </select>
-                </td>
-            </tr>
-           
-            <tr>
-                <td class="keyName">vAuto load Status :</td>
-                <td >
-                    <select name="" id="" class="form-select">
-                        <option value="">Select</option>
-                    </select>
-                </td>
-            </tr>
-         
-            <tr>
-                <td class="keyName">DealerFX load Status  :</td>
-                <td >
-                    <select name="" id="" class="form-select">
-                        <option value="">Select</option>
-                    </select>
-                </td>
-            </tr>
-           
-            <tr>
-                <td class="keyName">Comments  :</td>
-                <td >
-                   <input type="text" class="form-control">
-                </td>
-            </tr>
+              <div class="col-md-5 d-flex align-items-center">
+                <label for="ticketFrom" class="col-5 col-form-label">Drive Centric load Satus:</label>
+                <div class="col-7">
+                  <select name="" id="" class="form-select">
+                    <option value="">Select</option>
+                    <option value="F">Client</option>
+                    <option value="A">Internal</option>
+                  </select>
+                </div>
+                </div>
+                <div class="col-md-1 d-flex align-items-center"></div>
             
-            <tr>
-                <td class="keyName">Counts  :</td>
-                <td >
-                   <input type="text" class="form-control">
-                </td>
-            </tr>
-           
-            <tr>
-                <td class="keyName">Date  :</td>
-                <td >
-                    <input class="form-control" name="date" autocomplete="off" 
-                    placeholder="Due Date" bsDatepicker #datepicker="bsDatepicker"
-                    [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false, containerClass: 'theme-dark-blue' }"
-                    style="padding: .175rem .75rem;" />
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-1 d-flex align-items-center"></div>
 
-                <!-- Close Icon -->
-                <img src="../../../assets/images/calendar-icon.png" class="datepicker-close-img" alt="Close"
-                    (click)="clearDate(datepicker)"  bsDatepicker />
-                </td>
-            </tr>
+              <div class="col-md-5 d-flex align-items-center">
+                <label for="ticketFrom" class="col-5 col-form-label">vAuto load Status :</label>
+                <div class="col-7">
+                  <select name="" id="" class="form-select">
+                    <option value="">Select</option>
+                    <option value="F">Client</option>
+                    <option value="A">Internal</option>
+                  </select>
+                </div>
+              </div>
            
-            <tr >
-                <td class="text-end"> <button class="btn btn-primary me-2 submitBtn" >Submit</button></td>
-                <td>
-                    <button class="btn btn-secondary" >Cancel</button>
-                </td>
-            </tr>
+              <div class="col-md-5 d-flex align-items-center">
+                <label for="ticketFrom" class="col-5 col-form-label">DealerFX load Status:</label>
+                <div class="col-7">
+                  <select name="" id="" class="form-select">
+                    <option value="">Select</option>
+                    <option value="F">Client</option>
+                    <option value="A">Internal</option>
+                  </select>
+                </div>
+                </div>
+                <div class="col-md-1 d-flex align-items-center"></div>
+            
+            </div>
 
-        </table>
+            <div class="row mb-2">
+              <div class="col-md-1 d-flex align-items-center"></div>
+
+              <div class="col-md-5 d-flex align-items-center">
+                <label for="ticketFrom" class="col-5 col-form-label">Date :</label>
+                <div class="col-7">
+                    <div class="datepicker-container">
+                        <input class="form-control" name="date" autocomplete="off" 
+                            placeholder="Date" bsDatepicker #datepicker="bsDatepicker"
+                            [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false, containerClass: 'theme-dark-blue' }" />
+
+                        <!-- Close Icon -->
+                        <img src="../../../assets/images/calendar-icon.png" class="datepicker-close-img" alt="Close"
+                             />
+                    </div>
+                </div>
+              </div>
+           
+              <div class="col-md-5 d-flex align-items-center">
+                <label for="ticketFrom" class="col-5 col-form-label">Counts:</label>
+                <div class="col-7">
+                    <input type="text" class="form-control">
+                </div>
+                </div>
+                <div class="col-md-1 d-flex align-items-center"></div>
+            
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-1 d-flex align-items-center"></div>
+
+              <div class="col-md-5 d-flex align-items-center">
+                <label for="ticketFrom" class="col-5 col-form-label">Time :</label>
+                <div class="col-7">
+                    <timepicker [showMeridian]="false"></timepicker>
+
+                </div>
+              </div>
+           
+              <div class="col-md-5 d-flex align-items-center">
+                <label for="ticketFrom" class="col-5 col-form-label">Comments:</label>
+                <div class="col-7">
+                  <textarea name="" id="" class="form-control"></textarea>
+                </div>
+                </div>
+                <div class="col-md-1 d-flex align-items-center"></div>
+            
+            </div>
+
+            <div class="text-center mt-5">
+                <button class="btn btn-primary me-2" style="background-color: #f37121;border: 1px solid #f37121" >Submit</button>
+                <button class="btn btn-secondary">Cancel</button>
+            </div>
+
            
     </div>
 

@@ -77,13 +77,13 @@
             position: relative;
             display: inline-block;
             width: 100%;
-            padding: .125rem 2.25rem .125rem .75rem;
+            // padding: .125rem 2.25rem .125rem .75rem;
         }
 
         .datepicker-close-img {
             position: absolute;
-            top: 8px;
-            right: 45px;
+            top: 10px;
+            right: 10px;
             width: 16px;
             height: 16px;
             cursor: pointer;

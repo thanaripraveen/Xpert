@@ -5,6 +5,7 @@ import { LoadstatusRoutingModule } from './loadstatus-routing.module';
 import { LoadstatusComponent } from './loadstatus.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 
 @NgModule({
@@ -12,7 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LoadstatusComponent
   ],
   imports: [
-    CommonModule,BsDatepickerModule,FormsModule,ReactiveFormsModule,
+    CommonModule,BsDatepickerModule,FormsModule,ReactiveFormsModule, TimepickerModule.forRoot(),
     LoadstatusRoutingModule
   ]
 })

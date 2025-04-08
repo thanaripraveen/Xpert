@@ -71,6 +71,16 @@ loadStatusData : any =[]
     var utc = moment.utc(utcDate);
     var dateWithTimezone = utc.local().format('HH:mm');
     return dateWithTimezone + ' ' + 'IST'
-  
+  }
+
+  onDateChange(selectedDate: Date) {
+    if(selectedDate){
+      this.selectDate =  selectedDate;
+      this.getDataLoads();
+    }
+  }
+
+  changeDealer(e: any){
+    this.getDataLoads();
   }
 }
