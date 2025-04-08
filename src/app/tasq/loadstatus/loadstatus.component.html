@@ -26,8 +26,8 @@
                     style="padding: .175rem .75rem;" />
 
                 <!-- Close Icon -->
-                <img src="assets/images/close_newbtn.png" class="datepicker-close-img" alt="Close"
-                    (click)="clearDate(datepicker)" />
+                <img src="../../../assets/images/calendar-icon.png" class="datepicker-close-img" alt="Close"
+                    (click)="clearDate(datepicker)" [(ngModel)]="selectDate" bsDatepicker />
             </div>
         </div>
         <div class="col-3 text-end tagsHead d-flex justify-content-end pe-1">
@@ -54,8 +54,8 @@
                     <th class="text-center">Delete</th>
                 </tr>
             </thead>
-            <tbody *ngIf="loadStatusData.length != 0">
-
+            <tbody >
+                <ng-container *ngIf="loadStatusData.length != 0">
                 <tr *ngFor="let dataLoad of loadStatusData">
                     <td>{{dataLoad.ls_client}}</td>
                     <td class="text-center">{{convertToIST(dataLoad.time)}}</td>
@@ -79,9 +79,109 @@
                     <td class="text-center"><img src="../../../assets/images/deleteIcon.png" alt=""></td>
 
                 </tr>
+            </ng-container>
+           
 
             </tbody>
         </table>
+        <div *ngIf="loadStatusData.length == 0" class="text-center text-black mt-3">No data found</div>
+    </div>
+
+    <div class="loadstatusForm mt-5 d-flex justify-content-center align-items-center" *ngIf="gridForm == false">
+        <table class=" text-black">
+            <tr>
+                <td class="keyName">Client :</td>
+                <td>
+                    <select name="" id="" class="form-select"
+                    style="padding: .125rem 2.25rem .125rem .75rem;margin: 3px 0;">
+                    <option value="">Select</option>
+                    <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
+                </select>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="keyName">CDK load status :</td>
+                <td >
+                    <select name="" id="" class="form-select">
+                        <option value="">Select</option>
+                    </select>
+                </td>
+            </tr>
+           
+            <tr>
+                <td class="keyName">Reynolds load Status :</td>
+                <td >
+                    <select name="" id="" class="form-select">
+                        <option value="">Select</option>
+                    </select>
+                </td>
+            </tr>
+           
+            <tr>
+                <td class="keyName">Drive Centric load Satus :</td>
+                <td >
+                    <select name="" id="" class="form-select">
+                        <option value="">Select</option>
+                    </select>
+                </td>
+            </tr>
+           
+            <tr>
+                <td class="keyName">vAuto load Status :</td>
+                <td >
+                    <select name="" id="" class="form-select">
+                        <option value="">Select</option>
+                    </select>
+                </td>
+            </tr>
+         
+            <tr>
+                <td class="keyName">DealerFX load Status  :</td>
+                <td >
+                    <select name="" id="" class="form-select">
+                        <option value="">Select</option>
+                    </select>
+                </td>
+            </tr>
+           
+            <tr>
+                <td class="keyName">Comments  :</td>
+                <td >
+                   <input type="text" class="form-control">
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="keyName">Counts  :</td>
+                <td >
+                   <input type="text" class="form-control">
+                </td>
+            </tr>
+           
+            <tr>
+                <td class="keyName">Date  :</td>
+                <td >
+                    <input class="form-control" name="date" autocomplete="off" 
+                    placeholder="Due Date" bsDatepicker #datepicker="bsDatepicker"
+                    [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false, containerClass: 'theme-dark-blue' }"
+                    style="padding: .175rem .75rem;" />
+
+                <!-- Close Icon -->
+                <img src="../../../assets/images/calendar-icon.png" class="datepicker-close-img" alt="Close"
+                    (click)="clearDate(datepicker)"  bsDatepicker />
+                </td>
+            </tr>
+           
+            <tr >
+                <td class="text-end"> <button class="btn btn-primary me-2 submitBtn" >Submit</button></td>
+                <td>
+                    <button class="btn btn-secondary" >Cancel</button>
+                </td>
+            </tr>
+
+        </table>
+           
     </div>
 
 

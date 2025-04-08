@@ -26,7 +26,7 @@ loadStatusData : any =[]
   }
 
   addNewLoadstatus(){
-
+    this.gridForm = !this.gridForm;
   }
 
   clearDate(date : any){

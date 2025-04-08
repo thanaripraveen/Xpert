@@ -22,8 +22,8 @@
             position: absolute;
             top: 8px;
             right: 45px;
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             cursor: pointer;
             z-index: 10;
             /* Ensure it's above datepicker */
@@ -56,6 +56,39 @@
             }
 
 
+        }
+    }
+
+    .loadstatusForm {
+        font-family: 'FaktPro-Normal';
+        font-size: .9rem;
+       
+        .keyName {
+            padding-right: 5px;
+            font-family: 'FaktPro-Medium';
+
+        }
+        .submitBtn {
+            background-color: #ff6000;
+            border: #ff6000;
+        }
+
+        .datepicker-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            padding: .125rem 2.25rem .125rem .75rem;
+        }
+
+        .datepicker-close-img {
+            position: absolute;
+            top: 8px;
+            right: 45px;
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            z-index: 10;
+            /* Ensure it's above datepicker */
         }
     }
 }
