@@ -1,1 +1,60 @@
-<p>newuserrequest works!</p>
+<div class="spinner-container" *ngIf="spinner">
+    <div class="spinner-wrapper">
+        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+        <div class="spinner"></div>
+        <span class="logo-text">
+            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+        </span>
+    </div>
+</div>
+
+<div class="newUserReqPage">
+    <div class="col-12 d-flex align-items-center headerDesign ">
+        <div class="col-9 title">New User Request</div>
+
+        <div class="col-3 tagsHead d-flex justify-content-end">
+            <input type="text" placeholder="Search" class="form-control" style="padding: .25rem;"   [(ngModel)]="searchText" (keyup)="searchData()">
+        </div>
+    </div>
+
+
+    <div class="scrollTagsData">
+        <table class="table  table-striped gridTable">
+            <thead>
+                <tr>
+                    <th>Dealer</th>
+                    <th>Direct Supervisor</th>
+                    <th>Full Name</th>
+                    <th>Location(S)</th>
+                    <th>Email</th>
+                    <th>Title/Role</th>
+                    <th>Mobile</th>
+                    <th class="col-2" style="width: 10%;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                <tr *ngFor="let tag of filteredData">
+                    <td>{{tag.aur_dealer_name}}</td>
+                    <td >{{tag.aur_direct_supervisor}}</td>
+                    <td>{{ tag.aur_firstname + ' ' + tag.aur_lastname }}</td>
+                    <td>{{tag.aur_locations}}</td>
+                    <td>{{tag.aur_workemail}}</td>
+                    <td>{{tag.aur_title_role}}</td>
+                    <td>{{tag.aur_mobilenumner}}</td>
+                    <td style="padding: 0.1rem 0.2rem;" class="col-2" style="width: 10%;">
+                        <select class="form-select" [(ngModel)]="tag.aur_statusid" style="padding: 0.2rem 0.2rem;font-size: .7rem;"
+                            (change)="onChange($event,tag.aur_id)">
+                            <option value="1">New</option>
+                            <option value="2">Open</option>
+                            <option value="3">Completed</option>
+                        </select>
+                    </td>
+                </tr>
+    
+            </tbody>
+        </table>
+        <div *ngIf="filteredData.length == 0" class="text-center p-2 bg-white">No records found</div>
+    </div>
+</div>
+

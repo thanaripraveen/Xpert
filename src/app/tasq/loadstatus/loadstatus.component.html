@@ -11,23 +11,24 @@
 <div class="loadstatusPage">
     <div class="col-12 d-flex align-items-center headerDesign ">
         <div class="col-3 title">Data Loads</div>
-        <div class="col-3">
+        <div class="col-3" *ngIf="gridForm == true">
             <select name="" id="" class="form-select" [(ngModel)]="dealer" (change)="changeDealer($event)"
                 style="padding: .125rem 2.25rem .125rem .75rem;margin: 3px 0;">
                 <option value="">Select Dealer</option>
                 <option *ngFor="let dealer of dealersData" [value]="dealer.DealerName">{{dealer.DealerName}}</option>
             </select>
         </div>
-        <div class="col-3">
+        <div class="col-3" *ngIf="gridForm == true">
             <div class="datepicker-container">
-                <input class="form-control" name="date" autocomplete="off" [(ngModel)]="selectDate"
-                    placeholder="Date" bsDatepicker #datepicker="bsDatepicker" (bsValueChange)="onDateChange($event)"
+                <input class="form-control" name="date" autocomplete="off" [(bsValue)]="selectDate" placeholder="Date"
+                    bsDatepicker #datepicker="bsDatepicker" (bsValueChange)="onDateChange($event)"
                     [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false, containerClass: 'theme-dark-blue' }"
                     style="padding: .175rem .75rem;" />
 
                 <!-- Close Icon -->
                 <img src="../../../assets/images/calendar-icon.png" class="datepicker-close-img" alt="Close"
-                    (click)="clearDate(datepicker)" [(ngModel)]="selectDate" bsDatepicker />
+                    #dp="bsDatepicker" bsDatepicker [(bsValue)]="selectDate"
+                    bsDatepicker />
             </div>
         </div>
         <div class="col-3 text-end tagsHead d-flex justify-content-end pe-1">
@@ -75,8 +76,10 @@
                             [ngStyle]="{'color': dataLoad.dealerfx_status === 'Not Updated' ? 'red' : 'black'}">
                             {{dataLoad.dealerfx_status}}</td>
                         <td class="text-center">{{dataLoad.checked_by}}</td>
-                        <td class="text-center"><img src="../../../assets/images/editIcon.png" alt=""></td>
-                        <td class="text-center"><img src="../../../assets/images/deleteIcon.png" alt=""></td>
+                        <td class="text-center"><img src="../../../assets/images/editIcon.png"
+                                (click)="editDataLoads(dataLoad)" alt="" style="cursor: pointer;"></td>
+                        <td class="text-center"><img src="../../../assets/images/deleteIcon.png" alt=""
+                                style="cursor: pointer;" (click)="confirmDelete(loadStatusConfirmDialog,dataLoad)"></td>
 
                     </tr>
                 </ng-container>
@@ -88,144 +91,187 @@
     </div>
 
     <div class="loadstatusForm mt-2 text-black container" *ngIf="gridForm == false">
-        <div style="height: calc(96vh - 102px);overflow: auto;overflow-x:hidden;padding-right: 10px;">
-            <div class="row mb-2">
-              <div class="col-md-1 d-flex align-items-center"></div>
+        <form action="" [formGroup]="dataLoadStatusForm">
+            <div style="height: calc(96vh - 102px);overflow: auto;overflow-x:hidden;padding-right: 10px;">
+                <div class="row mb-2">
+                    <div class="col-md-1 d-flex align-items-center"></div>
 
-              <div class="col-md-5 d-flex align-items-center">
-                <label for="ticketFrom" class="col-5 col-form-label">Client:</label>
-                <div class="col-7">
-                  <select name="" id="" class="form-select">
-                    <option value="">Select</option>
-                    <option value="F">Client</option>
-                    <option value="A">Internal</option>
-                  </select>
-                </div>
-              </div>
-           
-              <div class="col-md-5 d-flex align-items-center">
-                <label for="ticketFrom" class="col-5 col-form-label">CDK load Status:</label>
-                <div class="col-7">
-                  <select name="" id="" class="form-select">
-                    <option value="">Select</option>
-                    <option value="F">Client</option>
-                    <option value="A">Internal</option>
-                  </select>
-                </div>
-                </div>
-                <div class="col-md-1 d-flex align-items-center"></div>
-            
-            </div>
-            <div class="row mb-2">
-              <div class="col-md-1 d-flex align-items-center"></div>
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label for="ticketFrom" class="col-5 col-form-label">Client:</label>
+                        <div class="col-7">
+                            <select name="" id="" class="form-select" formControlName="client"
+                                [ngClass]="{ 'is-invalid': submitted && dataLoadStatusForm.controls.client.errors }">
+                                <option value="">Select</option>
+                                <option *ngFor="let dealer of dealersData" [value]="dealer.DealerName">
+                                    {{dealer.DealerName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
 
-              <div class="col-md-5 d-flex align-items-center">
-                <label for="ticketFrom" class="col-5 col-form-label">Reynolds load Status :</label>
-                <div class="col-7">
-                  <select name="" id="" class="form-select">
-                    <option value="">Select</option>
-                    <option value="F">Client</option>
-                    <option value="A">Internal</option>
-                  </select>
-                </div>
-              </div>
-           
-              <div class="col-md-5 d-flex align-items-center">
-                <label for="ticketFrom" class="col-5 col-form-label">Drive Centric load Satus:</label>
-                <div class="col-7">
-                  <select name="" id="" class="form-select">
-                    <option value="">Select</option>
-                    <option value="F">Client</option>
-                    <option value="A">Internal</option>
-                  </select>
-                </div>
-                </div>
-                <div class="col-md-1 d-flex align-items-center"></div>
-            
-            </div>
-            <div class="row mb-2">
-              <div class="col-md-1 d-flex align-items-center"></div>
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label for="ticketFrom" class="col-5 col-form-label">CDK load Status:</label>
+                        <div class="col-7">
+                            <select name="" id="" class="form-select" formControlName="cdk"
+                                [ngClass]="{ 'is-invalid': submitted && dataLoadStatusForm.controls.cdk.errors }">
+                                <option value="">Select</option>
+                                <option value="Manual">Manual</option>
+                                <option value="Updating">Updating</option>
+                                <option value="Updated">Updated</option>
+                                <option value="NA">NA</option>
+                                <option value="Not Updated">Not Updated</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-center"></div>
 
-              <div class="col-md-5 d-flex align-items-center">
-                <label for="ticketFrom" class="col-5 col-form-label">vAuto load Status :</label>
-                <div class="col-7">
-                  <select name="" id="" class="form-select">
-                    <option value="">Select</option>
-                    <option value="F">Client</option>
-                    <option value="A">Internal</option>
-                  </select>
                 </div>
-              </div>
-           
-              <div class="col-md-5 d-flex align-items-center">
-                <label for="ticketFrom" class="col-5 col-form-label">DealerFX load Status:</label>
-                <div class="col-7">
-                  <select name="" id="" class="form-select">
-                    <option value="">Select</option>
-                    <option value="F">Client</option>
-                    <option value="A">Internal</option>
-                  </select>
-                </div>
-                </div>
-                <div class="col-md-1 d-flex align-items-center"></div>
-            
-            </div>
+                <div class="row mb-2">
+                    <div class="col-md-1 d-flex align-items-center"></div>
 
-            <div class="row mb-2">
-              <div class="col-md-1 d-flex align-items-center"></div>
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label for="ticketFrom" class="col-5 col-form-label">Reynolds load Status :</label>
+                        <div class="col-7">
+                            <select name="" id="" class="form-select" formControlName="reynolds"
+                                [ngClass]="{ 'is-invalid': submitted && dataLoadStatusForm.controls.client.errors }">
+                                <option value="">Select</option>
+                                <option value="Manual">Manual</option>
+                                <option value="Updating">Updating</option>
+                                <option value="Updated">Updated</option>
+                                <option value="NA">NA</option>
+                                <option value="Not Updated">Not Updated</option>
+                            </select>
+                        </div>
+                    </div>
 
-              <div class="col-md-5 d-flex align-items-center">
-                <label for="ticketFrom" class="col-5 col-form-label">Date :</label>
-                <div class="col-7">
-                    <div class="datepicker-container">
-                        <input class="form-control" name="date" autocomplete="off" 
-                            placeholder="Date" bsDatepicker #datepicker="bsDatepicker"
-                            [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false, containerClass: 'theme-dark-blue' }" />
-
-                        <!-- Close Icon -->
-                        <img src="../../../assets/images/calendar-icon.png" class="datepicker-close-img" alt="Close"
-                             />
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label for="ticketFrom" class="col-5 col-form-label">Drive Centric load Satus:</label>
+                        <div class="col-7">
+                            <select name="" id="" class="form-select" formControlName="driveCentric"
+                                [ngClass]="{ 'is-invalid': submitted && dataLoadStatusForm.controls.client.errors }">
+                                <<option value="">Select</option>
+                                    <option value="Manual">Manual</option>
+                                    <option value="Updating">Updating</option>
+                                    <option value="Updated">Updated</option>
+                                    <option value="NA">NA</option>
+                                    <option value="Not Updated">Not Updated</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-              </div>
-           
-              <div class="col-md-5 d-flex align-items-center">
-                <label for="ticketFrom" class="col-5 col-form-label">Counts:</label>
-                <div class="col-7">
-                    <input type="text" class="form-control">
+                <div class="row mb-2">
+                    <div class="col-md-1 d-flex align-items-center"></div>
+
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label for="ticketFrom" class="col-5 col-form-label">vAuto load Status :</label>
+                        <div class="col-7">
+                            <select name="" id="" class="form-select" formControlName="vAuto"
+                                [ngClass]="{ 'is-invalid': submitted && dataLoadStatusForm.controls.client.errors }">
+                                <option value="">Select</option>
+                                <option value="Manual">Manual</option>
+                                <option value="Updating">Updating</option>
+                                <option value="Updated">Updated</option>
+                                <option value="NA">NA</option>
+                                <option value="Not Updated">Not Updated</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label for="ticketFrom" class="col-5 col-form-label">DealerFX load Status:</label>
+                        <div class="col-7">
+                            <select name="" id="" class="form-select" formControlName="dealerFX"
+                                [ngClass]="{ 'is-invalid': submitted && dataLoadStatusForm.controls.client.errors }">
+                                <option value="">Select</option>
+                                <option value="Manual">Manual</option>
+                                <option value="Updating">Updating</option>
+                                <option value="Updated">Updated</option>
+                                <option value="NA">NA</option>
+                                <option value="Not Updated">Not Updated</option>
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
+
+                <div class="row mb-2">
+                    <div class="col-md-1 d-flex align-items-center"></div>
+
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label for="ticketFrom" class="col-5 col-form-label">Date :</label>
+                        <div class="col-7">
+                            <div class="datepicker-container">
+                                <input class="form-control" name="date" autocomplete="on" [(bsValue)]="date" placeholder="Date"
+                                    #d="bsDatepicker" bsDatepicker formControlName="addDate"
+                                    [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false }"
+                                    [ngClass]="{ 'is-invalid': submitted && dataLoadStatusForm.controls.addDate.errors }" />
+
+                                <!-- Close Icon -->
+                                <img src="../../../assets/images/calendar-icon.png" class="datepicker-close-img"
+                                    alt="Close" bsDatepicker #dc="bsDatepicker" [(bsValue)]="date" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label for="ticketFrom" class="col-5 col-form-label">Counts:</label>
+                        <div class="col-7">
+                            <input type="text" class="form-control" formControlName="counts">
+                        </div>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-center"></div>
+
                 </div>
-                <div class="col-md-1 d-flex align-items-center"></div>
-            
+                <div class="row mb-2">
+                    <div class="col-md-1 d-flex align-items-center"></div>
+
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label for="ticketFrom" class="col-5 col-form-label">Time :</label>
+                        <div class="col-7">
+                            <timepicker [showMeridian]="false" formControlName="time">
+                            </timepicker>
+                            <div  *ngIf="submitted && dataLoadStatusForm.controls.time.errors?.required" style="color: red;">Time is required</div>
+                        </div>
+                       
+
+                    </div>
+
+                    <div class="col-md-5 d-flex align-items-center">
+                        <label for="ticketFrom" class="col-5 col-form-label">Comments:</label>
+                        <div class="col-7">
+                            <textarea name="" id="" class="form-control" formControlName="comments"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-1 d-flex align-items-center"></div>
+
+                </div>
+
+                <div class="text-center mt-5">
+                    <button class="btn btn-primary me-2" style="background-color: #f37121;border: 1px solid #f37121"
+                        (click)="loadStatusSave()">Submit</button>
+                    <button class="btn btn-secondary" (click)="cancelClick()">Cancel</button>
+                </div>
+
+
             </div>
-            <div class="row mb-2">
-              <div class="col-md-1 d-flex align-items-center"></div>
+        </form>
 
-              <div class="col-md-5 d-flex align-items-center">
-                <label for="ticketFrom" class="col-5 col-form-label">Time :</label>
-                <div class="col-7">
-                    <timepicker [showMeridian]="false"></timepicker>
 
-                </div>
-              </div>
-           
-              <div class="col-md-5 d-flex align-items-center">
-                <label for="ticketFrom" class="col-5 col-form-label">Comments:</label>
-                <div class="col-7">
-                  <textarea name="" id="" class="form-control"></textarea>
-                </div>
-                </div>
-                <div class="col-md-1 d-flex align-items-center"></div>
-            
-            </div>
-
-            <div class="text-center mt-5">
-                <button class="btn btn-primary me-2" style="background-color: #f37121;border: 1px solid #f37121" >Submit</button>
-                <button class="btn btn-secondary">Cancel</button>
-            </div>
-
-           
     </div>
 
 
-</div>
+    <ng-template #loadStatusConfirmDialog let-modal>
+        <div class="modal-header px-3 py-2">
+            <h5 class="modal-title text-black">Delete data load</h5>
+            <button type="button" class="btn-close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body text-black text-center">
+            <div>
+              Are you sure you want to continue?
+            </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary" style="background-color:#f37121;border: #f37121;" (click)="loadStatusSave()">Yes</button>
+            <button type="submit" class="btn btn-secondary" (click)="modal.dismiss()">No</button>
+        </div>
+    </ng-template>

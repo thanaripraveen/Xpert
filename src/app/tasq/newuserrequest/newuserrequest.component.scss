@@ -1,0 +1,45 @@
+.newUserReqPage {
+    .headerDesign {
+        background-color: #bfcfd9;
+        padding: 2px;
+
+        .title {
+            font-family: 'FaktPro-Bold';
+            font-size: .8rem;
+            color: #000;
+            padding: 5px;
+        }
+
+    }
+
+    
+    .scrollTagsData {
+        height: 70vh;
+        overflow: auto;
+        margin: auto;
+
+
+        .gridTable {
+            width: 100%;
+            margin: auto;
+
+            font-family: 'FaktPro-Bold';
+            font-size: .7rem;
+
+            thead {
+                position: sticky;
+                top: 0;
+                background-color: white;
+                z-index: 1;
+            }
+
+            tbody tr td {
+                font-family: 'FaktPro-Normal';
+                font-size: .7rem;
+            }
+
+
+        }
+    }
+
+}

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { NewuserrequestRoutingModule } from './newuserrequest-routing.module';
 import { NewuserrequestComponent } from './newuserrequest.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -10,7 +11,7 @@ import { NewuserrequestComponent } from './newuserrequest.component';
     NewuserrequestComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule,FormsModule,
     NewuserrequestRoutingModule
   ]
 })

@@ -13,7 +13,7 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
     LoadstatusComponent
   ],
   imports: [
-    CommonModule,BsDatepickerModule,FormsModule,ReactiveFormsModule, TimepickerModule.forRoot(),
+    CommonModule,BsDatepickerModule.forRoot(),FormsModule,ReactiveFormsModule, TimepickerModule.forRoot(),
     LoadstatusRoutingModule
   ]
 })
