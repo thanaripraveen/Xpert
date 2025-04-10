@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'releasenotes', loadChildren: () => import('./tasq/releasenotes/releasenotes.module').then(m => m.ReleasenotesModule) },
   { path: 'groupmessages', loadChildren: () => import('./tasq/groupmessages/groupmessages.module').then(m => m.GroupmessagesModule) },
   { path: 'userguide', loadChildren: () => import('./tasq/userguide/userguide.module').then(m => m.UserguideModule) },
-  { path: 'howdoie', loadChildren: () => import('./tasq/howdoi/howdoi.module').then(m => m.HowdoiModule) },
+  { path: 'howdoi', loadChildren: () => import('./tasq/howdoi/howdoi.module').then(m => m.HowdoiModule) },
   { path: 'newuserrequest', loadChildren: () => import('./tasq/newuserrequest/newuserrequest.module').then(m => m.NewuserrequestModule) },
   { path: 'storesetup', loadChildren: () => import('./tasq/storesetup/storesetup.module').then(m => m.StoresetupModule) },
   { path: 'loadstatus', loadChildren: () => import('./tasq/loadstatus/loadstatus.module').then(m => m.LoadstatusModule) },

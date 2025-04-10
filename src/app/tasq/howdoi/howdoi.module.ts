@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { HowdoiRoutingModule } from './howdoi-routing.module';
 import { HowdoiComponent } from './howdoi.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -10,7 +11,7 @@ import { HowdoiComponent } from './howdoi.component';
     HowdoiComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule,FormsModule,ReactiveFormsModule,
     HowdoiRoutingModule
   ]
 })

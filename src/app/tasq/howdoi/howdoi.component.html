@@ -1,1 +1,35 @@
-<p>howdoi works!</p>
+<div class="spinner-container" *ngIf="spinner">
+    <div class="spinner-wrapper">
+        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+        <div class="spinner"></div>
+        <span class="logo-text">
+            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+        </span>
+    </div>
+</div>
+
+<div class="howDoIPage">
+    <div class="col-12 d-flex align-items-center headerDesign ">
+        <div class="col-3 title">How Do I</div>
+        <div class="col-3" *ngIf="gridForm == true">
+            <select name="" id="" class="form-select" [(ngModel)]="dealer" (change)="changeDealer($event)"
+                style="padding: .125rem 2.25rem .125rem .75rem;margin: 3px 0;">
+                <option value="">Select Dealer</option>
+                <option *ngFor="let dealer of dealersData" [value]="dealer.DealerName">{{dealer.DealerName}}</option>
+            </select>
+        </div>
+        <div class="col-3" *ngIf="gridForm == true">
+            <select name="" id="" class="form-select" [(ngModel)]="dealer" (change)="changeDealer($event)"
+            style="padding: .125rem 2.25rem .125rem .75rem;margin: 3px 0;">
+            <option value="">Select a department</option>
+            <option *ngFor="let m of modulearr" [value]="m.mod_seq">
+              {{ m.mod_name }}
+            </option>
+        </select>
+        </div>
+        <div class="col-3 text-end tagsHead d-flex justify-content-end pe-1">
+            <div class="addBtnStyle" *ngIf="gridForm == true" (click)="addNew()"><img
+                    src="../../../assets/images/xpertAddIcon.png" alt=""><span>add</span></div>
+        </div>
+    </div>
+</div>
