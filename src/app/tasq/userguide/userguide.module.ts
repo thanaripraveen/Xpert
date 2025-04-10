@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UserguideRoutingModule } from './userguide-routing.module';
 import { UserguideComponent } from './userguide.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -10,7 +11,7 @@ import { UserguideComponent } from './userguide.component';
     UserguideComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule,FormsModule,ReactiveFormsModule,
     UserguideRoutingModule
   ]
 })

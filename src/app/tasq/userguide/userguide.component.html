@@ -1,1 +1,53 @@
-<p>userguide works!</p>
+<div class="spinner-container" *ngIf="spinner">
+    <div class="spinner-wrapper">
+        <div class="logo-glow"></div> <!-- Soft glow behind logo -->
+        <div class="spinner"></div>
+        <span class="logo-text">
+            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+        </span>
+    </div>
+</div>
+
+<div class="userGuidePage">
+    <div class="col-12 d-flex align-items-center headerDesign ">
+        <div class="col-7 title">User Guide</div>
+        <div class="col-3" *ngIf="gridForm == true">
+            <select name="" id="" class="form-select" [(ngModel)]="dealer" (change)="changeDealer()"
+                style="padding: .125rem 2.25rem .125rem .75rem;margin: 3px 0;">
+                <option value="0">Select Dealer</option>
+                <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
+            </select>
+        </div>
+        <div class="col-2 text-end tagsHead d-flex justify-content-end pe-1">
+            <div class="addBtnStyle" *ngIf="gridForm == true" (click)="addNewRole()"><img
+                    src="../../../assets/images/xpertAddIcon.png" alt=""><span>add</span></div>
+        </div>
+    </div>
+
+
+    <div class="scrollTagsData" *ngIf="gridForm == true">
+        <table class="table  table-striped gridTable">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th class="text-center">Code</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Edit</th>
+                </tr>
+            </thead>
+            <tbody >
+                
+                <tr  *ngFor="let helpData of getHelpData" >
+                    <td>{{helpData.title}}</td>
+                    <td class="text-center">{{helpData.code}}</td>
+                    <td class="text-center" [ngStyle]="{'color': helpData.status == 'Y' ? 'green' : 'red' }" >
+                        {{helpData.status == 'Y'? 'Active' : 'In-Active'}}</td>
+                    <td class="text-center"><img src="assets/images/editIcon.png" alt="" style="cursor: pointer;" (click)="editHelpData(helpData)" ></td>
+                    
+                </tr>
+            
+            </tbody>
+        </table>
+        </div>
+
+</div>
