@@ -40,4 +40,19 @@
 
         }
     }
+
+    .userGuideFormPage{
+        label{
+            font-family: 'FaktPro-Medium';
+            font-size: .9rem;
+        }
+        .is-invalid {
+            border: 1px solid red;
+          }
+        
+          .invalid-border {
+            border: 1px solid red !important;
+            border-radius: 4px;
+          }
+    }
 }

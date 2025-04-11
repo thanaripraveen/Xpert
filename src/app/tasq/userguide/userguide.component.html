@@ -14,7 +14,7 @@
         <div class="col-3" *ngIf="gridForm == true">
             <select name="" id="" class="form-select" [(ngModel)]="dealer" (change)="changeDealer()"
                 style="padding: .125rem 2.25rem .125rem .75rem;margin: 3px 0;">
-                <option value="0">Select Dealer</option>
+                <!-- <option value="0">Select Dealer</option> -->
                 <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
             </select>
         </div>
@@ -35,19 +35,71 @@
                     <th class="text-center">Edit</th>
                 </tr>
             </thead>
-            <tbody >
-                
-                <tr  *ngFor="let helpData of getHelpData" >
+            <tbody>
+
+                <tr *ngFor="let helpData of getHelpData">
                     <td>{{helpData.title}}</td>
                     <td class="text-center">{{helpData.code}}</td>
-                    <td class="text-center" [ngStyle]="{'color': helpData.status == 'Y' ? 'green' : 'red' }" >
+                    <td class="text-center" [ngStyle]="{'color': helpData.status == 'Y' ? 'green' : 'red' }">
                         {{helpData.status == 'Y'? 'Active' : 'In-Active'}}</td>
-                    <td class="text-center"><img src="assets/images/editIcon.png" alt="" style="cursor: pointer;" (click)="editHelpData(helpData)" ></td>
-                    
+                    <td class="text-center"><img src="assets/images/editIcon.png" alt="" style="cursor: pointer;"
+                            (click)="editHelpData(helpData)"></td>
+
                 </tr>
-            
+
             </tbody>
         </table>
-        </div>
+        <div *ngIf="getHelpData.length == 0" class="text-center text-black">No data found</div>
+    </div>
+
+    <div class="userGuideForm mt-2 text-black p-2" *ngIf="gridForm == false">
+        <form action="" [formGroup]="userGuideFormPage">
+            <div style="height: calc(96vh - 102px);overflow: auto;overflow-x:hidden;padding-right: 10px;">
+                <div class="row mb-2">
+
+                    <div class="col-md-6 d-flex align-items-center">
+                        <label for="department" class="col-3 col-form-label">Title:</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control" formControlName="title" [ngClass]="{ 'is-invalid': submitted && userGuideFormPage.controls.title.errors }">
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 d-flex align-items-center">
+                        <label for="title" class="col-3 col-form-label">Code:</label>
+                        <div class="col-9">
+                            <input type="text" class="form-control" formControlName="code" [ngClass]="{ 'is-invalid': submitted && userGuideFormPage.controls.code.errors }">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mb-2">
+                    <div>
+                        <editor [init]="init" formControlName="description" [ngClass]="{ 'is-invalid': submitted && userGuideFormPage.controls.description.errors }"/>
+
+                  </div>
+                  </div>
+
+                  <div class="row mb-2" *ngIf="action == 'U'">
+                    <div class="col-md-6 d-flex align-items-center">
+                        <label for="status" class="col-3 col-form-label">Status:</label>
+                        <div class="col-9">
+                            <span [ngStyle]="{'color': status== true ? 'green' : 'red' }" class="col-2">
+                                <input type="checkbox" [checked]="status" class="ps-2"
+                                    (change)="handleStatus($event)" />&nbsp;&nbsp;{{status == true ? 'Active' :
+                                'In-Active'}}</span> 
+                        </div>
+                    </div>
+                  </div>
+
+                  <div class="text-center mt-4">
+                    <button class="btn btn-primary me-2" style="background-color: #f37121;border: 1px solid #f37121" (click)="submitClick()">Submit</button>
+                    <button class="btn btn-secondary" (click)="reset()">Cancel</button>
+                  </div>
+
+            </div>
+        </form>
+    </div>
 
 </div>
