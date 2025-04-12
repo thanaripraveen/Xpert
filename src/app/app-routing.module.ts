@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'header', loadChildren: () => import('./header/header.module').then(m => m.HeaderModule) },
   { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
   { path: 'dashboard', loadChildren: () => import('./tasq/dashboard/dashboard.module').then(m => m.DashboardModule) },
+  { path: 'dashboardnew', loadChildren: () => import('./tasq/dashboardpage/dashboard.module').then(m => m.DashboardModule) },
   { path: 'createtask', loadChildren: () => import('./tasq/createtask/createtask.module').then(m => m.CreatetaskModule) },
   { path: 'Alltasks', loadChildren: () => import('./tasq/alltasks/alltasks.module').then(m => m.AlltasksModule) },
   { path: 'admusers', loadChildren: () => import('./tasq/users/users.module').then(m => m.UsersModule) },

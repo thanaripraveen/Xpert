@@ -41,14 +41,18 @@ body {
   border: 0px;
   width: auto;
   height: auto;
-  color: #fff;
+  color: #000;
   font-family: "FaktPro-Normal";
   background: url(/assets/images/tasq_innerbg.png) no-repeat fixed;
   background-repeat: no-repeat;
   background-color: #222f43;
   background-size: cover;
   background-position: 50% 50%;
-  font-size: 12px;
+  font-size: .8rem;
+  -webkit-font-smoothing: none !important;
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  -webkit-font-smoothing: antialiased !important;
+  -webkit-font-smoothing: auto !important;
 }
 
 html,
@@ -71,11 +75,21 @@ body {
 
 }
 
+::-webkit-scrollbar-track {
+  background: #ccc;
 
+}
 
 ::-webkit-scrollbar-thumb {
+  background: #2b91f0;
+  border-radius: 10px;
+}
 
-  background: #001124;
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  box-shadow: none !important;
 }
 
 
@@ -333,4 +347,9 @@ bs-datepicker-container {
 
 :host ::ng-deep bs-datepicker-container .bs-datepicker .is-other-month {
   display: none !important; /* Completely hide dates from previous and next months */
+}
+
+.invalid-border .tox-sidebar-wrap {
+  border: 1px solid red !important;
+  // border-radius: 4px;
 }

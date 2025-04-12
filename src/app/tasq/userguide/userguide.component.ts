@@ -18,7 +18,16 @@ export class UserguideComponent implements OnInit {
     plugins: 'lists link image table code help wordcount',
     base_url: '/tinymce', // Root for resources
     suffix: '.min',
-    height: '30rem',
+    height: '20rem',
+    setup: (editor) => {
+      editor.on('init', () => {
+        const container = editor.editorContainer;
+        if (this.submitted && this.userGuideFormPage.controls.description.errors) {
+          container.classList.add('invalid-border');
+        }
+        
+      });
+    }
   };
 
 
@@ -35,22 +44,11 @@ export class UserguideComponent implements OnInit {
     this.userGuideFormPage = this.fb.group({
       title: ['', [Validators.required]],
       code: ['', [Validators.required]],
-      description: ['', Validators.required]
+      description: ['', [Validators.required]]
     })
   }
   ngOnInit(): void {
     this.bindDealerData();
-  }
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      if (this.submitted && this.userGuideFormPage.controls.description.errors) {
-        const el = document.querySelector('.tox-editor-container');
-        if (el) {
-          el.classList.add('custom-error-border');
-        }
-      }
-    }, 300);
   }
 
   bindDealerData() {
@@ -76,6 +74,7 @@ export class UserguideComponent implements OnInit {
 
   addNewRole() {
     this.gridForm = !this.gridForm;
+    this.submitted = false;
   }
 
   getHelpXpertData() {
@@ -146,6 +145,7 @@ export class UserguideComponent implements OnInit {
     this.action= 'A';
     this.spinner = false;
     this.gridForm = !this.gridForm;
+    this.submitted = false;
   }
 
   handleStatus(e: any) {

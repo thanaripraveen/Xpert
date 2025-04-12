@@ -65,6 +65,7 @@ export class HowdoiComponent implements OnInit {
   }
 
   bindDealerData() {
+    this.spinner = true;
     const obj = {
       "searchstring": this.dealer,
       "userId": this.common.userid

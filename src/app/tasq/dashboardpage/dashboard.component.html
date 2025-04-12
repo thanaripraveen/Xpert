@@ -1,0 +1,910 @@
+<main>
+  <nav class="navbar navbar-light header py-0">
+    <div class="container-fluid">
+      <div class="d-flex align-items-center justify-content-start">
+        <span class="navbar-brand mb-0 logo">
+          <img src="../../assets/images/Xsupport_logo.png" alt="">
+        </span>
+        <div class="menu">
+          <i class="fa-solid fa-list" [ngClass]="list == true ? 'active' : ''" (click)="list=true"></i>
+          <i class="fas fa-th" [ngClass]="list == false ? 'active' : ''" (click)="list=false"></i>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-start">
+        <button class="btn create_btn">Create New Ticket</button>
+        <div class="profile">
+          <div class="prof_pic">
+            <img src="../../assets/images/Pradeep G S S.jpg" alt="">
+            <div class="sta"></div>
+          </div>
+          <div class="desg">
+            <h5>Pradeep GSS</h5>
+            <h6>Sr. Web Designer</h6>
+            <!-- <div class="status">
+              online <span><img src="../../assets/images/" alt=""></span>
+            </div> -->
+          </div>
+        </div>
+        <div class="dropdown setting">
+          <a href="#" class="d-flex align-items-center justify-content-center p-2 p-lg-1" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="../../assets/images/Settings.png">
+          </a>
+          <ul class="dropdown-menu text-small shadow p-0">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+
+            <li><a class="dropdown-item" href="#">Sign out <img src="../../assets/images/signout.png" alt=""></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid ">
+    <div class="row mt-3">
+      <div class="lft_main d-none">
+        <div class=" lft_panel">
+
+          <div class="status">
+            <p>Online <span class="dot_grn"></span></p>
+            <div class="pp">
+              <img src="../../assets/images/Jagadish V.jpg" alt="">
+            </div>
+            <div class="pp">
+              <img src="../../assets/images/Sreeranjani B.jfif" alt="">
+            </div>
+            <div class="pp">
+              <img src="../../assets/images/Srinivasa Rao Y.JPG" alt="">
+            </div>
+          </div>
+
+          <div class="dropdown setting">
+            <a href="#" class="d-flex align-items-center justify-content-center p-3 p-lg-2" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <img src="../../assets/images/Settings.png">
+            </a>
+            <ul class="dropdown-menu text-small shadow">
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Sign out <img src="../../assets/images/signout.png" alt=""></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="rgt_panel">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center justify-content-start">
+              <h1>Tickets</h1>
+              <div class="tic_status">
+                <h6>Open <span>288</span></h6>
+                <h6>Closed <span>4889</span></h6>
+                <h6>resolved <span>35</span></h6>
+                <h6>un assigned <span>04</span></h6>
+                <h6>re-opened <span>37</span></h6>
+                <h6>in development <span>16</span></h6>
+                <h6>testing<span>03</span></h6>
+                <h6>ready for release<span>01</span></h6>
+                <h6>un resolved <span>15</span></h6>
+                <h6>sub tickets<span>25</span></h6>
+              </div>
+            </div>
+            <div>
+              <div class="search">
+                <input type="text" class="form-control" placeholder="Search">
+                <img src="../../assets/images/search_icon.png" alt="" class="search-icon">
+              </div>
+            </div>
+          </div>
+
+          <div class="status_bar">
+            <div class="filters">
+              <div class="dropdown-container">
+                <select>
+                  <option selected>status</option>
+                  <option value="1">Open</option>
+                  <option value="2">Close</option>
+                </select>
+              </div>
+              <div class="dropdown-container">
+                <select>
+                  <option selected>ticket owner</option>
+                  <option value="1">Axel Automotive</option>
+                  <option value="2">Cavender</option>
+                </select>
+              </div>
+              <div class="dropdown-container">
+                <select>
+                  <option selected>create date</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+              </div>
+              <div class="dropdown-container">
+                <select>
+                  <option selected>close date</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+              </div>
+              <div class="dropdown-container">
+                <select>
+                  <option selected>customer</option>
+                  <option value="1">Cavender</option>
+                  <option value="2">FredBeans</option>
+                </select>
+              </div>
+              <div class="dropdown-container">
+                <select>
+                  <option selected>assigned to</option>
+                  <option value="1">Ankireddy</option>
+                  <option value="2">Sreeranjani B</option>
+                </select>
+              </div>
+              <div class="dropdown-container">
+                <select>
+                  <option selected>by manager</option>
+                  <option value="1">Veerababu CH</option>
+                  <option value="2">Srinivas Rao</option>
+                </select>
+              </div>
+              <p data-bs-toggle="dropdown" aria-expanded="false">sorting <span><img src="../../assets/images/sort.png"
+                    alt=""></span></p>
+              <ul class="dropdown-menu text-small shadow filter_adv">
+                <li><a class="dropdown-item" href="#">by manager</a></li>
+                <li><a class="dropdown-item" href="#">resolved</a></li>
+              </ul>
+              <p data-bs-toggle="dropdown" aria-expanded="false">advanced filters <span><img
+                    src="../../assets/images/filter.svg" alt=""></span></p>
+              <ul class="dropdown-menu text-small shadow filter_adv">
+                <li><a class="dropdown-item" href="#">customers</a></li>
+                <li><a class="dropdown-item" href="#">release</a></li>
+              </ul>
+              <!-- <select class="form-select form-select-sm">
+                <option selected>status</option>
+                <option value="1">Unassigned</option>
+                <option value="2">Open</option>
+                <option value="3">Indevelopment</option>
+              </select>
+              <select class="form-select form-select-sm">
+                <option selected>ticket owner</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+              <select class="form-select form-select-sm">
+                <option selected>create date</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+              <select class="form-select form-select-sm">
+                <option selected>close date</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+              <select class="form-select form-select-sm">
+                <option selected>customers</option>
+                <option value="1">Cavender</option>
+                <option value="2">DreamMotors</option>
+                <option value="3">FredBeans</option>
+              </select>
+              <select class="form-select form-select-sm">
+                <option selected>assigned to</option>
+                <option value="1">Veerababu CH</option>
+                <option value="2">Ankireddy</option>
+                <option value="3">Pradeep GSS</option>
+              </select>
+              <select class="form-select form-select-sm">
+                <option selected>by manager</option>
+                <option value="1">Veerababu CH</option>
+                <option value="2">SrinivasRao Y</option>
+                <option value="3">Gowtham GVV</option>
+              </select> -->
+
+
+            </div>
+            <div class="d-flex align-items-center justify-content-center ms-auto">
+              <button class="btn_sml sub_btn mx-2">Submit</button>
+              <button class="btn_sml clr_btn mx-2">Clear</button>
+            </div>
+
+          </div>
+          <div class="table-wrapper" *ngIf="list">
+            <table class="table custom-table">
+              <thead>
+                <tr>
+                  <th>ticket name</th>
+                  <th>project</th>
+                  <th>dealer</th>
+                  <th>status</th>
+                  <th>assignee</th>
+                  <th>due date</th>
+                  <th>severity</th>
+                  <th>priority</th>
+                  <th>tags</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="custom-row">
+                  <td>
+                    <div class="d-flex align-items-center"><img src="../../assets/images/CheckCircle_gry.png" alt="">
+                      <div>Variable Income/Expense report issue</div>
+                    </div>
+                  </td>
+                  <td>Onboarding</td>
+                  <td>ancira</td>
+                  <td>open</td>
+                  <td>
+                    <div class="assigne">
+                      <img src="../../assets/images/Mahesh Babu N.JPG" alt="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lte_ylw">tomorrow</div>
+                  </td>
+                  <td>
+                    <div class="ylw">Medium</div>
+                  </td>
+                  <td>
+                    <div class="lte_ylw">medium</div>
+                  </td>
+                  <td>
+                    <div class="tags-content">
+                      <div class="tags">
+                        <div class="red">Bug</div>
+                        <div class="dark_blue">App Support</div>
+                        <div class="blue">Data Validation</div>
+                        <div class="red">Bug</div>
+                        <div class="dark_blue">App Support</div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="custom-row">
+                  <td><img src="../../assets/images/CheckCircle_gry.png" alt=""> Sales Gross</td>
+                  <td>Onboarding</td>
+                  <td>Cavender</td>
+                  <td>In Progress</td>
+                  <td>
+                    <div class="assigne">
+                      <img src="../../assets/images/Gowtham G V V.jpg" alt="">
+                    </div>
+                  </td>
+                  <td>Feb<span>12</span></td>
+                  <td>
+                    <div class="grn">Low</div>
+                  </td>
+                  <td>
+                    <div class="lte_ylw">Medium</div>
+                  </td>
+                  <td>
+                    <div class="tags-content">
+                      <div class="tags">
+                        <div class="red">Bug</div>
+                        <div class="dark_blue">App Support</div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="custom-row">
+                  <td>
+                    <div class="d-flex align-items-center"><img src="../../assets/images/CheckCircle_gry.png" alt="">
+                      Booked Deals Report</div>
+                  </td>
+                  <td>Support</td>
+                  <td>Fred Beans</td>
+                  <td>open</td>
+                  <td>
+                    <div class="assigne">
+                      <img src="../../assets/images/Jagadish V.jpg" alt="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lte_red">yesterday</div>
+                  </td>
+                  <td>
+                    <div class="red">High</div>
+                  </td>
+                  <td>
+                    <div class="lte_red">
+                      High
+                    </div>
+                  </td>
+                  <td>
+                    <div class="tags-content">
+                      <div class="tags">
+                        <div class="red">Bug</div>
+                        <div class="dark_blue">App Support</div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="custom-row closed">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="../../assets/images/CheckCircle_blue.png" alt=""> BDC Sales people not populaating on
+                      dropdown
+                    </div>
+                  </td>
+                  <td>Support</td>
+                  <td>FredBeans</td>
+                  <td>closed</td>
+                  <td>
+                    <div class="assigne">
+                      <img src="../../assets/images/Sreeranjani B.jfif" alt="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lte_red">yesterday</div>
+                  </td>
+                  <td>
+                    <div class="red">High</div>
+                  </td>
+                  <td>
+                    <div class="lte_red">
+                      High
+                    </div>
+                  </td>
+                  <td>
+                    <div class="tags-content">
+                      <div class="tags">
+                        <div class="red">Bug</div>
+                        <div class="dark_blue">App Support</div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="custom-row">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="../../assets/images/CheckCircle_gry.png" alt="">
+                      <div>Variable Income/Expense report issue</div>
+                    </div>
+                  </td>
+                  <td>Onboarding</td>
+                  <td>ancira</td>
+                  <td>In Progress</td>
+                  <td>
+                    <div class="assigne">
+                      <img src="../../assets/images/Veerababu Ch.jpg" alt="">
+                    </div>
+                  </td>
+                  <td>Feb<span>12</span></td>
+                  <td>
+                    <div class="grn">Low</div>
+                  </td>
+                  <td>
+                    <div class="lte_ylw">Medium</div>
+                  </td>
+                  <td>
+                    <div class="tags-content">
+                      <div class="tags">
+                        <div class="red">Bug</div>
+                        <div class="dark_blue">App Support</div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="custom-row">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="../../assets/images/CheckCircle_gry.png" alt="">
+                      <div>Variable Income/Expense report issue</div>
+                    </div>
+                  </td>
+                  <td>Onboarding</td>
+                  <td>ancira</td>
+                  <td>open</td>
+                  <td>
+                    <div class="assigne">
+                      <img src="../../assets/images/Anki Reddy M.png" alt="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lte_red">yesterday</div>
+                  </td>
+                  <td>
+                    <div class="red">High</div>
+                  </td>
+                  <td>
+                    <div class="lte_red">
+                      High
+                    </div>
+                  </td>
+                  <td>
+                    <div class="tags-content">
+                      <div class="tags">
+                        <div class="blue">Data validation</div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="custom-row">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="../../assets/images/CheckCircle_gry.png" alt="">
+                      <div>Variable Income/Expense report issue</div>
+                    </div>
+                  </td>
+                  <td>Onboarding</td>
+                  <td>ancira</td>
+                  <td>open</td>
+                  <td>
+                    <div class="assigne">
+                      <img src="../../assets/images/Prasanth K B.jpg" alt="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lte_ylw">tomorrow</div>
+                  </td>
+                  <td>
+                    <div class="ylw">Medium</div>
+                  </td>
+                  <td>
+                    <div class="lte_ylw">medium</div>
+                  </td>
+                  <td>
+                    <div class="tags-content">
+                      <div class="tags">
+                        <div class="red">Bug</div>
+                        <div class="dark_blue">App Support</div>
+                        <div class="blue">Data Validation</div>
+                        <div class="red">Bug</div>
+                        <div class="dark_blue">App Support</div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="custom-row">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="../../assets/images/CheckCircle_gry.png" alt="">
+                      <div>Variable Income/Expense report issue</div>
+                    </div>
+                  </td>
+                  <td>Onboarding</td>
+                  <td>ancira</td>
+                  <td>In Progress</td>
+                  <td>
+                    <div class="assigne">
+                      <img src="../../assets/images/Pradeep G S S.jpg" alt="">
+                    </div>
+                  </td>
+                  <td>Feb<span>12</span></td>
+                  <td>
+                    <div class="grn">Low</div>
+                  </td>
+                  <td>
+                    <div class="lte_ylw">Medium</div>
+                  </td>
+                  <td>
+                    <div class="tags-content">
+                      <div class="tags">
+                        <div class="red">Bug</div>
+                        <div class="dark_blue">App Support</div>
+                        <div class="purple">Design</div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="custom-row">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="../../assets/images/CheckCircle_gry.png" alt="">
+                      <div>Variable Income/Expense report issue</div>
+                    </div>
+                  </td>
+                  <td>Onboarding</td>
+                  <td>ancira</td>
+                  <td>open</td>
+                  <td>
+                    <div class="assigne">
+                      <img src="../../assets/images/Jagadish V.jpg" alt="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lte_red">yesterday</div>
+                  </td>
+                  <td>
+                    <div class="red">High</div>
+                  </td>
+                  <td>
+                    <div class="lte_red">
+                      High
+                    </div>
+                  </td>
+                  <td>
+                    <div class="tags-content">
+                      <div class="tags">
+                        <div class="red">Bug</div>
+                        <div class="dark_blue">App Support</div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="custom-row">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="../../assets/images/CheckCircle_gry.png" alt="">
+                      <div>Variable Income/Expense report issue</div>
+                    </div>
+                  </td>
+                  <td>Onboarding</td>
+                  <td>ancira</td>
+                  <td>open</td>
+                  <td>
+                    <div class="assigne">
+                      <img src="../../assets/images/Sreeranjani B.jfif" alt="">
+                    </div>
+                  </td>
+                  <td>
+                    <div class="lte_ylw">tomorrow</div>
+                  </td>
+                  <td>
+                    <div class="ylw">Medium</div>
+                  </td>
+                  <td>
+                    <div class="lte_ylw">medium</div>
+                  </td>
+                  <td>
+                    <div class="tags-content">
+                      <div class="tags">
+                        <div class="red">Bug</div>
+                        <div class="dark_blue">App Support</div>
+                        <div class="blue">Data Validation</div>
+                        <div class="red">Bug</div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="grid_panel" *ngIf="!list">
+            <div class="row">
+              <!-- <div class="col-12 grid">
+                <div class="row">
+                  <div class="col-6 col-lg-3"><button class="btn">open</button></div>
+                  <div class="col-6 col-lg-3"><button class="btn">in progress</button></div>
+                  <div class="col-6 col-lg-3"><button class="btn">blocked</button></div>
+                  <div class="col-6 col-lg-3"><button class="btn">closed</button></div>
+                </div>
+              </div> -->
+              <div class="col-12 mt-2 overflow-auto">
+                <div class="row d-flex flex-nowrap">
+                  <div class="col-6 col-lg-3 ps-0 pe-2">
+                    <div class="grid">
+                      <div class="col-12"><button class="btn">open</button></div>
+                    </div>
+                    <div class="grid_box">
+                      <div class="box">
+                        <div class="title">
+                          <div class="subj">
+                            <span><img src="../../assets/images/CheckCircle_gry.png" alt=""></span>
+                            <h1>variable income/expense report </h1>
+                          </div>
+                          <div class="status">
+                            <div class="ylw"></div>
+                          </div>
+                        </div>
+                        <div class="descp">
+                          industry confident asked me about you today confident asked me about you today confident asked
+                          me about you today asked me about you today
+                        </div>
+                        <div class="tags_sec">
+                          <div class="dark_blue">app support</div>
+                          <div class="purple">Design</div>
+                        </div>
+                        <div class="assign">
+                          <img src="../../assets/images/Meher Kiran Nori.png" alt="">
+                          <div class="due_date">
+                            <p>Due <span>Feb <span>9</span></span></p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box">
+                        <div class="title">
+                          <div class="subj">
+                            <span><img src="../../assets/images/CheckCircle_gry.png" alt=""></span>
+                            <h1>Ancira Receivables Reports </h1>
+                          </div>
+                          <div class="status">
+                            <div class="red"></div>
+                          </div>
+                        </div>
+                        <div class="descp">
+                          Iam registered as a used but my Sales info ffrom last month
+                        </div>
+                        <div class="tags_sec">
+                          <div class="dark_blue">app support</div>
+                          <div class="blue">data validation</div>
+                          <div class="red">bug</div>
+                        </div>
+                        <div class="assign">
+                          <img src="../../assets/images/Anki Reddy M.png" alt="">
+                          <div class="due_date">
+                            <p class="red">Yesterday</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box">
+                        <div class="title">
+                          <div class="subj">
+                            <span><img src="../../assets/images/CheckCircle_gry.png" alt=""></span>
+                            <h1>variable income/expense report issues </h1>
+                          </div>
+                          <div class="status">
+                            <div class="ylw"></div>
+                          </div>
+                        </div>
+                        <div class="descp">
+                          industry confident asked me about you today confident asked me about you today confident asked
+                          me about you today asked me about you today
+                        </div>
+                        <div class="tags_sec">
+                          <div class="dark_blue">app support</div>
+                          <div class="blue">data validation</div>
+                          <div class="red">bug</div>
+                          <div class="purple">Design</div>
+                        </div>
+                        <div class="assign">
+                          <img src="../../assets/images/" alt="">
+                          <div class="due_date">
+                            <p class="ylw">Due tomorrow</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-6 col-lg-3 ps-2 pe-2">
+                    <div class="grid">
+                      <div class="col-12"><button class="btn">in progress</button></div>
+                    </div>
+                    <div class="grid_box">
+                      <div class="box">
+                        <div class="title">
+                          <div class="subj">
+                            <span><img src="../../assets/images/CheckCircle_gry.png" alt=""></span>
+                            <h1>variable income/expense report </h1>
+                          </div>
+                          <div class="status">
+                            <div class="ylw"></div>
+                          </div>
+                        </div>
+                        <div class="descp">
+                          industry confident asked me about you today confident asked me about you today confident asked
+                          me about you today asked me about you today
+                        </div>
+                        <div class="tags_sec">
+                          <div class="dark_blue">app support</div>
+                          <div class="purple">Design</div>
+                        </div>
+                        <div class="assign">
+                          <img src="../../assets/images/Veerababu Ch.jpg" alt="">
+                          <div class="due_date">
+                            <p>Due <span>Feb <span>9</span></span></p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box">
+                        <div class="title">
+                          <div class="subj">
+                            <span><img src="../../assets/images/CheckCircle_gry.png" alt=""></span>
+                            <h1>Ancira Receivables Reports </h1>
+                          </div>
+                          <div class="status">
+                            <div class="red"></div>
+                          </div>
+                        </div>
+                        <div class="descp">
+                          Iam registered as a used but my Sales info ffrom last month
+                        </div>
+                        <div class="tags_sec">
+                          <div class="dark_blue">app support</div>
+                          <div class="blue">data validation</div>
+                          <div class="red">bug</div>
+                        </div>
+                        <div class="assign">
+                          <img src="../../assets/images/Sreeranjani B.jfif" alt="">
+                          <div class="due_date">
+                            <p class="red">Yesterday</p>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                  <div class="col-6 col-lg-3 ps-2 pe-2">
+                    <div class="grid">
+                      <div class="col-12"><button class="btn">blocked</button></div>
+                    </div>
+                    <div class="grid_box">
+                      <div class="box">
+                        <div class="title">
+                          <div class="subj">
+                            <span><img src="../../assets/images/CheckCircle_gry.png" alt=""></span>
+                            <h1>variable income/expense report </h1>
+                          </div>
+                          <div class="status">
+                            <div class="ylw"></div>
+                          </div>
+                        </div>
+                        <div class="descp">
+                          industry confident asked me about you today confident asked me about you today confident asked
+                          me about you today asked me about you today
+                        </div>
+                        <div class="tags_sec">
+                          <div class="dark_blue">app support</div>
+                          <div class="purple">Design</div>
+                        </div>
+                        <div class="assign">
+                          <img src="../../assets/images/Prasanth K B.jpg" alt="">
+                          <div class="due_date">
+                            <p>Due <span>Feb <span>9</span></span></p>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                  <div class="col-6 col-lg-3 ps-2 pe-0">
+                    <div class="grid">
+                      <div class="col-12"><button class="btn">closed</button></div>
+                    </div>
+                    <div class="grid_box">
+                      <div class="box closed">
+                        <div class="title">
+                          <div class="subj">
+                            <span><img src="../../assets/images/CheckCircle_grn.png" alt=""></span>
+                            <h1>variable income/expense report </h1>
+                          </div>
+                          <div class="status">
+                            <div class="ylw"></div>
+                          </div>
+                        </div>
+                        <div class="descp">
+                          industry confident asked me about you today confident asked me about you today confident asked
+                          me about you today asked me about you today
+                        </div>
+                        <div class="tags_sec">
+                          <div class="dark_blue">app support</div>
+                          <div class="purple">Design</div>
+                        </div>
+                        <div class="assign">
+                          <img src="../../assets/images/Meher Kiran Nori.png" alt="">
+                          <div class="due_date">
+                            <p>Due <span>Feb <span>9</span></span></p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box closed">
+                        <div class="title">
+                          <div class="subj">
+                            <span><img src="../../assets/images/CheckCircle_grn.png" alt=""></span>
+                            <h1>Ancira Receivables Reports </h1>
+                          </div>
+                          <div class="status">
+                            <div class="red"></div>
+                          </div>
+                        </div>
+                        <div class="descp">
+                          Iam registered as a used but my Sales info ffrom last month
+                        </div>
+                        <div class="tags_sec">
+                          <div class="dark_blue">app support</div>
+                          <div class="blue">data validation</div>
+                          <div class="red">bug</div>
+                        </div>
+                        <div class="assign">
+                          <img src="../../assets/images/Pradeep G S S.jpg" alt="">
+                          <div class="due_date">
+                            <p class="red">Yesterday</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box closed">
+                        <div class="title">
+                          <div class="subj">
+                            <span><img src="../../assets/images/CheckCircle_grn.png" alt=""></span>
+                            <h1>variable income/expense report issues </h1>
+                          </div>
+                          <div class="status">
+                            <div class="ylw"></div>
+                          </div>
+                        </div>
+                        <div class="descp">
+                          industry confident asked me about you today confident asked me about you today confident asked
+                          me about you today asked me about you today
+                        </div>
+                        <div class="tags_sec">
+                          <div class="dark_blue">app support</div>
+                          <div class="blue">data validation</div>
+                          <div class="red">bug</div>
+                          <div class="purple">Design</div>
+                        </div>
+                        <div class="assign">
+                          <img src="../../assets/images/Jagadish V.jpg" alt="">
+                          <div class="due_date">
+                            <p class="ylw">Due tomorrow</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="col-6 col-lg-3 ps-2 pe-2">
+                    <div class="grid">
+                      <div class="col-12"><button class="btn">un assigned</button></div>
+                    </div>
+                    <div class="grid_box">
+                      <div class="box">
+                        <div class="title">
+                          <div class="subj">
+                            <span><img src="../../assets/images/CheckCircle_gry.png" alt=""></span>
+                            <h1>variable income/expense report </h1>
+                          </div>
+                          <div class="status">
+                            <div class="ylw"></div>
+                          </div>
+                        </div>
+                        <div class="descp">
+                          industry confident asked me about you today confident asked me about you today confident asked
+                          me about you today asked me about you today
+                        </div>
+                        <div class="tags_sec">
+                          <div class="dark_blue">app support</div>
+                          <div class="purple">Design</div>
+                        </div>
+                        <div class="assign">
+                          <img src="../../assets/images/Veerababu Ch.jpg" alt="">
+                          <div class="due_date">
+                            <p>Due <span>Feb <span>9</span></span></p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="box">
+                        <div class="title">
+                          <div class="subj">
+                            <span><img src="../../assets/images/CheckCircle_gry.png" alt=""></span>
+                            <h1>Ancira Receivables Reports </h1>
+                          </div>
+                          <div class="status">
+                            <div class="red"></div>
+                          </div>
+                        </div>
+                        <div class="descp">
+                          Iam registered as a used but my Sales info ffrom last month
+                        </div>
+                        <div class="tags_sec">
+                          <div class="dark_blue">app support</div>
+                          <div class="blue">data validation</div>
+                          <div class="red">bug</div>
+                        </div>
+                        <div class="assign">
+                          <img src="../../assets/images/Sreeranjani B.jfif" alt="">
+                          <div class="due_date">
+                            <p class="red">Yesterday</p>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

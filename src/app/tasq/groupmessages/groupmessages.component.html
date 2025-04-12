@@ -9,11 +9,94 @@
 </div>
 <div class="groupMessagesPage">
     <div class="col-12 d-flex align-items-center headerDesign ">
-        <div class="col-10 title">Roles</div>
-
+        <div class="col-7 title">Group Messages</div>
+        <div class="col-3" *ngIf="gridForm == true">
+            <select name="" id="" class="form-select" [(ngModel)]="dealer" (change)="changeDealer()"
+                style="padding: .125rem 2.25rem .125rem .75rem;margin: 3px 0;">
+                <option value="0">Select Dealer</option>
+                <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
+            </select>
+        </div>
         <div class="col-2 text-end tagsHead d-flex justify-content-end pe-1">
-            <div class="addBtnStyle" *ngIf="gridForm == true" (click)="addNewRole()"><img
+            <div class="addBtnStyle" *ngIf="gridForm == true" (click)="addNewGroupMessage()"><img
                     src="../../../assets/images/xpertAddIcon.png" alt=""><span>add</span></div>
         </div>
     </div>
+
+    <div class="scrollTagsData" *ngIf="gridForm == true">
+        <table class="table  table-striped gridTable">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th class="text-center">Message</th>
+                    <th class="text-center">Expiry Date</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Edit</th>
+                </tr>
+            </thead>
+            <tbody >
+                
+                <tr  *ngFor="let msg of groupMessagesDataList" >
+                    <td>{{msg.UserName}}</td>
+                    <td class="text-center"  [innerHTML]="removeGroup_MessageTags(msg.Group_Message)"></td>
+                    <td class="text-center" >{{msg.GM_EXP_Date}}</td>
+                    <td class="col-2 text-center">
+                        <span style="padding-right: 8px;cursor: pointer;" [style.color]="msg.Status == 'Y' ? 'black' : 'grey'" (click)="statusClick('Y' , msg)">{{msg.Status == 'Y' ? 'Active' : 'Active'}}</span>
+                        <span style="padding-left: 8px;border-left: 1px solid black;cursor: pointer;" [style.color]="msg.Status == 'N' ? 'black' : 'grey'" (click)="statusClick('N',msg)">{{msg.Status == 'N' ? 'Inactive' : 'Inactive'}}</span>
+                    </td>
+                    <td class="text-center"><img src="assets/images/editIcon.png" alt="" style="cursor: pointer;" (click)="editGrpMsg(msg)" ></td>
+                   
+                </tr>
+            
+            </tbody>
+        </table>
+        </div>
+
+        <div class="groupMessagesDiv mt-2 text-black" *ngIf="gridForm == false">
+            <form action="" [formGroup]="groupMessagesForm">
+                <div style="height: calc(96vh - 102px);overflow: auto;overflow-x:hidden;padding-right: 10px;">
+                    <div class="row mb-2">    
+                        <div class="col-md-6 d-flex align-items-center">
+                            <label for="title" class="col-3 col-form-label">Expiry Date:</label>
+                            <div class="col-9">
+                                <div class="datepicker-container">
+                                    <input class="form-control" name="date" autocomplete="off" formControlName="expiryDate" placeholder="Date" [(bsValue)]="selectDate" (bsValueChange)="onDateChange($event)"
+                                        bsDatepicker #datepicker="bsDatepicker" [ngClass]="{'is-invalid': submitted && groupMessagesForm.controls.expiryDate.errors }"
+                                        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY', showWeekNumbers: false, containerClass: 'theme-dark-blue' }"
+                                        style="padding: .175rem .75rem;" />
+                    
+                                    <img src="../../../assets/images/calendar-icon.png" class="datepicker-close-img" alt="Close"
+                                        #dp="bsDatepicker" bsDatepicker formControlName="expiryDate" [(bsValue)]="selectDate" />
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+    
+                    <div class="row mb-2">
+                        <div [ngClass]="{'invalid-border': submitted && groupMessagesForm.controls.description.errors }">
+                        <angular-editor [config]="config" formControlName="description" (paste)="onPaste($event)"></angular-editor>
+                      </div>
+                      </div>
+    
+                      <div class="row mb-2" *ngIf="action == 'U'">
+                        <div class="col-md-6 d-flex align-items-center">
+                            <label for="status" class="col-3 col-form-label">Status:</label>
+                            <div class="col-9">
+                                <span [ngStyle]="{'color': status== true ? 'green' : 'red' }" class="col-2">
+                                    <input type="checkbox" [checked]="status" class="ps-2"
+                                        (change)="handleStatus($event)" />&nbsp;&nbsp;{{status == true ? 'Active' :
+                                    'In-Active'}}</span> 
+                            </div>
+                        </div>
+                      </div>
+    
+                      <div class="text-center mt-4">
+                        <button class="btn btn-primary me-2" style="background-color: #f37121;border: 1px solid #f37121" (click)="submitClick()">Submit</button>
+                        <button class="btn btn-secondary" (click)="reset()">Cancel</button>
+                      </div>
+    
+                </div>
+            </form>
+        </div>
 </div>

@@ -75,10 +75,8 @@
                 </div>
 
                 <div class="row mb-2">
-                    <div>
-                        <editor [init]="init" formControlName="description" [ngClass]="{ 'is-invalid': submitted && userGuideFormPage.controls.description.errors }"/>
-
-                  </div>
+                    <editor [ngClass]="{ 'invalid-border': submitted && userGuideFormPage.controls.description.errors }" [init]="init" formControlName="description">
+                  </editor>
                   </div>
 
                   <div class="row mb-2" *ngIf="action == 'U'">
