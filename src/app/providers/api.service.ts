@@ -49,6 +49,7 @@ export class ApiService implements OnDestroy {
 
   private ticketData = new BehaviorSubject<any>('');
   private selectUserInfo = new BehaviorSubject<any>('');
+  private showHideDiv = new BehaviorSubject<any>(true);
 
 
   constructor(private http: HttpClient, private common: common,private ngZone: NgZone) {
@@ -157,6 +158,13 @@ export class ApiService implements OnDestroy {
   }
   getEditTaskData() : Observable<any> {
     return this.editTaskData.asObservable()
+  }
+
+  setShowHideToggleDiv(data: boolean) {
+    this.showHideDiv.next(data);
+  }
+  getShowHideToggleDiv() : Observable<any> {
+    return this.showHideDiv.asObservable()
   }
 
   bindSubGrid(id: any) {

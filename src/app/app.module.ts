@@ -13,6 +13,7 @@ import { NgxEditorModule } from 'ngx-editor';
 import { ToastrModule } from 'ngx-toastr';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { HeaderNewModule } from './header-new/header-new.module';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     AppRoutingModule,
     HeaderModule,
     ProfileModule,
+    HeaderNewModule,
     BrowserAnimationsModule,BsDatepickerModule.forRoot(),
     NgxEditorModule, // Add NgxEditorModule here
     ToastrModule.forRoot({

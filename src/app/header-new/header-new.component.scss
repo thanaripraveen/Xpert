@@ -1,0 +1,213 @@
+.header {
+    background: #f4f4f5;
+  
+    .logo {
+      img {
+        height: 35px;
+      }
+    }
+  
+    .create_btn {
+      background: #0554EF;
+      padding: .2rem .5rem;
+      border-radius: 5px;
+      color: #fff;
+      font-size: .8rem;
+      text-align: center;
+    }
+  
+    .menu {
+      width: fit-content;
+      margin: 0 auto;
+      background: #d4d4d8;
+      padding: .2rem;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      i {
+        padding: .2rem .3rem;
+        margin: 0 .1rem;
+  
+        &:hover {
+          background: #fff;
+          cursor: pointer;
+          border-radius: 5px;
+        }
+  
+        &.active {
+          background: #fff;
+          border-radius: 5px;
+        }
+      }
+    }
+  
+    .profile {
+      display: flex;
+      align-items: center;
+      margin: 0 1.5rem;
+  
+      .prof_pic {
+        position: relative;
+        margin: 0 .5rem 0 0;
+  
+        img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          border: 1px solid #ccc;
+          position: relative;
+        }
+  
+        .sta {
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          bottom: 3px;
+          right: -1px;
+          background: #17c964;
+          border-radius: 50%;
+          z-index: 33;
+          cursor: pointer;
+        }
+      }
+  
+      .desg {
+        h5 {
+          font-size: .7rem;
+          font-family: 'FaktPro-Medium';
+          ;
+          margin: 0;
+        }
+  
+        h6 {
+          font-size: .6rem;
+          font-family: 'FaktPro-Normal';
+          ;
+          margin: 0;
+        }
+  
+        .status {
+          display: flex;
+          align-items: center;
+          font-size: .5rem;
+          text-transform: uppercase;
+  
+          span {
+            margin-left: .5rem;
+          }
+        }
+      }
+    }
+  
+    .setting {
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      width: fit-content;
+      margin: 0;
+      padding: 0;
+  
+      img {
+        height: 25px;
+      }
+  
+      .dropdown-item {
+        img {
+          height: 20px;
+          padding-left: .5rem;
+        }
+      }
+  
+      .dropdown-menu {
+        right: 0 !important;
+        left: -130px;
+  
+        li {
+          border-bottom: 1px solid #ccc;
+        }
+      }
+  
+      .dropdown-item:hover {
+        border-radius: 10px;
+      }
+  
+      .dropdown-item:focus {
+        background: none;
+        color: #333;
+      }
+    }
+  
+    .nav-row {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin-left: 20px; /* Space from logo */
+        background: none;
+        margin: 0;
+      }
+      
+      /* Parent link */
+      .nav-item {
+        margin-right: 15px;
+      }
+      
+      .nav-row a {
+        text-decoration: none;
+        // color: white;
+        font-size: 14px;
+        font-family: 'FaktPro-Medium';
+        padding: 5px 5px;
+      }
+      
+      /* Active Parent Link */
+      .nav-item.active > a {
+        color: #ff6f00 !important;
+      }
+      .nav-item img {
+        // margin-right: 5px;
+      }
+      
+      /* Dropdown */
+      .nav-item:hover .dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      
+      /* Ensure dropdown only appears when `*ngIf` is true */
+      .dropdown1 {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100vw; /* Adjust as needed */
+        background: white;
+        padding: 10px 0;
+        list-style: none;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        text-align: center;
+      }
+      
+      /* Active Child Link */
+      .dropdown1 li.active > a {
+        font-weight: bold;
+        color: #007bff !important;
+      }
+      
+      /* Style child links */
+      .dropdown1 a {
+        color: black;
+        background: none;
+        padding: 10px 15px;
+        display: block;
+        font-size: 14px;
+      }
+      
+      .dropdown1 a:hover {
+        background: #f1f1f1;
+      }
+ 
+}

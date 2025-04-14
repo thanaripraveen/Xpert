@@ -1,0 +1,66 @@
+<nav class="navbar navbar-light header py-0">
+    <div class="container-fluid">
+      <div class="d-flex align-items-center justify-content-start">
+        <span class="navbar-brand mb-0 logo">
+          <img src="../../../assets/images/Xsupport_logo.png" alt="">
+        </span>
+        <div class="menu">
+          <i class="fa-solid fa-list" [ngClass]="list == true ? 'active' : ''" (click)="toggleDiv(true)"></i>
+          <i class="fas fa-th" [ngClass]="list == false ? 'active' : ''" (click)="toggleDiv(false)"></i>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-start">
+        <ul class="nav-row ms-3" #menuContainer>
+            <li *ngFor="let item of menuList" class="nav-item d-flex align-items-center" [class.active]="item.active">
+              <img src="assets/images/MenuIcons/{{item.mod_name}}.png" alt="" height="15">
+              <a (click)="toggleMenu(item, $event)" style="cursor: pointer;">{{ item.mod_name }}</a>
+  
+              <!-- Child Links -->
+              <ul *ngIf="item.isOpen" class="dropdown1">
+                <li *ngFor="let child of item.submenu" [class.active]="child.active">
+                  <a [routerLink]="child.path" (click)="subMenuClick(item)">{{ child.mod_name }}</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+      </div>
+      <div class="d-flex align-items-center justify-content-start">
+        <button class="btn create_btn"  (click)="openCreateTask()">Create New Ticket</button>
+        <div class="profile" *ngIf="profileData">
+          <div class="prof_pic">
+            <img src="{{imageUrl}}{{profileData.profileimage_thumb}}" alt="" href="#offcanvasExample" data-bs-toggle="offcanvas">
+            <div class="sta"></div>
+          </div>
+          <div class="desg">
+            <h5>{{profileData.fullname}}</h5>
+            <h6>{{profileData.title}}</h6>
+            <!-- <div class="status">
+              online <span><img src="../../assets/images/" alt=""></span>
+            </div> -->
+          </div>
+        </div>
+        <div class="dropdown setting">
+          <a href="#" class="d-flex align-items-center justify-content-center p-2 p-lg-1" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="../../../assets/images/Settings.png">
+          </a>
+          <ul class="dropdown-menu text-small shadow p-0">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+
+            <li><a class="dropdown-item" href="#">Sign out <img src="../../../assets/images/signout.png" alt=""></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Profile</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body" style="padding: 0">
+    <app-profile></app-profile>
+    </div>
+  </div>

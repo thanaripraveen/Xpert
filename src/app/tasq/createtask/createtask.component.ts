@@ -60,9 +60,9 @@ export class CreatetaskComponent implements OnInit {
       title: ['', [Validators.required]],
       dueDate: [''],
       description: ['', Validators.required],
-      ticketStatus: [''],
+      ticketStatus: ['7'],
       priority: ['']
-    })
+    });
     this.createTaskForm.get('ticketFrom')?.valueChanges.subscribe(value => {
       const txtEmailControl = this.createTaskForm.get('email');
       const txtDealerControl = this.createTaskForm.get('dealer');
@@ -289,6 +289,15 @@ export class CreatetaskComponent implements OnInit {
             this.activeModal.close();
             this.toastr.success('Ticket details added successfully');
             
+            const obj = {
+              "TaskId": localStorage.getItem('ID'), "UserID": this.common.userid
+            }
+            
+            this.api.postMethod1('users/GetTaskViewbyId', obj).subscribe((res: any) => {
+              if (res) {
+             this.api.setUpdateTaskValue({data : res , updateValue : 1})
+              }
+            });
             // this.socketService.sendTask();
             //  this.router.navigate(['dashboard']);
             // this.router.navigate([this.redirectRouteUrl]);

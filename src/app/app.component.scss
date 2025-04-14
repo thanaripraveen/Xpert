@@ -11,3 +11,13 @@
     padding-left: 2px;
     margin-left: 2px;
 }
+
+.bgImg{
+    background-image: url(../assets/images/tasq_innerbg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    // background-color: #f4f4f5;
+    height: 100vh;
+    overflow-x: hidden;
+}

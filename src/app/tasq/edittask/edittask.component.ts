@@ -296,6 +296,14 @@ export class EdittaskComponent implements OnInit {
             this.activeModal.close();
             this.toastr.success('Ticket details updated successfully');
             
+            const obj = {
+              "TaskId": localStorage.getItem('ID'), "UserID": this.common.userid
+            }
+            this.api.postMethod1('users/GetTaskViewbyId', obj).subscribe((res: any) => {
+              if (res) {
+             this.api.setUpdateTaskValue({data : res , updateValue : 1})
+              }
+            });
             // this.socketService.sendTask();
             //  this.router.navigate(['dashboard']);
             // this.router.navigate([this.redirectRouteUrl]);

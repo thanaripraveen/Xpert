@@ -1,9 +1,10 @@
-<app-header *ngIf="show"></app-header>
+<app-header-new *ngIf="show"></app-header-new>
 <!-- <app-menu *ngIf="show"></app-menu> -->
-<div class="container-fluid">
-        <div class="row" *ngIf="currentURL == '/' || currentURL == '/login'"><router-outlet></router-outlet></div>
+<div >
+        <div class="row" *ngIf="currentURL == '/' || currentURL == '/login'" [ngClass]="{'bgImg' : currentURL == '/' || currentURL == '/login'}"><router-outlet></router-outlet></div>
         <div class="row" *ngIf="currentURL != '/' && currentURL != '/login'">
-            <div class="col-lg-3 p-0"> <app-profile  *ngIf="show" ></app-profile></div>
-            <div class="col-lg-9" [style.background-color]="(show == false) ? '' : '#fff'"><router-outlet></router-outlet></div>
+            <!-- <div class="col-lg-3 p-0"> <app-profile  *ngIf="show" ></app-profile></div> -->
+            <!-- <div class="col-lg-12" [style.background-color]="(show == false) ? '' : '#fff'"><router-outlet></router-outlet></div> -->
+            <div class="col-lg-12"><router-outlet></router-outlet></div>
         </div>
 </div>
