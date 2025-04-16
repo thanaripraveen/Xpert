@@ -108,7 +108,7 @@ export class EdittaskComponent implements OnInit {
                 }
               })
             })
-            this.spinner = false;
+            // this.spinner = false;
           }
           else {
             this.spinner = false;
@@ -342,5 +342,26 @@ commentDescription : any =""
 
   closeModal() {
     this.activeModal.close();
+  }
+
+  getSource(tcktFrom : any): string {
+    switch (tcktFrom) {
+      case 'F':
+        return 'Client Support';
+      case 'D':
+        return 'Deployment';
+      case 'G':
+        return 'General Review';
+      case 'O':
+        return 'Onboarding';
+      case 'P':
+        return 'Product Roadmap';
+      case 'A':
+        return 'QA';
+      case 'T':
+        return 'Technical Debt';
+      default:
+        return 'QA';
+    }
   }
 }

@@ -17,7 +17,7 @@
         <div *ngFor="let doc of ticketDocuments" class="mb-1">
             <div class="d-flex align-items-center">
                 <a [title]="doc.Document" target="_blank" class="d-flex align-items-center"
-                    href="{{xpertNodefiles}}/{{doc.Document}}">
+                    href="{{xpertNodefiles}}{{doc.Document}}">
                     <img src="assets/images/landing/img_icon1.png" alt="" />
                     <label>
                         {{ getShortDocument(doc.Document) }}

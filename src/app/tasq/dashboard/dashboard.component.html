@@ -3,7 +3,8 @@
         <div class="logo-glow"></div> <!-- Soft glow behind logo -->
         <div class="spinner"></div>
         <span class="logo-text">
-            <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+      <img src="../../../assets/images/Xsupport_logo_white.png" alt="XPERT" height="25px">
+            
         </span>
     </div>
 </div>
@@ -41,7 +42,7 @@
 
     </div>
 
-    <div class="col-12 d-flex align-items-center box filterRow" [ngClass]="{'show': analyticsGrid == false}">
+    <div class="col-12 d-flex align-items-center box filterRow"  *ngIf="analyticsGrid == false">
         <!-- <div class="row"> -->
         <div class="col-3"></div>
         <div class="col-6 d-flex align-items-center justify-content-center">
@@ -73,7 +74,7 @@
 
     </div>
 
-    <div class="taskGridTable box"  [ngClass]="{'show': analyticsGrid == false}">
+    <div class="taskGridTable box"   *ngIf="analyticsGrid == false">
         <ng-container *ngFor="let task of taskDetailsList">
             <div class="taskGrid">
                 <div class="col-12 d-flex align-items-center firstRow">
@@ -369,7 +370,7 @@
         <img src="../../../assets/images/last.png" alt="">
     </div> -->
 
-<div class="analyticsScroll box" [ngClass]="{'show': analyticsGrid == true}">
+<div class="analyticsScroll box" *ngIf="analyticsGrid == true">
     <div class="table-container">
         <table class="data-table">
             <thead>
@@ -383,7 +384,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let row of analyticsData">
-                    <td class="leftstores fixed-column" style="cursor: pointer;background-color: #244d65;border: none;"
+                    <td class="leftstores fixed-column" style="cursor: pointer;background-color: #244d65;border: none; color: #fff;"
                         (click)="dealerClick(row['DealerId'])">{{ row.DealerName }} <span
                             class="ms-1">({{row.Total}})</span></td>
                     <td *ngFor="let key of totalsArray"><span
@@ -411,9 +412,9 @@
                         </select>
                     </div>
                 </div>
-                <div style="height:auto;overflow: auto;max-height: 375px;">
+                <div style="height:auto;overflow: auto;max-height: 450px;">
                     <div class="col-12 d-flex align-items-center"
-                        style="padding: 10px;font-family: 'FaktPro-Bold';font-size: .9rem;background-color: #5c798b;position: sticky;top: 0;">
+                        style="padding: 10px;font-family: 'FaktPro-Bold';font-size: .9rem;background-color: #5c798b;position: sticky;top: 0;color: #fff;">
                         <div class="col-8">Assign Name</div>
                         <div class="col-4 d-flex justify-content-center">Number Of Tickets</div>
                     </div>
@@ -423,9 +424,9 @@
                           </div>
                     <ng-container *ngFor="let client of allClients">
                         <div class="col-12 text-black d-flex align-items-center " style="background-color: #fff;">
-                            <div class="col-8" style="background-color: #244d65;padding: 7px;color: #fff;font-size: .9rem;text-align: left;"
+                            <div class="col-8" style="background-color: #244d65;padding: 4px;color: #fff;font-size: .9rem;text-align: left;"
                             (click)="GetClientsData(client)">{{client.name}}</div>
-                            <div class="col-4" style="padding: 6px; text-align: center; font-size: .9rem; text-decoration: underline;border-bottom: 1px solid lightgrey;cursor: pointer;"
+                            <div class="col-4" style="padding: 4px; text-align: center; font-size: .9rem; text-decoration: underline;border-bottom: 1px solid lightgrey;cursor: pointer;"
                             (click)="GetClientsData(client)">{{client.count}}</div>
                         </div>
                     </ng-container>

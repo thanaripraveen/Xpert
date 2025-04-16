@@ -3,7 +3,8 @@
     <div class="logo-glow"></div> <!-- Soft glow behind logo -->
     <div class="spinner"></div>
     <span class="logo-text">
-      <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+      <img src="../../../assets/images/Xsupport_logo_white.png" alt="XPERT" height="25px">
+
     </span>
   </div>
 </div>
@@ -40,6 +41,13 @@
           <div class="status_bar">
             <div class="filters">
               <div class="dropdown-container">
+                <select (change)="filterStatusCountChange()" [(ngModel)]="filterDealer">
+                  <option value="">Client</option>
+                  <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
+                </select>
+              </div>
+
+              <div class="dropdown-container">
                 <select name="" id="" (change)="filterStatusCountChange()" [(ngModel)]="filterStatus">
                   <option value="">Status</option>
                   <option value="7">Un Assigned</option>
@@ -53,36 +61,15 @@
                   <option value="8">Re open</option>
                 </select>
               </div>
-              <div class="dropdown-container">
-                <select (change)="filterStatusCountChange()" [(ngModel)]="filterDealer">
-                  <option value="">ticket owner</option>
-                  <option *ngFor="let dealer of dealersData" [value]="dealer.dealer_id">{{dealer.DealerName}}</option>
-                </select>
-              </div>
-              <div class="dropdown-container">
-                <select>
-                  <option selected>create date</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                </select>
-              </div>
-              <div class="dropdown-container">
-                <select>
-                  <option selected>close date</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                </select>
-              </div>
-              <div class="dropdown-container">
 
-
+              <div class="dropdown-container">
                 <select [(ngModel)]="filterCreatedBy">
-                  <option value="">customer</option>
+                  <option value="">Customer</option>
                   <option *ngFor="let user of createdUsersList" [value]="user.T_UserEmail">{{ user.T_UserName }}
                   </option>
                 </select>
-
               </div>
+
               <div class="dropdown-container">
                 <select [(ngModel)]="filterAssignedUser" (change)="selectAssinedUser()">
                   <option value="">Assigned To</option>
@@ -90,23 +77,39 @@
                     user.LastName) }}</option>
                 </select>
               </div>
+           
+              <div class="dropdown-container">
+                <select>
+                  <option selected>Due date</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+              </div>
+              <!-- <div class="dropdown-container">
+                <select>
+                  <option selected>close date</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+              </div> -->
+           
               <div class="dropdown-container">
                 <select [(ngModel)]="filterByManager" (change)="selectManager()">
-                  <option value="0">by manager</option>
+                  <option value="0">By manager</option>
                   <option *ngFor="let user of managersDataList" [value]="user.userid">{{user.name }}</option>
                 </select>
               </div>
-              <p data-bs-toggle="dropdown" aria-expanded="false">sorting <span><img
+              <p data-bs-toggle="dropdown" aria-expanded="false">Sorting <span><img
                     src="../../../assets/images/sort.png" alt=""></span></p>
               <ul class="dropdown-menu text-small shadow filter_adv">
-                <li><a class="dropdown-item" href="#">by manager</a></li>
-                <li><a class="dropdown-item" href="#">resolved</a></li>
+                <li><a class="dropdown-item" href="#">By manager</a></li>
+                <li><a class="dropdown-item" href="#">Resolved</a></li>
               </ul>
-              <p data-bs-toggle="dropdown" aria-expanded="false">advanced filters <span><img
+              <p data-bs-toggle="dropdown" aria-expanded="false">Advanced filters <span><img
                     src="../../../assets/images/filter.svg" alt=""></span></p>
               <ul class="dropdown-menu text-small shadow filter_adv">
-                <li><a class="dropdown-item" href="#">customers</a></li>
-                <li><a class="dropdown-item" href="#">release</a></li>
+                <li><a class="dropdown-item" href="#">Customers</a></li>
+                <li><a class="dropdown-item" href="#">Release</a></li>
               </ul>
               <!-- <select class="form-select form-select-sm">
                   <option selected>status</option>
@@ -166,7 +169,7 @@
                   <th>&nbsp;</th>
                   <th>#ticket </th>
                   <th>source</th>
-                  <th>dealer</th>
+                  <th>client</th>
                   <th>status</th>
                   <th>assignee</th>
                   <th>due date</th>
@@ -177,16 +180,16 @@
               </thead>
               <tbody>
                 <tr class="custom-row" [ngClass]="{'closed' : task.ReqStatus == 'Closed'}"
-                  (click)="openComponent(task,'edit')" alt="" style="cursor: pointer;"
-                  *ngFor="let task of allTicketsData">
+                  (click)="openComponent(task,'edit',$event)" alt="" style="cursor: pointer;"
+                  *ngFor="let task of allTicketsData;let i = index">
                   <td>
                     <div class="d-flex">
                       <div class="position-relative">
-                        <img src="../../assets/images/doc_icon.png" alt="" > <div class="doc_count" *ngIf="task.Documents.Documents && task.Documents.Documents.Document">
+                        <img src="../../assets/images/doc_icon.png" alt="" (click)="openComponent(task,'doc',$event)"> <div class="doc_count" *ngIf="task.Documents.Documents && task.Documents.Documents.Document" >
                           {{ task.Documents.Documents.Document.length>0 ? task.Documents.Documents.Document.length : task.Documents.Documents.Document? 1:0}}
                         </div>
                       </div>
-                      <div class="position-relative"><img src="../../assets/images/comment_icon.png"alt=""><div class="doc_count" *ngIf="task.cmtcnt > 0" (click)="openComponent(task,'comments')">{{task.cmtcnt}}</div></div>
+                      <div class="position-relative"><img src="../../assets/images/comment_icon.png"alt="" (click)="openComponent(task,'comments',$event)"><div class="doc_count" *ngIf="task.cmtcnt > 0" >{{task.cmtcnt}}</div></div>
                     </div>
                    
                   </td>
@@ -224,19 +227,38 @@
                     </div>
                   </td>
                   <td>
-                    <div class="tags-content">
+                    <div class="tags-content d-flex align-items-center">
                       <div class="tags">
-                        <div [ngClass]="tag.TagType" *ngFor="let tag of task.TaskTagsLists.TaskTagsLists.TaskTagsList">
+                        <div [ngClass]="tag.TagType" *ngFor="let tag of task.TaskTagsLists.TaskTagsLists.TaskTagsList.slice(0,1)">
                           {{tag.TagName | titlecase}}
                         </div>
+
+                        
                       </div>
+
+                       <!-- +X More (Tooltip Trigger) -->
+                       <div class="more-tags-container"
+                       *ngIf="task.TaskTagsLists?.TaskTagsLists?.TaskTagsList.length > 1"
+                       (mouseenter)="hoveredRowIndex = i"
+                       (mouseleave)="hoveredRowIndex = null">
+                    +{{ task.TaskTagsLists?.TaskTagsLists?.TaskTagsList.length - 1 }} more
+    
+                    <!-- Tooltip Visible Only for Hovered Row -->
+                    <div class="tooltip-box" *ngIf="hoveredRowIndex === i">
+                      <span *ngFor="let tag of task.TaskTagsLists?.TaskTagsLists?.TaskTagsList.slice(1)"
+                            [ngClass]="tag.TagType" 
+                            style="border-radius: 5px; padding: 5px;">
+                        {{ tag.TagName }} &nbsp;
+                      </span>
+                    </div>
+                  </div>
                     </div>
                   </td>
                 </tr>
               </tbody>
             </table>
 
-            <div class="text-center" *ngIf="allTicketsData.length == 0">No data found</div>
+            <div class="text-center" *ngIf="allTicketsData.length == 0 && spinner == false">No data found</div>
           </div>
           <div class="grid_panel" *ngIf="!list">
             <div class="row">

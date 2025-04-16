@@ -3,7 +3,8 @@
     <div class="logo-glow"></div> <!-- Soft glow behind logo -->
     <div class="spinner"></div>
     <span class="logo-text">
-      <img src="../../../assets/images/Xpert_logo.png" alt="XPERT" height="35px">
+      <img src="../../../assets/images/Xsupport_logo_white.png" alt="XPERT" height="25px">
+
     </span>
   </div>
 </div>
@@ -17,19 +18,24 @@
   <div style="height: calc(96vh - 102px);overflow: auto;overflow-x:hidden;padding-right: 10px;">
     <div class="row mb-2">
       <div class="col-md-4 d-flex align-items-center">
-        <label for="ticketFrom" class="col-3 col-form-label">Ticket From:</label>
+        <label for="ticketFrom" class="col-3 col-form-label">Source:</label>
         <div class="col-9">
-          <select name="" id="" class="form-select" formControlName="ticketFrom"
+          <select name="" id="" class="form-select" formControlName="ticketFrom" (change)="selectTicktFrom()"
           [attr.disabled]="this.action == 'U'?true:false"
           [ngClass]="{ 'is-invalid': submitted && createTaskForm.controls.ticketFrom.errors }">
             <option value="">Select</option>
-            <option value="F">Client</option>
-            <option value="A">Internal</option>
+            <option value="F">Client Support</option>
+            <option value="D">Deployment</option>
+           <option value="G">General Review</option>
+           <option value="O">Onboarding</option>
+           <option value="P">Product Roadmap</option>
+            <option value="A">QA</option>
+            <option value="T">Technical Debt</option>
           </select>
         </div>
       </div>
    
-      <div class="col-md-4 d-flex align-items-center">
+      <div class="col-md-4 d-flex align-items-center"  *ngIf="createTaskForm.controls.ticketFrom.value == 'F'">
         <label for="dealer" class="col-3 col-form-label">Dealer:</label>
         <div class="col-9">
          <select name="" id="" class="form-select" formControlName="dealer" [ngClass]="{ 'is-invalid': submitted && createTaskForm.controls.dealer.errors }">
@@ -50,18 +56,25 @@
 
     <div class="row mb-2">
       <div class="col-md-4 d-flex align-items-center">
+        <label for="source" class="col-3 col-form-label">Category:</label>
+        <div class="col-9">
+          <select name="" id="" class="form-select" formControlName="source"
+          [attr.disabled]="this.action == 'U'?true:false"
+          [ngClass]="{ 'is-invalid': submitted && createTaskForm.controls.source.errors }">
+            <option value="">Select</option>
+            <option [value]="source.id" *ngFor="let source of sourceCategoriesData">{{source.title}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="col-md-4 d-flex align-items-center">
         <label for="title" class="col-3 col-form-label">Title:</label>
         <div class="col-9">
           <input type="text" id="title" class="form-control" placeholder="Enter Title" formControlName="title"
           [ngClass]="{ 'is-invalid': submitted && createTaskForm.controls.title.errors }">
         </div>
       </div>
-      <div class="col-md-4 d-flex align-items-center">
-        <label for="attachFile" class="col-3 col-form-label">Attach File:</label>
-        <div class="col-9">
-          <input type="file" id="attachFile" class="form-control"  (change)="onFileSelected($event)" multiple>
-        </div>
-      </div>
+     
       <div class="col-md-4 d-flex align-items-center">
         <label for="dueDate" class="col-3 col-form-label">Due Date:</label>
         <div class="col-9">
@@ -129,6 +142,13 @@
         <label for="title" class="col-3 col-form-label">Followers:</label>
         <div class="col-9">
           <input type="text" id="follower" class="form-control" placeholder="Enter Follower" (keyup)="searchFollowerName($event)">
+        </div>
+      </div>
+
+      <div class="col-md-4 d-flex align-items-center">
+        <label for="attachFile" class="col-3 col-form-label">Attach File:</label>
+        <div class="col-9">
+          <input type="file" id="attachFile" class="form-control"  (change)="onFileSelected($event)" multiple>
         </div>
       </div>
     </div>

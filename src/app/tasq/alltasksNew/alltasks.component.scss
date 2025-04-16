@@ -157,7 +157,7 @@ button:disabled {
           background: #0554EF;
           color: #fff;
           border-radius: 3px;
-          padding: 0.1rem 0.3rem .1rem;
+          padding: 0.1rem 0.3rem 0rem;
           margin-left: .2rem;
         }
       }
@@ -260,20 +260,23 @@ button:disabled {
 
       .sub_btn {
         background: #0554EF;
-        font-size: .7rem;
+        font-size: 0.7rem;
         border-radius: 5px;
         border: 1px solid #ccc;
         color: #fff;
-        padding: .2rem .5rem;
+        padding: 0.2rem 0.5rem 0;
+        display: flex;
+        align-items: center;
       }
 
       .clr_btn {
-        background: #333;
-        font-size: .7rem;
+        background: transparent;
+        font-size: 0.7rem;
         border-radius: 5px;
-        border: 1px solid #ccc;
-        color: #fff;
-        padding: .2rem .5rem;
+        border: none;
+        color: #0554EF;
+        padding: 0.2rem 0.5rem;
+        text-decoration: underline;
       }
 
     }
@@ -347,7 +350,7 @@ button:disabled {
 
       td {
         vertical-align: middle;
-        padding: 1rem;
+        padding: .5rem;
         border: none;
         text-transform: capitalize;
         font-size: .8rem;
@@ -356,7 +359,7 @@ button:disabled {
 
         p {
           font-size: .8rem;
-          margin: 0; 
+          margin: 0;
           font-family: 'FaktPro-Medium';
           color: #000;
           // position: absolute;
@@ -368,7 +371,7 @@ button:disabled {
       td:first-child {
         border-radius: 10px 0 0 10px;
         width: 3.4%;
-  
+
         img {
           margin-right: .3rem;
         }
@@ -376,8 +379,8 @@ button:disabled {
 
       td:nth-child(2) {
         text-align: left !important;
-      //   width: 30%;
-  
+        //   width: 30%;
+
         .tick_desp {
           width: 95%;
           white-space: nowrap;
@@ -402,7 +405,8 @@ button:disabled {
         text-transform: capitalize;
         white-space: nowrap;
       }
-      .doc_count{
+
+      .doc_count {
         position: absolute;
         top: -3px;
         left: -4px;
@@ -414,7 +418,7 @@ button:disabled {
         font-size: .5rem;
         padding: 0;
         border-radius: 50%;
-    }
+      }
 
 
       // td:last-child {
@@ -424,7 +428,7 @@ button:disabled {
       .lte_ylw {
         background: #fffcf5;
         color: #c4841d;
-        padding: .1rem .8rem .2rem;
+        padding: .1rem .8rem 0rem;
         border-radius: 5px;
         width: 80px;
         margin: auto;
@@ -433,7 +437,7 @@ button:disabled {
       .lte_red {
         background: #fee7e7;
         color: #f31216;
-        padding: .1rem .8rem .2rem;
+        padding: .1rem .8rem 0rem;
         border-radius: 5px;
         width: 80px;
         margin: auto;
@@ -442,7 +446,7 @@ button:disabled {
       .lte_grn {
         background: #d6f5d7;
         color: #65c466;
-        padding: .1rem .8rem .2rem;
+        padding: .1rem .8rem 0rem;
         border-radius: 5px;
         width: 80px;
         margin: auto;
@@ -451,7 +455,7 @@ button:disabled {
       .ylw {
         background: #f7ce46;
         color: #000;
-        padding: .1rem .8rem .2rem;
+        padding: .1rem .8rem 0rem;
         border-radius: 5px;
         width: 80px;
         margin: auto;
@@ -460,7 +464,7 @@ button:disabled {
       .grn {
         background: #65c466;
         color: #000;
-        padding: .1rem .8rem .2rem;
+        padding: .1rem .8rem 0rem;
         border-radius: 5px;
         width: 80px;
         margin: auto;
@@ -469,7 +473,7 @@ button:disabled {
       .red {
         background: #f31216;
         color: #000;
-        padding: .1rem .8rem .2rem;
+        padding: .1rem .8rem 0rem;
         border-radius: 5px;
         width: 80px;
         margin: auto;
@@ -561,6 +565,7 @@ button:disabled {
             margin: .1rem;
           }
 
+
           //   .red {
           //     flex: 0 0 auto;
           //     padding: .1rem .3rem;
@@ -605,6 +610,100 @@ button:disabled {
           //     margin: .1rem;
           //   }
         }
+
+        .S {
+          flex: 0 0 auto;
+          padding: .1rem .3rem;
+          border: 1px solid #1471c2;
+          border-radius: 5px;
+          color: #1471c2;
+          background: none;
+          width: fit-content;
+          margin: .1rem;
+        }
+
+        // Blue
+        .I {
+          flex: 0 0 auto;
+          padding: .1rem .3rem;
+          border: 1px solid #696969;
+          border-radius: 5px;
+          color: #696969;
+          background: none;
+          width: fit-content;
+          margin: .1rem;
+        }
+
+        // Green
+        .R {
+          flex: 0 0 auto;
+          padding: .1rem .3rem;
+          border: 1px solid #14c243;
+          border-radius: 5px;
+          color: #14c243;
+          background: none;
+          width: fit-content;
+          margin: .1rem;
+        }
+
+        // Yellow
+        .V {
+          flex: 0 0 auto;
+          padding: .1rem .3rem;
+          border: 1px solid #ffc107;
+          border-radius: 5px;
+          color: #ffc107;
+          background: none;
+          width: fit-content;
+          margin: .1rem;
+        }
+
+        // Red
+        .C {
+          flex: 0 0 auto;
+          padding: .1rem .3rem;
+          border: 1px solid #a914c2;
+          border-radius: 5px;
+          color: #a914c2;
+          background: none;
+          width: fit-content;
+          margin: .1rem;
+        }
+
+
+        .more-tags-container {
+          position: relative;
+          display: inline-block;
+          cursor: pointer;
+          color: blue;
+          margin-left: 10px;
+        }
+
+        .tooltip-box {
+          position: absolute;
+          background: #f4f4f5;
+          color: white;
+          padding: 5px 10px;
+          border-radius: 5px;
+          top: 100%;
+          /* Show below the text */
+          right: 0;
+          /* ⬅ Tooltip will align from right edge */
+          white-space: nowrap;
+          z-index: 100;
+          box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+          margin-top: 5px;
+          display: flex;
+          justify-content: flex-end;
+          /* ⬅ Items move from right to left */
+          gap: 8px;
+        }
+
+        .tooltip-box span {
+          display: inline-block;
+          margin-right: 8px;
+        }
+
 
       }
     }
@@ -884,14 +983,14 @@ button:disabled {
               border: none;
               border-radius: 0;
               object-fit: contain;
-              margin: 0 .3rem;
+              margin: 0 .6rem;
               cursor: pointer;
             }
 
-            .com_count{
+            .com_count {
               position: absolute;
               top: 0px;
-              left: 0px;
+              left: 4px;
               width: 13px;
               height: 12px;
               background: #ff0000;
@@ -900,7 +999,7 @@ button:disabled {
               font-size: .5rem;
               padding: 0;
               border-radius: 50%;
-          }
+            }
           }
         }
       }

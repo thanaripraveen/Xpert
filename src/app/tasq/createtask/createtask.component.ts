@@ -61,7 +61,8 @@ export class CreatetaskComponent implements OnInit {
       dueDate: [''],
       description: ['', Validators.required],
       ticketStatus: ['7'],
-      priority: ['']
+      priority: [''],
+      source : ['',Validators.required]
     });
     this.createTaskForm.get('ticketFrom')?.valueChanges.subscribe(value => {
       const txtEmailControl = this.createTaskForm.get('email');
@@ -210,6 +211,24 @@ export class CreatetaskComponent implements OnInit {
     this.tagsDataList.sort((a: any, b: any) => a.Tag_Name.localeCompare(b.Tag_Name));
     this.selectedTagsList.sort((a: any, b: any) => a.Tag_Name.localeCompare(b.Tag_Name));
   }
+  sourceCategoriesData: any = [];
+  selectTicktFrom() {
+    this.spinner = true;
+    const obj = {
+      "source": this.createTaskForm.controls.ticketFrom.value
+    }
+    this.api.postMethod1('xpert/GetSourceCategories', obj).subscribe((res: any) => {
+      if (res.status == 200) {
+        this.sourceCategoriesData = res.response;
+        this.spinner = false;
+
+      }
+      else{
+        this.sourceCategoriesData = [];
+        this.spinner = false;
+      }
+    })
+  }
   openAssignModal() {
     this.modalService.open(UsersinfoComponent, {
       windowClass: 'userInfoModal',
@@ -221,8 +240,8 @@ export class CreatetaskComponent implements OnInit {
   closeModal() {
     this.activeModal.close();
   }
-  dateChange(){
-    if(this.createTaskForm.controls.dueDate.value == ""){
+  dateChange() {
+    if (this.createTaskForm.controls.dueDate.value == "") {
       let cuntDate = new Date();
       cuntDate.setDate(cuntDate.getDate() + 2);
       this.createTaskForm.controls.dueDate.setValue(cuntDate);
@@ -288,14 +307,14 @@ export class CreatetaskComponent implements OnInit {
             this.spinner = false;
             this.activeModal.close();
             this.toastr.success('Ticket details added successfully');
-            
+
             const obj = {
               "TaskId": localStorage.getItem('ID'), "UserID": this.common.userid
             }
-            
+
             this.api.postMethod1('users/GetTaskViewbyId', obj).subscribe((res: any) => {
               if (res) {
-             this.api.setUpdateTaskValue({data : res , updateValue : 1})
+                this.api.setUpdateTaskValue({ data: res, updateValue: 1 })
               }
             });
             // this.socketService.sendTask();

@@ -55,6 +55,16 @@ body {
   -webkit-font-smoothing: auto !important;
 }
 
+.bgImg{
+  background-image: url('/assets/images/tasq_innerbg.png') no-repeat fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  // background-color: #f4f4f5;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
 html,
 body {
   height: 100%;

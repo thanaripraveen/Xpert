@@ -88,6 +88,9 @@ export class AlltasksComponent implements OnInit {
     { keyname: 'Description', value: 'Details' },
 
   ]
+
+  hoveredRowIndex: number | null = null;
+
   constructor(private api: ApiService, private fb: FormBuilder, private common: common,
     private router: Router, private toastr: ToastrService, private modalService: NgbModal) {
     this.userID = this.common.userid;
@@ -501,8 +504,13 @@ ticketData : any = "";
     })
   }
 
-  openComponent(task: any, component: any) {
+  openComponent1(){
+    alert()
+  }
 
+  openComponent(task: any, component: any,event: MouseEvent) {
+    event.preventDefault();  // Prevents the default action
+    event.stopImmediatePropagation();
     this.api.setTicketData(task);
     localStorage.setItem('ID',task.T_ID)
 
