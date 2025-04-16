@@ -184,7 +184,6 @@ export class HeaderComponent implements OnInit {
     })
   }
 
-  
   getSidebarData() {
     const obj = {
       "ModID":0,

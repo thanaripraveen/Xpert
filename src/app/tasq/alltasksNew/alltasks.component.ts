@@ -209,7 +209,7 @@ export class AlltasksComponent implements OnInit {
       "sortby": this.filterSortBy == "" ? '' : this.filterSortBy,
       "orderby": this.sortValue,
       "createdby": this.filterCreatedBy == "" ? "" : this.filterCreatedBy,
-      'managerid' : this.filterByManager || 0
+      'managerid' : this.filterByManager || ""
     }
 
     this.api.postMethod1('xpert/GetAllTasks', obj).subscribe((res: any) => {
