@@ -185,11 +185,11 @@
                   <td>
                     <div class="d-flex">
                       <div class="position-relative">
-                        <img src="../../assets/images/doc_icon.png" alt="" (click)="openComponent(task,'doc',$event)"> <div class="doc_count" *ngIf="task.Documents.Documents && task.Documents.Documents.Document" >
+                        <img src="../../assets/images/doc_icon.png" alt="" (click)="openComponent(task,'doc',$event)"> <div class="doc_count" (click)="openComponent(task,'doc',$event)" *ngIf="task.Documents.Documents && task.Documents.Documents.Document" >
                           {{ task.Documents.Documents.Document.length>0 ? task.Documents.Documents.Document.length : task.Documents.Documents.Document? 1:0}}
                         </div>
                       </div>
-                      <div class="position-relative"><img src="../../assets/images/comment_icon.png"alt="" (click)="openComponent(task,'comments',$event)"><div class="doc_count" *ngIf="task.cmtcnt > 0" >{{task.cmtcnt}}</div></div>
+                      <div class="position-relative"><img src="../../assets/images/comment_icon.png"alt="" (click)="openComponent(task,'comments',$event)"><div class="doc_count" (click)="openComponent(task,'comments',$event)" *ngIf="task.cmtcnt > 0" >{{task.cmtcnt}}</div></div>
                     </div>
                    
                   </td>
